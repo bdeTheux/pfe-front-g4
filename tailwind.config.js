@@ -8,5 +8,15 @@ module.exports = {
   variants: {
     extend: {},
   },
+  "tailwindCSS.includeLanguages": {
+
+    "plaintext": "html"
+
+  },
+  "editor.quickSuggestions": {
+
+    "strings": true
+
+  },
   plugins: [],
 }
