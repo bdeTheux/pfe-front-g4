@@ -26,6 +26,7 @@ export const users = [
     email: "nina.heuzer@gmail.com",
     firstName: "Nina",
     lastName: "Heuzer",
+    is_banned: false,
   },
   {
     id: "2",
@@ -33,5 +34,6 @@ export const users = [
     email: "boris.dt@gmail.com",
     firstName: "Boris",
     lastName: "de Theux",
+    is_banned: true,
   },
 ];

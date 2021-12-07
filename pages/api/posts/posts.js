@@ -1,4 +1,4 @@
-import { posts, users } from "../../../data";
+import { posts } from "../../../data";
 
 //api fictive
 

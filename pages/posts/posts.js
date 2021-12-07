@@ -4,7 +4,7 @@ export default function postsList({ posts }) {
 }
 
 export const getStaticProps = async () => {
-  const res = await fetch(`http://localhost:3000/api/posts/posts`);
+  const res = await fetch(process.env.URL_FRONT + `/api/posts/posts`);
   const posts = await res.json();
 
   return {
