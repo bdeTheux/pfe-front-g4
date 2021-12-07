@@ -1,48 +1,50 @@
 import Meta from "../../components/Meta/Meta";
 import Image from "next/image";
+import Link from "next/link";
 
-const postDetails = ({ postData, sellerData }) => {
+const postDetails = ({ post, user }) => {
   return (
     <>
-      <Meta title={postData.title} />
-      <h1>{postData.title}</h1>
-      <p>{postData.postNature}</p>
-      <p>{postData.price}</p>
+      <Meta title={post.title} />
+      <p>c'est le post dont l'id est {post.id}</p>
+      <h1>{post.title}</h1>
+      <p>{post.postNature}</p>
+      <p>{post.price}€</p>
       <strong>
         <p>Infos du vendeur : </p>
       </strong>
-      <p>{sellerData.name}</p>
-      <p>{sellerData.email}</p>
-      <Image
-        src="{postData.image}"
-        height={100}
-        width={100}
-        alt="Image du produit"
-      />
+      <p>
+        {user.firstName} {user.lastName}
+      </p>
+      <p>{user.email}</p>
+      <Image src={post.image} height={100} width={100} alt="Image du produit" />
       <strong>
         <p>Description</p>
       </strong>
-      <p>{postData.description}</p>
-      <p>Campus : {sellerData.campus}</p>
+      <p>{post.description}</p>
+      <p>Campus : {user.campus}</p>
+      <Link href="/">Retour à la liste des annonces</Link>
     </>
   );
 };
 
 export const getStaticProps = async (context) => {
   //server a initialiser
-  const res = await fetch(`${server}/api/posts/${context.params.id}`);
-  const posts = await res.json();
-
+  const resPosts = await fetch(`http://localhost:3000/api/posts/1`); //à changer
+  const post = await resPosts.json();
+  const resUsers = await fetch(`http://localhost:3000/api/users/1`); //à changer
+  const user = await resUsers.json();
   return {
     props: {
       post,
+      user,
     },
   };
 };
 
 export const getStaticPaths = async () => {
   //server a initialiser
-  const res = await fetch(`${server}/api/posts/${context.params.id}`);
+  const res = await fetch(`http://localhost:3000/api/posts/posts`); //à changer
   const posts = await res.json();
 
   const listIds = posts.map((post) => post.id);
