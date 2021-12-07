@@ -28,13 +28,17 @@ const postDetails = ({ post, user }) => {
 };
 
 export const getStaticProps = async (context) => {
+  //URL_FRONt = process.env.URL_FRONT;
   //server a initialiser
+  console.log(process.env.URL_FRONT + `/api/posts/${context.params.id}`);
   const resPosts = await fetch(
-    `http://localhost:3000/api/posts/${context.params.id}`
+    process.env.URL_FRONT + `/api/posts/${context.params.id}`
   ); //à changer
   const post = await resPosts.json();
   const sellerId = post.sellerId;
-  const resUsers = await fetch(`http://localhost:3000/api/users/${sellerId}`); //à changer
+  const resUsers = await fetch(
+    process.env.URL_FRONT + `/api/users/${sellerId}`
+  ); //à changer
   const user = await resUsers.json();
   return {
     props: {
@@ -46,7 +50,7 @@ export const getStaticProps = async (context) => {
 
 export const getStaticPaths = async () => {
   //server a initialiser
-  const res = await fetch(`http://localhost:3000/api/posts/posts`); //à changer
+  const res = await fetch(process.env.URL_FRONT + `/api/posts/posts`); //à changer
   const posts = await res.json();
 
   const listIds = posts.map((post) => post.id);
