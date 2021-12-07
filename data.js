@@ -27,4 +27,11 @@ export const users = [
     firstName: "Nina",
     lastName: "Heuzer",
   },
+  {
+    id: "2",
+    campus: "LLN",
+    email: "boris.dt@gmail.com",
+    firstName: "Boris",
+    lastName: "de Theux",
+  },
 ];

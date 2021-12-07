@@ -6,7 +6,6 @@ const postDetails = ({ post, user }) => {
   return (
     <>
       <Meta title={post.title} />
-      <p>c'est le post dont l'id est {post.id}</p>
       <h1>{post.title}</h1>
       <p>{post.postNature}</p>
       <p>{post.price}€</p>
@@ -30,9 +29,12 @@ const postDetails = ({ post, user }) => {
 
 export const getStaticProps = async (context) => {
   //server a initialiser
-  const resPosts = await fetch(`http://localhost:3000/api/posts/1`); //à changer
+  const resPosts = await fetch(
+    `http://localhost:3000/api/posts/${context.params.id}`
+  ); //à changer
   const post = await resPosts.json();
-  const resUsers = await fetch(`http://localhost:3000/api/users/1`); //à changer
+  const sellerId = post.sellerId;
+  const resUsers = await fetch(`http://localhost:3000/api/users/${sellerId}`); //à changer
   const user = await resUsers.json();
   return {
     props: {

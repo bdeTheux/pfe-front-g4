@@ -1,19 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import articleStyles from "../../styles/articleStyles";
 
-const Post = ({ article }) => {
+const Post = ({ post }) => {
   return (
-    <Link href={`/posts/${article.id}`}>
-      <a className={articleStyles.card}>
-        <Image
-          src={article.image}
-          height={100}
-          width={100}
-          alt={article.title}
-        />
+    <Link href={`/post/${post.id}`}>
+      <a>
+        <Image src={post.image} height={100} width={100} alt={post.title} />
         <p>
-          {article.title}, {article.price}€
+          {post.title}, {post.price}€
         </p>
       </a>
     </Link>
