@@ -47,35 +47,34 @@ export default function Home() {
 
           <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {posts.map((post) => (
-              <Link href={{
-                pathname: "/post/[id]",
-                query: { id: post.id },
-              }}>
-              <a
-                key={post.id}
-                className="group"
+              <Link
+                href={{
+                  pathname: "/post/[id]",
+                  query: { id: post.id },
+                }}
               >
-                <div className="w-full aspect-w-5 aspect-h-5 bg-gray-200 rounded-3xl overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
-                  <img
-                    src={post.imageSrc}
-                    className="w-full h-full object-center object-cover group-hover:opacity-75"
-                  />
-                </div>
-                <h3 className="mt-4 text-gray-700 font-bold">{post.name}</h3>
-                <p className="mt-1 text-lg font-medium text-gray-900">
-                  {post.price}
-                </p>
-              </a>
+                <a key={post.id} className="group">
+                  <div className="w-full aspect-w-5 aspect-h-5 bg-gray-200 rounded-3xl overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
+                    <img
+                      src={post.imageSrc}
+                      className="w-full h-full object-center object-cover group-hover:opacity-75"
+                    />
+                  </div>
+                  <h3 className="mt-4 text-gray-700 font-bold">{post.name}</h3>
+                  <p className="mt-1 text-lg font-medium text-gray-900">
+                    {post.price}
+                  </p>
+                </a>
               </Link>
             ))}
             <Link href="/postlist">
-            <a  className="group">
-              <div className="w-full aspect-w-5 aspect-h-5  bg-gray-200 rounded-3xl overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
-                <div className="w-full h-full bg-gray-100 flex justify-center items-center h-screen group-hover:opacity-75 group-hover:animate-pulse font-black text-2xl">
-                  Voir plus
+              <a className="group">
+                <div className="w-full aspect-w-5 aspect-h-5  bg-gray-200 rounded-3xl overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
+                  <div className="w-full h-full bg-gray-100 flex justify-center items-center h-screen group-hover:opacity-75 group-hover:animate-pulse font-black text-2xl">
+                    Voir plus
+                  </div>
                 </div>
-              </div>
-            </a>
+              </a>
             </Link>
           </div>
         </div>
