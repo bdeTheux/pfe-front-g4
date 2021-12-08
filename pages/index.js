@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { SpeakerphoneIcon, XIcon } from "@heroicons/react/outline";
 
 const postsAll = [
   {
@@ -33,18 +34,59 @@ const postsAll = [
 ];
 const posts = postsAll;
 posts.length = 3;
+const members = [
+  {
+    id: 1,
+    firstName: "Jane",
+    lastName: "Cooper",
+    is_banne: false,
+    email: "jane.cooper@example.com",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
+  },
+
+  // More people...
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 md:py-6">
       <Head>
         <title>vincimarket</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="bg-white w-screen px-10">
-        <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-          <h1 className="text-3xl my-8 font-extrabold ">Nos annonces</h1>
 
+      <div className="relative lg:mt-20 mt-30 w-screen bg-indigo-500">
+        <div className="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between flex-wrap">
+            <span className="flex p-2 bg-indigo-700 rounded-lg hidden md:block">
+              <SpeakerphoneIcon
+                className="h-6 w-6 text-white"
+                aria-hidden="true"
+              />
+            </span>
+            <p className="text-center text-white italic ml-3 font-thin truncate md:inline">
+              « Nous avons tous des trésors enfouis au fond de notre grenier ou
+              de nos placards.
+              <br />
+              Trésors qui profiteraient à d’autres.
+              <br />
+              Valorisons-les en leur donnant une seconde vie. »
+            </p>
+            <div className="order-3 mt-2 flex-shrink-0 w-full md:order-2 md:mt-0 md:w-auto">
+              <Link href="/about">
+                <a className="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50">
+                  En savoir plus
+                </a>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white w-screen px-10">
+        <div className="max-w-2xl mx-auto py-16 px-4  sm:px-6 lg:max-w-7xl lg:px-8">
+          <h1 className="text-3xl my-8 font-extrabold ">Nos annonces</h1>
           <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {posts.map((post) => (
               <Link
