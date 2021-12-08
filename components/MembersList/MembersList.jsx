@@ -3,13 +3,26 @@ import Link from "next/link";
 
 const MembersList = ({ users }) => {
   return (
-    <>
-      <ul>
-        {users.map((member) => (
-          <Member key={member.id} member={member} />
-        ))}
-      </ul>
-    </>
+    <div className="flex items-center justify-center min-h-screen bg-white">
+      <div className="col-span-12">
+        <div className="overflow-auto lg:overflow-visible rounded">
+          <table className="border-separate space-y-6 text-sm">
+            <thead className="bg-green-700">
+              <tr>
+                <th className="p-3">Membre</th>
+                <th className="p-3 text-left">État</th>
+                <th className="p-3 text-left">Gérer les ban</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((member) => (
+                <Member key={member.id} member={member} />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   );
 };
 
