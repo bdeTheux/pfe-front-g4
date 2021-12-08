@@ -7,9 +7,13 @@ const Connection = () => {
             Se connecter
           </h2>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        <form
+          className="shadow px-4 py-5 mt-8 space-y-6"
+          action="#"
+          method="POST"
+        >
           <input type="hidden" name="remember" value="true" />
-          <div className="rounded-md shadow-sm -space-y-px">
+          <div className="rounded-md -space-y-px">
             <div>
               <label htmlFor="email-address-connection" className="sr-only">
                 Adresse email ou pseudo
@@ -66,7 +70,7 @@ const Connection = () => {
             </div>
           </div>
 
-          <div>
+          <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-800 hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700"

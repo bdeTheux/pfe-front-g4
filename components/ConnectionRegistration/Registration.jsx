@@ -10,7 +10,7 @@ const Registration = () => {
         <form action="#" method="POST">
           <div className="shadow overflow-hidden sm:rounded-md">
             <div className="px-4 py-5 bg-white sm:p-6">
-              <div className="rounded-md shadow-sm -space-y-px">
+              <div className="shadow-sm -space-y-px">
                 <div>
                   <label htmlFor="first-name" className="sr-only">
                     Prénom
@@ -21,7 +21,7 @@ const Registration = () => {
                     type="text"
                     autoComplete="first-name"
                     required
-                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
+                    className="appearance-none rounded-t-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
                     placeholder="Prénom"
                   />
                 </div>
@@ -35,7 +35,7 @@ const Registration = () => {
                     type="text"
                     autoComplete="last-name"
                     required
-                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
+                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
                     placeholder="Nom"
                   />
                 </div>
@@ -53,7 +53,7 @@ const Registration = () => {
                     autoComplete="email-address"
                     pattern="[a-z0-9._%+-]+@(?:student.vinci.be|vinci.be)"
                     required
-                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
+                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
                     placeholder="Email vinci"
                   />
                 </div>
@@ -66,10 +66,10 @@ const Registration = () => {
                     id="campus"
                     name="campus"
                     autoComplete="campus"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-700 focus:border-green-700 sm:text-sm"
+                    className="mt-1 block w-full py-2 px-3 border rounded-none border-gray-300 bg-white shadow-sm focus:outline-none focus:ring-green-700 focus:border-green-700 sm:text-sm"
                     defaultValue={"DEFAULT"}
                   >
-                    <option value="DEFAULT" disabled>
+                    <option value="DEFAULT" disabled selected>
                       Sélectionnez votre campus
                     </option>
                     <option value="Woluwe">Woluwé</option>
@@ -88,7 +88,7 @@ const Registration = () => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
+                  className="appearance-none rounded-b-md  relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
                   placeholder="Password"
                 />
               </div>
