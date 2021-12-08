@@ -8,7 +8,7 @@ const Navbar = () => {
     bg-white
     border-b
     dark:bg-gray-900 dark:border-gray-700
-    lg:fixed lg:w-full lg:top-0 lg:left-0 lg:z-40
+    lg:fixed sticky lg:w-full lg:top-0 lg:left-0 lg:z-40
   "
     >
       <div
