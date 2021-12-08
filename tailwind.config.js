@@ -18,5 +18,7 @@ module.exports = {
     "strings": true
 
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+  ],
 }
