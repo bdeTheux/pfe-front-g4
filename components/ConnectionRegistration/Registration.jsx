@@ -1,113 +1,108 @@
 const Registration = () => {
   return (
-    <div class="mt-10 sm:mt-0">
-      <div class="md:grid md:grid-cols-3 md:gap-6">
-        <div class="md:col-span-1">
-          <div class="px-4 sm:px-0">
-            <h3 class="text-lg font-medium leading-6 text-gray-900">
-              S'inscrire
-            </h3>
-          </div>
+    <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8">
+        <div>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            S'inscrire
+          </h2>
         </div>
-        <div class="mt-5 md:mt-0 md:col-span-2">
-          <form action="#" method="POST">
-            <div class="shadow overflow-hidden sm:rounded-md">
-              <div class="px-4 py-5 bg-white sm:p-6">
-                <div class="grid grid-cols-6 gap-6">
-                  <div class="col-span-6 sm:col-span-3">
-                    <label
-                      for="first-name"
-                      class="block text-sm font-medium text-gray-700"
-                    >
-                      Prénom
-                    </label>
-                    <input
-                      type="text"
-                      name="first-name"
-                      id="first-name"
-                      autocomplete="given-name"
-                      class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    />
-                  </div>
-
-                  <div class="col-span-6 sm:col-span-3">
-                    <label
-                      for="last-name"
-                      class="block text-sm font-medium text-gray-700"
-                    >
-                      Nom
-                    </label>
-                    <input
-                      type="text"
-                      name="last-name"
-                      id="last-name"
-                      autocomplete="family-name"
-                      class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    />
-                  </div>
-
-                  <div class="col-span-6 sm:col-span-4">
-                    <label
-                      for="email-address"
-                      class="block text-sm font-medium text-gray-700"
-                    >
-                      Email vinci
-                    </label>
-                    <input
-                      type="text"
-                      name="email-address"
-                      id="email-address"
-                      autocomplete="email"
-                      pattern="[a-z0-9._%+-]+@(?:student.vinci.be|vinci.be)"
-                      title="Votre email doit finir par @vinci.be ou @student.vinci.be"
-                      class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    />
-                  </div>
-
-                  <div class="col-span-6 sm:col-span-3">
-                    <label
-                      for="country"
-                      class="block text-sm font-medium text-gray-700"
-                    >
-                      Campus
-                    </label>
-                    <select
-                      id="country"
-                      name="country"
-                      autocomplete="country-name"
-                      class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    >
-                      <option>Woluwé</option>
-                      <option>Louvain-La-Neuve</option>
-                      <option>Ixelles</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="mb-6">
-                  <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
-                    for="password"
-                  >
-                    Mot de passe
+        <form action="#" method="POST">
+          <div className="shadow overflow-hidden sm:rounded-md">
+            <div className="px-4 py-5 bg-white sm:p-6">
+              <div className="rounded-md shadow-sm -space-y-px">
+                <div>
+                  <label htmlFor="first-name" className="sr-only">
+                    Prénom
                   </label>
                   <input
-                    class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                    id="password"
-                    type="password"
+                    id="first-name"
+                    name="first-name"
+                    type="text"
+                    autoComplete="first-name"
+                    required
+                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
+                    placeholder="Prénom"
                   />
                 </div>
+                <div>
+                  <label htmlFor="last-name" className="sr-only">
+                    Nom
+                  </label>
+                  <input
+                    id="last-name"
+                    name="last-name"
+                    type="text"
+                    autoComplete="last-name"
+                    required
+                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
+                    placeholder="Nom"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="email-address-registration"
+                    className="sr-only"
+                  >
+                    Email vinci
+                  </label>
+                  <input
+                    id="email-address-registration"
+                    name="email-address"
+                    type="email"
+                    autoComplete="email-address"
+                    pattern="[a-z0-9._%+-]+@(?:student.vinci.be|vinci.be)"
+                    required
+                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
+                    placeholder="Email vinci"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="email-address-registration"
+                    className="campus"
+                  ></label>
+                  <select
+                    id="campus"
+                    name="campus"
+                    autoComplete="campus"
+                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-700 focus:border-green-700 sm:text-sm"
+                    defaultValue={"DEFAULT"}
+                  >
+                    <option value="DEFAULT" disabled>
+                      Sélectionnez votre campus
+                    </option>
+                    <option value="Woluwe">Woluwé</option>
+                    <option value="Louvain-la-Neuve">Louvain-la-Neuve</option>
+                    <option value="Ixelles">Ixelles</option>
+                  </select>
+                </div>
               </div>
-              <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                <button
-                  type="submit"
-                  class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  S'inscrire
-                </button>
+              <div>
+                <label htmlFor="password-registration" className="sr-only">
+                  Mot de passe
+                </label>
+                <input
+                  id="password-registration"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
+                  placeholder="Password"
+                />
               </div>
             </div>
-          </form>
-        </div>
+            <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+              <button
+                type="submit"
+                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white focus:border-green-700 bg-green-800 hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700"
+              >
+                S'inscrire
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   );
