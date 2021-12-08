@@ -1,5 +1,6 @@
 import MembersList from "../../components/MembersList/MembersList";
 export default function membersList({ users }) {
+  console.log("ici");
   return <MembersList users={users} />;
 }
 
