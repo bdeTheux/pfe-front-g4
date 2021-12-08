@@ -7,13 +7,14 @@ const Member = ({ member }) => {
           <div className="flex align-items-center">
             <div className="ml-3">
               <div className="">
-                {member.firstName} {member.lastName}
+                {member.first_name} {member.last_name}
               </div>
               <div className="text-gray-500">{member.email}</div>
             </div>
           </div>
         </td>
-        <td className="p-3">{member.is_banne ? "Banni" : "Non banni"}</td>
+        <td className="p-3">{member.is_admin ? "Oui" : "Non"}</td>
+        <td className="p-3">{member.is_banned ? "Banni" : "Non banni"}</td>
         <td className="p-3">
           <ButtonBan member={member} />
         </td>
