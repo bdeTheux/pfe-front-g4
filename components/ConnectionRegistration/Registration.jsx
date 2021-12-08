@@ -58,6 +58,8 @@ const Registration = () => {
                       name="email-address"
                       id="email-address"
                       autocomplete="email"
+                      pattern="[a-z0-9._%+-]+@(?:student.vinci.be|vinci.be)"
+                      title="Votre email doit finir par @vinci.be ou @student.vinci.be"
                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
                   </div>
