@@ -47,12 +47,12 @@ export default function Home() {
 
           <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {posts.map((post) => (
+              <Link href={{
+                pathname: "/post/[id]",
+                query: { id: post.id },
+              }}>
               <a
                 key={post.id}
-                href={{
-                  pathname: "/post/[id]",
-                  query: { id: post.id },
-                }}
                 className="group"
               >
                 <div className="w-full aspect-w-5 aspect-h-5 bg-gray-200 rounded-3xl overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
@@ -66,14 +66,17 @@ export default function Home() {
                   {post.price}
                 </p>
               </a>
+              </Link>
             ))}
-            <a href="/postlist" className="group">
+            <Link href="/postlist">
+            <a  className="group">
               <div className="w-full aspect-w-5 aspect-h-5  bg-gray-200 rounded-3xl overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
                 <div className="w-full h-full bg-gray-100 flex justify-center items-center h-screen group-hover:opacity-75 group-hover:animate-pulse font-black text-2xl">
                   Voir plus
                 </div>
               </div>
             </a>
+            </Link>
           </div>
         </div>
 
