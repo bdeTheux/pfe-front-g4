@@ -9,7 +9,6 @@ const Layout = ({ children })=>{
                 <main>      
                     {children} 
                 </main>
-                <h1>Put the NavBar Here</h1>
             </div>
             
         </div>
