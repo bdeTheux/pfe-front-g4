@@ -65,7 +65,7 @@ const Navbar = () => {
                 Something
               </a>
             </Link>
-            <div className="relative inline-block hidden lg:block">
+            <div className="relative  lg:block">
               <div>
                 <button
                   className="

@@ -7,7 +7,7 @@ const Management = ({ users }) => {
   }
   return (
     <div className="flex h-screen ">
-      <div className="md:mt-10 m-auto w-full max-w-md px-2 py-16 sm:px-0">
+      <div className="md:mt-12 mx-auto w-full max-w-md px-2 py-16 sm:px-0">
         <Tab.Group>
           <Tab.List className="flex p-1 justify-center space-x-1 bg-green-900/20 rounded-xl">
             <Tab
@@ -17,7 +17,7 @@ const Management = ({ users }) => {
                   "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-green-400 ring-white ring-opacity-60",
                   selected
                     ? "bg-white shadow"
-                    : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                    : "text-white hover:bg-white/[0.12] hover:text-white"
                 )
               }
             >
@@ -30,7 +30,7 @@ const Management = ({ users }) => {
                   "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-green-400 ring-white ring-opacity-60",
                   selected
                     ? "bg-white shadow"
-                    : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                    : "text-white hover:bg-white/[0.12] hover:text-white"
                 )
               }
             >
@@ -43,7 +43,7 @@ const Management = ({ users }) => {
                   "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-green-400 ring-white ring-opacity-60",
                   selected
                     ? "bg-white shadow"
-                    : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                    : "text-white hover:bg-white/[0.12] hover:text-white"
                 )
               }
             >
