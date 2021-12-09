@@ -9,7 +9,7 @@ const newPost = () => {
     const [postNature, setPostNature] = useState("")
     const [price, setPrice] = useState("")
     const [image, setImage] = useState("")
-    
+    const [campus, setCampus] = useState([])
 
     const getStaticProps = async () => {
         const res = await fetch(process.env.URL_FRONT + `/api/posts/posts`)
@@ -18,13 +18,16 @@ const newPost = () => {
         
     }
     const submitPost = async () => {
-        console.log(title)
+        campus.forEach(element => {
+            console.log("element" + element)
+        });
         let newPostSubmit = {
             "title" : title,
             "description" : description,
             "postNature" : postNature,
             "price" : price,
             "image" : image,
+            "campus" : campus,
         }
         console.log("before fetch " + JSON.stringify({newPostSubmit}))
         const res = await fetch(`http://localhost:3000/api/posts/posts`, {
@@ -37,6 +40,12 @@ const newPost = () => {
         console.log(newPostSubmit)
         const data = await res.json()
         console.log(data)
+    }
+
+    const handleCampus = (e) => {
+        campus[campus.length] = e.target.value
+
+        setCampus(campus);
     }
 
     
@@ -55,7 +64,7 @@ const newPost = () => {
                   <h1 className="inline text-2xl font-semibold leading-none">Crée une annonce</h1>
                </div>
             </div>
-            <form action="post" className="">
+            <form method="post" className="">
 
             <div className="px-5 pb-5">
                <input  onChange={val => setTitle(val.target.value)} name="title" type="text" placeholder='titre' required  className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"/>
@@ -67,7 +76,7 @@ const newPost = () => {
                   </div>
                   
                   <div className="flex-grow">
-                  <label> A vendre: </label><input value={postNature} onChange={val => setPostNature(val.target.value)} name="postNature" type="radio" value="sell" required/>
+                        <label> A vendre: </label><input value={postNature} onChange={val => setPostNature(val.target.value)} name="postNature" type="radio" value="sell" required/>
                         <label> A donner: </label><input value={postNature} onChange={val => setPostNature(val.target.value)} name="postNature" type="radio" value="given" required/>
                   </div>
 
@@ -75,8 +84,12 @@ const newPost = () => {
                <label className=" text-black placeholder-gray-600 w-full py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"> 
                     <input value={image} onChange={val => setImage(val.target.value)} name="file" type="file" multiple hidden    required />
                     <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24"></rect></g><g><g><polygon opacity=".3" points="14.17,11 13,11 13,5 11,5 11,11 9.83,11 12,13.17"></polygon><rect height="2" width="14" x="5" y="18"></rect><path d="M19,9h-4V3H9v6H5l7,7L19,9z M11,11V5h2v6h1.17L12,13.17L9.83,11H11z"></path></g></g></svg>
-
                </label>
+               <div className="flex-grow">
+                        <label> Woluwe </label><input value="Woluwe" onChange={handleCampus} name="postNature" type="checkbox" required/>
+                        <label> Louvain-la-Neuve </label><input value="LLN" onChange={handleCampus} name="postNature" type="checkbox" required/>
+                        <label> Ixelles </label><input value="Ixelles" onChange={handleCampus} name="postNature" type="checkbox" required/>
+                  </div>
 
             </div>
             
