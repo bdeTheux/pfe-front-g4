@@ -1,7 +1,6 @@
 module.exports = {
-
-  mode: 'jit',
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  mode: "jit",
+  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
@@ -10,18 +9,10 @@ module.exports = {
     extend: {},
   },
   "tailwindCSS.includeLanguages": {
-
-    "plaintext": "html"
-
+    plaintext: "html",
   },
   "editor.quickSuggestions": {
-
-    "strings": true
-
+    strings: true,
   },
-  plugins: [
-    require("@tailwindcss/forms"),
-  ],
-  
-}
->>>>>>> master
+  plugins: [require("@tailwindcss/forms")],
+};
