@@ -1,4 +1,22 @@
+import { useState } from "react";
 const Connection = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onLogin = async () => {
+    const loginUser = {
+      email: email,
+      password: password,
+    };
+    console.log(loginUser);
+    const res = await fetch("http://localhost:3000/api/users/login", {
+      method: "POST",
+      body: JSON.stringify({ loginUser }),
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await res.json();
+    console.log(data);
+  };
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -13,7 +31,7 @@ const Connection = () => {
               <div className="shadow-sm -space-y-px">
                 <div>
                   <label htmlFor="email-address-connection" className="sr-only">
-                    Adresse email ou pseudo
+                    Adresse email
                   </label>
                   <input
                     id="email-address-connection"
@@ -22,7 +40,8 @@ const Connection = () => {
                     autoComplete="email"
                     required
                     className="appearance-none rounded-t-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
-                    placeholder="Email ou pseudo"
+                    placeholder="Email"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div>
@@ -37,6 +56,7 @@ const Connection = () => {
                     required
                     className="appearance-none rounded-b-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
                     placeholder="Password"
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
               </div>
@@ -67,6 +87,7 @@ const Connection = () => {
                 <button
                   type="submit"
                   className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white focus:border-green-700 bg-green-800 hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700"
+                  onClick={onLogin}
                 >
                   Sign in
                 </button>
