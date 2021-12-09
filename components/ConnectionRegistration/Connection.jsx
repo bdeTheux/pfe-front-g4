@@ -1,23 +1,48 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 const Connection = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
+  async function getInitialProps(ctx) {
+    // this is client side cookie that you want
+    const cookie = ctx.req ? ctx.req.headers.cookie : null;
+
+    // and if you use fetch, you can manually attach cookie like this
+    fetch("is-authenticated", {
+      headers: {
+        cookie,
+      },
+    });
+  }
 
   const onLogin = async () => {
     const loginUser = {
       email: email,
       password: password,
     };
-    console.log(loginUser);
 
     const res = await fetch("http://pfe-back-g4-dev.herokuapp.com/login/", {
       method: "POST",
       body: JSON.stringify(loginUser),
       headers: { "Content-Type": "application/json" },
     });
-    console.log(JSON.stringify(loginUser));
     const data = await res.json();
     console.log("ici", data);
+    console.log(res.status);
+    if (res.status == 200) {
+      localStorage.setItem("token", res.token);
+      console.log("set token");
+      router.push("http://localhost:3000/management/management");
+    } else {
+      return {
+        redirect: {
+          destination:
+            "http://localhost:3000/connectionRegistration/connectionRegistration",
+          permanent: false,
+        },
+      };
+    }
   };
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">

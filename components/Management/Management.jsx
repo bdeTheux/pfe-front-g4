@@ -8,6 +8,7 @@ const Management = ({ users }) => {
   return (
     <div className="flex h-screen ">
       <div className="md:mt-12 mx-auto w-full max-w-md px-2 py-16 sm:px-0">
+        <h1>Gestion</h1>
         <Tab.Group>
           <Tab.List className="flex p-1 justify-center space-x-1 bg-green-900/20 rounded-xl">
             <Tab

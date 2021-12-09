@@ -20,9 +20,9 @@ const MembersList = ({ users }) => {
               {users.length == 0 ? (
                 <NoMember />
               ) : (
-                users.map((member) => (
-                  <Member key={member.id} member={member} />
-                ))
+                users.map((member) => {
+                  return <Member key={member._id} member={member} />;
+                })
               )}
             </tbody>
           </table>

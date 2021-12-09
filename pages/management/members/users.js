@@ -4,7 +4,12 @@ export default function membersList({ users }) {
 }
 
 export const getStaticProps = async () => {
-  const res = await fetch("https://pfe-back-g4-prod.herokuapp.com/users/"); //("https://pfe-back-g4-prod.herokuapp.com/users/");
+  const res = await fetch("https://pfe-back-g4-dev.herokuapp.com/users/", {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+  }); //("https://pfe-back-g4-prod.herokuapp.com/users/");
   const users = await res.json();
 
   return {
