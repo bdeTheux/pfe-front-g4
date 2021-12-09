@@ -4,17 +4,6 @@ const Connection = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  async function getInitialProps(ctx) {
-    // this is client side cookie that you want
-    const cookie = ctx.req ? ctx.req.headers.cookie : null;
-
-    // and if you use fetch, you can manually attach cookie like this
-    fetch("is-authenticated", {
-      headers: {
-        cookie,
-      },
-    });
-  }
 
   const onLogin = async () => {
     const loginUser = {
