@@ -9,10 +9,14 @@ module.exports = {
     extend: {},
   },
   "tailwindCSS.includeLanguages": {
+
     "plaintext": "html"
+
   },
   "editor.quickSuggestions": {
+
     "strings": true
+
   },
   plugins: [],
   
