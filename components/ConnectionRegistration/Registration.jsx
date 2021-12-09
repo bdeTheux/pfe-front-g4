@@ -103,7 +103,7 @@ const Registration = () => {
                     <option value="DEFAULT" disabled selected>
                       Sélectionnez votre campus
                     </option>
-                    <option value="Woluwe">Woluwé</option>
+                    <option value="Woluwé">Woluwé</option>
                     <option value="Louvain-la-Neuve">Louvain-la-Neuve</option>
                     <option value="Ixelles">Ixelles</option>
                   </select>

@@ -6,7 +6,9 @@ export const posts = [
     postNature: "A vendre",
     price: 123,
     sellerId: "1",
+    category: "categori 1",
     image: "/images/bidon.jpg",
+    place: ["woluwe", "dkdk"],
   },
   {
     id: "2",
@@ -15,7 +17,9 @@ export const posts = [
     postNature: "A donner",
     price: 124,
     sellerId: "1",
+    category: "categori 2",
     image: "/images/bidon.jpg",
+    place: ["woluwe", "dkdk"],
   },
 ];
 

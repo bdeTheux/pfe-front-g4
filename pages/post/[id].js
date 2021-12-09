@@ -1,30 +1,7 @@
-import Meta from "../../components/Meta/Meta";
-import Image from "next/image";
-import Link from "next/link";
+import OnePost from "../../components/OnePost/OnePost";
 
 const postDetails = ({ post, user }) => {
-  return (
-    <>
-      <Meta title={post.title} />
-      <h1>{post.title}</h1>
-      <p>{post.postNature}</p>
-      <p>{post.price}€</p>
-      <strong>
-        <p>Infos du vendeur : </p>
-      </strong>
-      <p>
-        {user.firstName} {user.lastName}
-      </p>
-      <p>{user.email}</p>
-      <Image src={post.image} height={100} width={100} alt="Image du produit" />
-      <strong>
-        <p>Description</p>
-      </strong>
-      <p>{post.description}</p>
-      <p>Campus : {user.campus}</p>
-      <Link href="/">Retour à la liste des annonces</Link>
-    </>
-  );
+  return <OnePost post={post} user={user} />;
 };
 
 export const getStaticProps = async (context) => {
