@@ -7,13 +7,13 @@ import {
 } from "@heroicons/react/outline";
 import PostsList from "../components/PostsList/PostsList";
 
-const postsAll = [
+const postsTest = [
   {
     id: 1,
     title: "Pull",
     image:
       "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80",
-    price: "$25",
+    price: 25,
     campus: "Woluwe",
   },
   {
@@ -21,7 +21,7 @@ const postsAll = [
     title: "Bomber Jacket",
     image:
       "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=736&q=80",
-    price: "$35",
+    price: 35,
     campus: "Woluwe",
   },
   {
@@ -29,7 +29,7 @@ const postsAll = [
     title: "Chaussure Nike",
     image:
       "https://images.unsplash.com/photo-1615424902876-df124220b0b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80",
-    price: "$15",
+    price: 15,
     campus: "Louvain-La-Neuve",
   },
   {
@@ -37,13 +37,45 @@ const postsAll = [
     title: "Denim dress",
     image:
       "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    price: "$10",
+    price: 10,
     campus: "Ixelles",
   },
+  {
+      id: 5,
+      title: "Pull",
+      image:
+        "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80",
+      price: 25,
+      campus: "Woluwe",
+    },
+    {
+      id: 6,
+      title: "Bomber Jacket",
+      image:
+        "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=736&q=80",
+      price: 35,
+      campus: "Woluwe",
+    },
+    {
+      id: 7,
+      title: "Chaussure Nike",
+      image:
+        "https://images.unsplash.com/photo-1615424902876-df124220b0b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80",
+      price: 15,
+      campus: "Louvain-La-Neuve",
+    },
+    {
+      id: 8,
+      title: "Denim dress",
+      image:
+        "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+      price: 10,
+      campus: "Ixelles",
+    },
 ];
 
 //limit the posts to a length of 3
-const posts = postsAll;
+const posts = postsTest;
 posts.length = 4;
 
 export default function Home() {
@@ -85,7 +117,7 @@ export default function Home() {
       <div className="bg-white w-screen px-10">
         <div className="max-w-2xl mx-auto py-16 px-4  sm:px-6 lg:max-w-7xl lg:px-8 ">
           <div className="flex flex-col md:flex-row md:items-center mb-5 md:gap-7">
-            <h1 className="text-3xl font-extrabold md:mb-1.5">Nos annonces</h1>
+            <h1 className="text-3xl font-extrabold md:mb-1.5">Nos dernières annonces</h1>
             <Link href="/posts">
               <a className="text-indigo-500 hover:text-indigo-200 flex flex-row p-2 md:p-5 gap-2 text-lg">
                 Voir plus
