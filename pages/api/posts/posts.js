@@ -9,13 +9,13 @@ export default function handler(req, res) {
     const post = req.body.newPostSubmit
     console.log("post api : " + post)
     const newPost = {
-      "id" : 3,
-      "title" : post.title,
+            "id" : "3",
+            "title" : post.title,
             "description" : post.description,
             "postNature" : post.postNature,
             "price" : post.price,
-            "image" : post.image,
-            "campus" : post.campus,
+            "sellerId": "1",
+            "image" : "/images/bidon.jpg",
     }
     console.log(newPost)
     posts.push(newPost);
