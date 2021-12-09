@@ -16,10 +16,10 @@ const Registration = () => {
       password: password,
     };
     console.log("new user : ", newUser);
-    const res = await fetch("http://localhost:3000/api/users/register", {
-      //https://pfe-back-g4-dev.herokuapp.com/signup
+    const res = await fetch("https://pfe-back-g4-prod.herokuapp.com/signup/", {
+      //http://localhost:3000/api/users/register
       method: "POST",
-      body: JSON.stringify({ newUser }),
+      body: JSON.stringify(newUser),
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
@@ -127,7 +127,7 @@ const Registration = () => {
             </div>
             <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
               <button
-                type="submit"
+                type="button"
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white focus:border-green-700 bg-green-800 hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700"
                 onClick={onRegister}
               >

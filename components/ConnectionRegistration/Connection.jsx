@@ -9,13 +9,15 @@ const Connection = () => {
       password: password,
     };
     console.log(loginUser);
-    const res = await fetch("http://localhost:3000/api/users/login", {
+
+    const res = await fetch("http://pfe-back-g4-dev.herokuapp.com/login/", {
       method: "POST",
-      body: JSON.stringify({ loginUser }),
+      body: JSON.stringify(loginUser),
       headers: { "Content-Type": "application/json" },
     });
+    console.log(JSON.stringify(loginUser));
     const data = await res.json();
-    console.log(data);
+    console.log("ici", data);
   };
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -85,7 +87,7 @@ const Connection = () => {
                   </a>
                 </div>
                 <button
-                  type="submit"
+                  type="button"
                   className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white focus:border-green-700 bg-green-800 hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700"
                   onClick={onLogin}
                 >

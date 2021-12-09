@@ -1,7 +1,8 @@
 import Member from "../Member/Member";
-import Link from "next/link";
+import NoMember from "../Member/NoMember";
 
 const MembersList = ({ users }) => {
+  console.log(users);
   return (
     <div className="flex items-center justify-center min-h-screen bg-white">
       <div className="col-span-12">
@@ -16,9 +17,13 @@ const MembersList = ({ users }) => {
               </tr>
             </thead>
             <tbody>
-              {users.map((member) => (
-                <Member key={member.id} member={member} />
-              ))}
+              {users.size == 0 ? (
+                <NoMember />
+              ) : (
+                users.map((member) => (
+                  <Member key={member.id} member={member} />
+                ))
+              )}
             </tbody>
           </table>
         </div>
