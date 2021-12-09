@@ -1,4 +1,4 @@
-import MembersList from "../../components/MembersList/MembersList";
+import MembersList from "../../../components/MembersList/MembersList";
 export default function membersList({ users }) {
   return <MembersList users={users} />;
 }

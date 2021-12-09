@@ -4,7 +4,7 @@ import NoMember from "../Member/NoMember";
 const MembersList = ({ users }) => {
   console.log(users);
   return (
-    <div className="flex items-center justify-center min-h-screen bg-white">
+    <div className="flex items-center justify-center bg-white">
       <div className="col-span-12">
         <div className="overflow-auto lg:overflow-visible sm:rounded-lg">
           <table className="border-separate space-y-6 text-sm">
@@ -17,7 +17,7 @@ const MembersList = ({ users }) => {
               </tr>
             </thead>
             <tbody>
-              {users.size == 0 ? (
+              {users.length == 0 ? (
                 <NoMember />
               ) : (
                 users.map((member) => (
