@@ -35,7 +35,7 @@ const Connection = () => {
                     type="password"
                     autoComplete="current-password"
                     required
-                    className="appearance-none rounded--b-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
+                    className="appearance-none rounded-b-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
                     placeholder="Password"
                   />
                 </div>
