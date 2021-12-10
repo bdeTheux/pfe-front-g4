@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { useAppContext } from "../../context/AppContext";
 
 const Connection = () => {
-  const [appState, setAppState] = useAppContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -25,8 +24,6 @@ const Connection = () => {
     if (res.status == 200) {
       console.log("token : ", data.token);
       localStorage.setItem("token", data.token);
-      setAppState("token", data.token);
-      console.log("appstate ", appState);
       router.push("http://localhost:3000/management/management"); //management/management
     } else {
       return {

@@ -1,9 +1,25 @@
 import MembersList from "../MembersList/MembersList";
 import { Tab } from "@headlessui/react";
 import { useAppContext } from "../../context/AppContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-const Management = ({ users }) => {
+const Management = () => {
+  const [users, setUsers] = useState([]);
+  useEffect(async () => {
+    const resUsers = await fetch(
+      "https://pfe-back-g4-dev.herokuapp.com/users/",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+      }
+    );
+    const temp = await resUsers.json();
+    console.log("temp", temp);
+    setUsers(temp || []);
+  }, []);
+
   /*const [appState, setAppState] = useAppContext();
   useEffect(() => {
     console.log(localStorage.getItem("token"));
