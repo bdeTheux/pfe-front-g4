@@ -215,9 +215,9 @@ export default function profile() {
                     />
                   </div>
                   {post.vente ? (
-                    <div className="ml-5 px-2 h-full justify-evenly bg-green-500 text-white rounded-2xl text-sm font-bold">Vente</div>
+                    <div className="ml-5 px-2 h-full justify-evenly bg-green-500 text-white rounded-2xl text-sm font-bold">Vendu</div>
                   ) : (
-                    <div className="ml-5 px-2 h-full justify-evenly bg-yellow-600 text-white rounded-2xl text-sm font-bold">Achat</div>
+                    <div className="ml-5 px-2 h-full justify-evenly bg-yellow-600 text-white rounded-2xl text-sm font-bold">Acheté</div>
                   )}
                 </li>
               ))}
