@@ -1,23 +1,25 @@
 import MembersList from "../MembersList/MembersList";
 import { Tab } from "@headlessui/react";
-import { useAppContext } from "../../context/AppContext";
 import { useEffect, useState } from "react";
 
 const Management = () => {
   const [users, setUsers] = useState([]);
-  useEffect(async () => {
-    const resUsers = await fetch(
-      "https://pfe-back-g4-dev.herokuapp.com/users/",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-      }
-    );
-    const temp = await resUsers.json();
-    console.log("temp", temp);
-    setUsers(temp || []);
+  useEffect(() => {
+    console.log("trii", localStorage.token);
+    fetch("https://pfe-back-g4-dev.herokuapp.com/users/", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        console.log("res", res);
+        return res.json();
+      })
+      .then((temp) => {
+        console.log("temp", temp);
+        setUsers(temp);
+      });
   }, []);
 
   function classNames(...classes) {
