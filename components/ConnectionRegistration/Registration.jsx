@@ -17,7 +17,6 @@ const Registration = () => {
     };
     console.log("new user : ", newUser);
     const res = await fetch("https://pfe-back-g4-dev.herokuapp.com/signup/", {
-      //http://localhost:3000/api/users/register
       method: "POST",
       body: JSON.stringify(newUser),
       headers: { "Content-Type": "application/json" },

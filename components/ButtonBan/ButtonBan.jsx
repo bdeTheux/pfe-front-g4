@@ -15,7 +15,7 @@ const ButtonBan = ({ member }) => {
     );
     const data = await res.json();
     if (res.status == 200) {
-      router.push("https://localhost:3000/management/management");
+      router.push("/management/management");
     }
     console.log(data);
   };
