@@ -12,7 +12,7 @@ const Connection = () => {
       password: password,
     };
 
-    const res = await fetch("http://pfe-back-g4-dev.herokuapp.com/login/", {
+    const res = await fetch("https://pfe-back-g4-dev.herokuapp.com/login/", {
       method: "POST",
       body: JSON.stringify(loginUser),
       headers: { "Content-Type": "application/json" },
@@ -23,12 +23,12 @@ const Connection = () => {
     if (res.status == 200) {
       console.log("token : ", data.token);
       localStorage.setItem("token", data.token);
-      router.push("http://localhost:3000/management/management"); //management/management
+      router.push("https://localhost:3000/management/management"); //management/management
     } else {
       return {
         redirect: {
           destination:
-            "http://localhost:3000/connectionRegistration/connectionRegistration",
+            "https://localhost:3000/connectionRegistration/connectionRegistration",
           permanent: false,
         },
       };

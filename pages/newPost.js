@@ -28,7 +28,7 @@ const newPost = () => {
       campus: campus,
     };
     console.log("before fetch " + JSON.stringify({ newPostSubmit }));
-    const res = await fetch(`http://pfe-back-g4-dev.herokuapp.com/posts/`, {
+    const res = await fetch(`https://pfe-back-g4-dev.herokuapp.com/posts/`, {
       method: "POST",
       body: JSON.stringify({ newPostSubmit }),
       headers: {

@@ -4,20 +4,20 @@ const ButtonBan = ({ member }) => {
   const handleBan = async (id) => {
     const router = useRouter();
     console.log(id);
-    /*const res = await fetch(
-      `http://pfe-back-g4-prod.herokuapp.com/users/${id}/ban`,
+    const res = await fetch(
+      `https://pfe-back-g4-prod.herokuapp.com/users/${id}/ban`,
       {
         method: "POST",
         headers: {
           Authorization: localStorage.getItem("token"),
         },
       }
-    );*/
-    //const data = await res.json();
-    /*if (res.status == 200) {
-      router.push("http://localhost:3000/management/management");
-    }*/
-    //console.log(data);
+    );
+    const data = await res.json();
+    if (res.status == 200) {
+      router.push("https://localhost:3000/management/management");
+    }
+    console.log(data);
   };
   if (member.is_banned) {
     return (

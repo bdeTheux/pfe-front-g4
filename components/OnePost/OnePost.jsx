@@ -7,11 +7,11 @@ const OnePost = ({ postId }) => {
   const [user, setUser] = useState([]);
   const [token, setToken] = useState([]);
   useEffect(() => {
-    fetch(`http://pfe-back-g4-dev.herokuapp.com/posts/${postId}`).then(
+    fetch(`https://pfe-back-g4-dev.herokuapp.com/posts/${postId}`).then(
       (res) => {
         res.json().then((temp2) => {
           fetch(
-            `http://pfe-back-g4-dev.herokuapp.com/users/${temp2.seller_id}`,
+            `https://pfe-back-g4-dev.herokuapp.com/users/${temp2.seller_id}`,
             {
               headers: {
                 "Content-Type": "application/json",
