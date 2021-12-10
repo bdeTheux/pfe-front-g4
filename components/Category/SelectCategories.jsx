@@ -17,7 +17,6 @@ const SelectCategories = ({categories, setCategory, label}) => {
                           {label}
                         </option>
                     {categories.map((element) => {
-                        console.log(element)
                       return (
                         <option key={element.name} className="bg-gray-200 text-gray-700">
                           {element.name}

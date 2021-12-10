@@ -104,8 +104,7 @@ const CategoryPage = ({ categories }) => {
               <div className="">
                 <div name="categories" required className="flex flex-col">
                   {categories.map(element => {
-                    console.log("element" + element.name)
-                    return <LiCategory category={element.name} key={element.name} />;
+                    return <LiCategory category={element} key={element.name} />;
                   })}
                 </div>
               </div>
