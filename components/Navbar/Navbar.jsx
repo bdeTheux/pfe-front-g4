@@ -21,11 +21,11 @@ const Navbar = () => {
     "
       >
         <div className="flex justify-between">
-        <Link href="/">
-              <a className="text-primary border border-gray-200 font-semibold lg:hidden px-4 rounded-md py-2 hover:bg-gray-200">
-                Let's swipe?
-              </a>
-            </Link>
+          <Link href="/">
+            <a className="text-primary border border-gray-200 font-semibold lg:hidden px-4 rounded-md py-2 hover:bg-gray-200">
+              Let's swipe?
+            </a>
+          </Link>
           <Link href="/">
             <a className="text-gray-800 dark:text-gray-200">
               <div className="flex items-center">
@@ -33,7 +33,7 @@ const Navbar = () => {
               </div>
             </a>
           </Link>
-          
+
           <div className="flex items-center space-x-2 lg:hidden">
             <button className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none">
               <svg
@@ -65,7 +65,7 @@ const Navbar = () => {
                 Something
               </a>
             </Link>
-            <div className="relative inline-block hidden lg:block">
+            <div className="relative  lg:block">
               <div>
                 <button
                   className="
@@ -220,7 +220,7 @@ const Navbar = () => {
                 className="absolute right-0 top-0 mt-5 mr-4"
               >
                 <svg
-                  className="text-gray-600 h-4 w-4 fill-current"
+                  className="text-gray-600 h-4 w-4 fillCurrent"
                   xmlns="http://www.w3.org/2000/svg"
                   xmlnsXlink="http://www.w3.org/1999/xlink"
                   version="1.1"

@@ -36,8 +36,7 @@ const newPost = ({categories} ) => {
             "image" : image,
             "campus" : campus,
         }
-        console.log("before fetch " + JSON.stringify({newPostSubmit}))
-        const res = await fetch(`http://localhost:3000/api/posts/posts`, {
+        const res = await fetch(`https://pfe-back-g4-dev.herokuapp.com/posts/`, {
             method: 'POST',
             body: JSON.stringify(newPostSubmit),
             headers:{
