@@ -1,4 +1,5 @@
 import { useState, FormEvent } from "react";
+import SelectCategories from "../components/Category/SelectCategories"
 
 export const getServerSideProps = async () => {
     const res = await fetch("https://pfe-back-g4-prod.herokuapp.com/categories/") 
@@ -81,23 +82,7 @@ const newPost = ({categories} ) => {
 
             <div className="px-5 pb-5">
                <input  onChange={val => setTitle(val.target.value)} name="title" type="text" placeholder='titre' required  className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"/>
-               <select
-                    name="categories"
-                    required
-                    onChange={handlerCategory}
-                    className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                  >
-                      <option autoFocus className="bg-gray-200 text-gray-700">
-                          Choisissez une categorie
-                        </option>
-                    {Object.keys(categories).map(function (key) {
-                      return (
-                        <option key={key} className="bg-gray-200 text-gray-700">
-                          {categories[key]}
-                        </option>
-                      );
-                    })}
-                  </select>
+               <SelectCategories categories={categories} setCategory={setCategory}/>
                <textarea value={description} onChange={val => setDescription(val.target.value)} name="description" rows="3" placeholder='description' required className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"/> 
                <div className="flex">
                   <div className="flex-grow w-1/4 pr-2">
