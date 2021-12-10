@@ -2,6 +2,7 @@ import Post from "../Post/Post";
 
 const PostsList = ({ posts }) => {
   console.log("in components postsList ", posts);
+
   return (
     <div>
       {Array.from(posts).map((post) => {
