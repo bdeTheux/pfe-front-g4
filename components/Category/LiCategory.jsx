@@ -1,7 +1,8 @@
-import { PencilIcon, PlusIcon } from "@heroicons/react/outline";
+import { PencilIcon, TrashIcon } from "@heroicons/react/outline";
 
 
 const LiCategory = ({category}) => {
+  console.log("ctegory :: " +category)
     return (
         <div
           key={category}
@@ -11,7 +12,7 @@ const LiCategory = ({category}) => {
 
           <div className="flex-initial pl-3 mt-2">
             <button className="p-0 w-12 h-12 bg-gray-700 rounded-full hover:bg-gray-800 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none">
-              <PlusIcon className="flex ml-3 w-6 text-gray-100" />
+              <TrashIcon className="flex ml-3 w-6 text-gray-100" />
             </button>
           </div>
           <div className="flex-initial pl-3 mt-2">

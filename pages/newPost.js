@@ -2,7 +2,7 @@ import { useState, FormEvent } from "react";
 import SelectCategories from "../components/Category/SelectCategories"
 
 export const getServerSideProps = async () => {
-    const res = await fetch("https://pfe-back-g4-prod.herokuapp.com/categories/") 
+    const res = await fetch("https://pfe-back-g4-dev.herokuapp.com/categories/") 
     const categories = await res.json()
     
     return {
@@ -23,12 +23,10 @@ const newPost = ({categories} ) => {
     const [price, setPrice] = useState("")
     const [image, setImage] = useState("")
     const [campus, setCampus] = useState([])
-
+    let label = "Choisissez une catégorie"
     
     const submitPost = async () => {
-        campus.forEach(element => {
-            console.log(category)
-        });
+        
         let newPostSubmit = {
             "title" : title,
             "category" : category,
@@ -41,7 +39,7 @@ const newPost = ({categories} ) => {
         console.log("before fetch " + JSON.stringify({newPostSubmit}))
         const res = await fetch(`http://localhost:3000/api/posts/posts`, {
             method: 'POST',
-            body: JSON.stringify({newPostSubmit}),
+            body: JSON.stringify(newPostSubmit),
             headers:{
                 'Content-Type': 'application/json'
             }
@@ -82,7 +80,7 @@ const newPost = ({categories} ) => {
 
             <div className="px-5 pb-5">
                <input  onChange={val => setTitle(val.target.value)} name="title" type="text" placeholder='titre' required  className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"/>
-               <SelectCategories categories={categories} setCategory={setCategory}/>
+               <SelectCategories categories={categories} setCategory={setCategory} label={label}/>
                <textarea value={description} onChange={val => setDescription(val.target.value)} name="description" rows="3" placeholder='description' required className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"/> 
                <div className="flex">
                   <div className="flex-grow w-1/4 pr-2">

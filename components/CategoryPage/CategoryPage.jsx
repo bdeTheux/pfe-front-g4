@@ -6,8 +6,33 @@ import SelectCategories from "../Category/SelectCategories"
 const CategoryPage = ({ categories }) => {
   const [categoryName, setCategoryName] = useState("");
   const [categoryParent, setCategoryParent] = useState("")
+  let label = "Choisissez une catégorie Parente"
+ 
+  const submitCategory = async () => {
+        
+    let newCategory = {
+        "name" : categoryName,
+        "parent" : categoryParent,
+        "sub_categories" : [],        
+    }
+    console.log("before fetch " + JSON.stringify(newCategory))
+    const res = await fetch(`https://pfe-back-g4-dev.herokuapp.com/categories/`, {
+        method: 'POST',
+        body: JSON.stringify(newCategory),
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    })
+    console.log(newCategory)
+    const data = await res.json()
+    console.log(data)
+}
 
-  console.log(typeof categories);
+
+
+
+
+  console.log(categoryName);
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -37,7 +62,7 @@ const CategoryPage = ({ categories }) => {
                     />
                   </div>
                   <div className="flex-grow w-1/4 pr-2">
-                  <SelectCategories categories={categories} setCategory={setCategoryParent}/>
+                  <SelectCategories categories={categories} setCategory={setCategoryParent} label={label}/>
                   </div>
 
                   <hr className="mt-4" />
@@ -46,6 +71,7 @@ const CategoryPage = ({ categories }) => {
                       <button
                         name="submitPost"
                         type="button"
+                        onClick={submitCategory}
                         className="flex items-center px-5 py-2.5 font-medium tracking-wide text-white capitalize   bg-black rounded-md hover:bg-gray-800  focus:outline-none focus:bg-gray-900  transition duration-300 transform active:scale-95 ease-in-out"
                       >
                         <svg
@@ -68,6 +94,7 @@ const CategoryPage = ({ categories }) => {
                   </div>
                 </div>
               </form>
+
               <div className="flex-1 py-5 overflow-hidden">
                 <h1 className="inline text-2xl font-semibold leading-none">
                   Liste
@@ -76,8 +103,9 @@ const CategoryPage = ({ categories }) => {
 
               <div className="">
                 <div name="categories" required className="flex flex-col">
-                  {Object.keys(categories).map(function (key) {
-                    return <LiCategory category={categories[key]} key={key} />;
+                  {categories.map(element => {
+                    console.log("element" + element.name)
+                    return <LiCategory category={element.name} key={element.name} />;
                   })}
                 </div>
               </div>
