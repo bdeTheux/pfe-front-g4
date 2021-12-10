@@ -1,8 +1,28 @@
 import Meta from "../../components/Meta/Meta";
-import Image from "next/image";
-import Link from "next/link";
 
-const OnePost = ({ post, user }) => {
+const OnePost = async ({ postId }) => {
+  if (typeof window !== "undefined") {
+    console.log("we are running on the client");
+  } else {
+    console.log("we are running on the server");
+  }
+  console.log("in onepost ", post);
+  console.log("in onepost ", user);
+  const resPosts = await fetch(
+    `http://pfe-back-g4-dev.herokuapp.com/posts/${postId}`
+  );
+  const post = await resPosts.json();
+  const resUsers = await fetch(
+    `http://pfe-back-g4-dev.herokuapp.com/users/${post.sellerId}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    }
+  );
+  const user = await resUsers.json();
+  console.log(user);
   return (
     <div>
       <Meta title={post.title} />
@@ -48,7 +68,7 @@ const OnePost = ({ post, user }) => {
                   </p>
                   <p className="leading-relaxed">Contact : {user.email}</p>
                   <p className="leading-relaxed">
-                    Possibles lieux d'échange : {post.place.join(", ")}
+                    Possibles lieux d'échange : {post.places}
                   </p>
                   <p>petite carte</p>
                 </div>

@@ -1,11 +1,12 @@
 import Post from "../Post/Post";
 
 const PostsList = ({ posts }) => {
+  console.log("in components postsList ", posts);
   return (
     <div>
-      {posts.map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
+      {Array.from(posts).map((post) => {
+        return <Post key={post._id} post={post} />;
+      })}
     </div>
   );
 };

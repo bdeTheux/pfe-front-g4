@@ -3,7 +3,9 @@ export default function membersList({ users }) {
   return <MembersList users={users} />;
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
+  console.log("djkcvnzdljfvnkj");
+  console.log("token dans users : ", localStorage.getItem("token"));
   const res = await fetch("https://pfe-back-g4-dev.herokuapp.com/users/", {
     headers: {
       "Content-Type": "application/json",
