@@ -1,28 +1,36 @@
 import { useState, FormEvent } from "react";
 
-const newPost = () => {
+export const getServerSideProps = async () => {
+    const res = await fetch("https://pfe-back-g4-prod.herokuapp.com/categories/") 
+    const categories = await res.json()
+    
+    return {
+        props : {
+            categories,
+        }
+    }
+}
+
+const newPost = ({categories} ) => {
 
     const [posts, setPosts] = useState([]);
     const [newPost, setNewPost] = useState('');
     const [title, setTitle] = useState('');
+    const [category, setCategory] = useState("")
     const [description, setDescription] = useState("")
     const [postNature, setPostNature] = useState("")
     const [price, setPrice] = useState("")
     const [image, setImage] = useState("")
     const [campus, setCampus] = useState([])
 
-    const getStaticProps = async () => {
-        const res = await fetch(process.env.URL_FRONT + `/api/posts/posts`)
-        const data = await res.json()
-        setPosts(data);
-        
-    }
+    
     const submitPost = async () => {
         campus.forEach(element => {
-            console.log("element" + element)
+            console.log(category)
         });
         let newPostSubmit = {
             "title" : title,
+            "category" : category,
             "description" : description,
             "postNature" : postNature,
             "price" : price,
@@ -48,6 +56,11 @@ const newPost = () => {
         setCampus(campus);
     }
 
+    const handlerCategory = (val) => {
+        
+        setCategory(val.target.value)
+    }
+
     
 
     return(
@@ -68,6 +81,23 @@ const newPost = () => {
 
             <div className="px-5 pb-5">
                <input  onChange={val => setTitle(val.target.value)} name="title" type="text" placeholder='titre' required  className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"/>
+               <select
+                    name="categories"
+                    required
+                    onChange={handlerCategory}
+                    className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                  >
+                      <option autoFocus className="bg-gray-200 text-gray-700">
+                          Choisissez une categorie
+                        </option>
+                    {Object.keys(categories).map(function (key) {
+                      return (
+                        <option key={key} className="bg-gray-200 text-gray-700">
+                          {categories[key]}
+                        </option>
+                      );
+                    })}
+                  </select>
                <textarea value={description} onChange={val => setDescription(val.target.value)} name="description" rows="3" placeholder='description' required className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"/> 
                <div className="flex">
                   <div className="flex-grow w-1/4 pr-2">
@@ -144,37 +174,24 @@ const campusHandler = (val) => {
 /*
 
 
-<section className="">
-            <h1>Crée une annonce</h1>
-            <div>zdzdzd </div>
-            <div className="">
-                
-                <form action="post" className="">
-                    <label>
-                        Titre:<input  onChange={val => setTitle(val.target.value)} name="title" type="text" placeholder='titre' required className=""/>
-                    </label>
+<select
+                    name="categories"
+                    required
+                    className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                  >
+                    <option key="d" className="bg-gray-200 text-gray-700">
+                      Aucune catégorie parente
+                    </option>
+                    ;
+                    {Object.keys(categories).map(function (key) {
+                      return (
+                        <option key={key} className="bg-gray-200 text-gray-700">
+                          {categories[key]}
+                        </option>
+                      );
+                    })}
+                  </select>
 
-                    <label>
-                        Description:<textarea value={description} onChange={val => setDescription(val.target.value)} name="description" rows="3" placeholder='description' required className=""/>
-                    </label>
-                    <div>
-                        <label> A vendre: </label><input value={postNature} onChange={val => setPostNature(val.target.value)} name="postNature" type="radio" value="sell" required/>
-                        <label> A donner: </label><input value={postNature} onChange={val => setPostNature(val.target.value)} name="postNature" type="radio" value="given" required/>
-                    </div>
-                    <label>
-                        Prix:<input value={price} onChange={val => setPrice(val.target.value)} name="price" type="number" placeholder='0.0€' required className=""/>
-                    </label>
 
-                    <label className="">
-                    Dossier a telecharger:<input value={image} onChange={val => setImage(val.target.value)} name="file" type="file" multiple className="hidden" required/>
-                    </label>
-                                        
-                    <button name="submitPost" onClick={submitPost} type="button" className="">Crée</button>
-                </form>
-            </div>
-            <p className="">Votre annonce sera soumise à un modérateur.<br/>
-                Vous en serez notifié !
-            </p>
-        </section>
-class=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-        */
+
+*/

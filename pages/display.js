@@ -1,7 +1,7 @@
 import CategoryPage from "../components/CategoryPage/CategoryPage"
 
 export const getServerSideProps = async () => {
-    const res = await fetch("https://pfe-back-g4-prod.herokuapp.com/categories/") 
+    const res = await fetch("https://pfe-back-g4-dev.herokuapp.com/categories/") 
     const categories = await res.json()
     
     return {
