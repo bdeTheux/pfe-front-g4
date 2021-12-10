@@ -1,4 +1,4 @@
 import BanPage from "../../components/BanPage/BanPage";
-const banPage = () => {
-  <BanPage />;
-};
+export default function () {
+  return <BanPage />;
+}
