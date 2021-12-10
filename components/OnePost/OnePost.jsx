@@ -1,28 +1,32 @@
 import Meta from "../../components/Meta/Meta";
+import { useState, useEffect } from "react";
 
-const OnePost = async ({ postId }) => {
-  if (typeof window !== "undefined") {
-    console.log("we are running on the client");
-  } else {
-    console.log("we are running on the server");
-  }
-  console.log("in onepost ", post);
-  console.log("in onepost ", user);
-  const resPosts = await fetch(
-    `http://pfe-back-g4-dev.herokuapp.com/posts/${postId}`
-  );
-  const post = await resPosts.json();
-  const resUsers = await fetch(
-    `http://pfe-back-g4-dev.herokuapp.com/users/${post.sellerId}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
-      },
-    }
-  );
-  const user = await resUsers.json();
-  console.log(user);
+const OnePost = ({ postId }) => {
+  const [post, setPost] = useState([]);
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    fetch(`http://pfe-back-g4-dev.herokuapp.com/posts/${postId}`).then(
+      (res) => {
+        res.json().then((temp2) => {
+          fetch(
+            `http://pfe-back-g4-dev.herokuapp.com/users/${temp2.seller_id}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: localStorage.getItem("token"),
+              },
+            }
+          ).then((res) =>
+            res.json().then((temp) => {
+              setUser(temp);
+              setPost(temp2);
+            })
+          );
+        });
+      }
+    );
+  }, []);
+
   return (
     <div>
       <Meta title={post.title} />
@@ -64,7 +68,7 @@ const OnePost = async ({ postId }) => {
                     Informations sur le vendeur
                   </h1>
                   <p className="leading-relaxed">
-                    Nom : {user.firstName} {user.lastName}
+                    Nom : {user.first_name} {user.last_name}
                   </p>
                   <p className="leading-relaxed">Contact : {user.email}</p>
                   <p className="leading-relaxed">

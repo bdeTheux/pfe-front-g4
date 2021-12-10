@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { useAppContext } from "../../context/AppContext";
 
 const Connection = () => {
   const [email, setEmail] = useState("");
