@@ -23,12 +23,11 @@ const Connection = () => {
     if (res.status == 200) {
       console.log("token : ", data.token);
       localStorage.setItem("token", data.token);
-      router.push("https://localhost:3000/management/management"); //management/management
+      router.push("/management/management"); //management/management
     } else {
       return {
         redirect: {
-          destination:
-            "https://localhost:3000/connectionRegistration/connectionRegistration",
+          destination: "/connectionRegistration/connectionRegistration",
           permanent: false,
         },
       };
