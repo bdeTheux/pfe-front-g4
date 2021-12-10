@@ -11,7 +11,7 @@ export const getServerSideProps = async () => {
       "Content-Type": "application/json",
       Authorization: localStorage.getItem("token"),
     },
-  }); //("https://pfe-back-g4-prod.herokuapp.com/users/");
+  });
   const users = await res.json();
 
   return {
