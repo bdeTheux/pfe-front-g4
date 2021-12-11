@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+
 import { Tab } from "@headlessui/react";
 import Link from "next/link";
 import { PencilIcon } from "@heroicons/react/solid";
@@ -10,32 +10,16 @@ const Logout = () => {
   alert("TODO: Logout");
 };
 
-const currentUser = {
+const userTest = {
   first_name: "Samy",
   last_name: "Alliche",
   email: "samy.alliche@student.vinci.be",
   campus: "Woluwe",
 };
 
-const Profile = () => {
-  const [user, setUser] = useState();
-  useEffect(() => {
-    console.log("trii", localStorage.token);
-    fetch("https://pfe-back-g4-dev.herokuapp.com/users/whoami", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
-      },
-    })
-      .then((res) => {
-        console.log("profile", res)
-        return res.json();
-      })
-      .then((temp) => {
-        console.log(temp);
-        setUser(temp);
-      });
-  });
+const Profile = ({user}) => {
+  
+
   return (
     <Tab.Panel className="bg-white rounded-xl p-2 focus:outline-none ring-1 ring-offset-1 ring-offset-indigo-400 ring-white ring-opacity-60">
       <div className="absolute z-30 p-2 rounded-md md:right-36 lg:right-96">
@@ -58,7 +42,7 @@ const Profile = () => {
         <li className="relative p-2 rounded-md">
           <h3 className="text-sm font-medium text-xs font-black text-gray-600 leading-5">
             Prénom
-          </h3>
+         </h3>
           <p className="flex mt-1 space-x-1 font-normal leading-4 text-gray-700">
             {user.first_name}
           </p>

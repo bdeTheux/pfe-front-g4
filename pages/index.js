@@ -84,8 +84,8 @@ export const getServerSideProps = async () => {
   const res = await fetch("http://pfe-back-g4-dev.herokuapp.com/posts/");
 
   const posts = await res.json();
-  console.log(posts);
-  console.log(typeof posts);
+  console.log("index 1", posts);
+  console.log("index 2", typeof posts);
   if (posts.length > 4) posts.length = 4;
   return {
     props: {

@@ -2,8 +2,14 @@ import { Tab } from "@headlessui/react";
 import Head from "next/head";
 import Profile from "../components/Profile/Profile";
 import ProfileHistory from "../components/ProfileHistory/ProfileHistory";
+import { useState, useEffect } from "react";
 
-
+const currentUserTest = {
+  firstName: "Samy",
+  lastName: "Alliche",
+  email: "samy.alliche@student.vinci.be",
+  campus: "Woluwe",
+};
 const history = [
   {
     id: 1,
@@ -86,6 +92,23 @@ function classNames(...classes) {
 
 export default function profile() {
   
+  const [user, setUser] = useState([]);
+  
+  useEffect(() => {
+    fetch("https://pfe-back-g4-dev.herokuapp.com/users/whoami", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((temp) => {
+        setUser(temp);
+      });
+  },[]);
 
   return (
     <div className="mt-2 md:mt-28 md:px-10 mx-10 md:mx-20 lg:mx-80">
@@ -123,7 +146,7 @@ export default function profile() {
           </Tab>
         </Tab.List>
         <Tab.Panels className="mt-2">
-          <Profile />
+          <Profile user={user}/>
           <ProfileHistory historyItems={history} />
         </Tab.Panels>
       </Tab.Group>
