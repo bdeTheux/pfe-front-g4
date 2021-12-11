@@ -19,15 +19,12 @@ const OnePendingPost = ({ post }) => {
             src={post.image}
           />
         </td>
-        <td className="p-3">{post.category}</td>
+        <td className="p-3">{post.category_id}</td>
         <td className="p-3">{post.places}</td>
         <td className="p-3">nom prenom</td>
-        <td className="p-3">{post.postNature}</td>
-        <td className="p-3">{post.price}</td>
-        <td className="p-3">
-          <ButtonBan member={member} />
-          <ButtonBan member={member} />
-        </td>
+        <td className="p-3">{post.post_nature}</td>
+        <td className="p-3">{post.price}€</td>
+        <td className="p-3"></td>
       </tr>
     </>
   );

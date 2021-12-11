@@ -25,7 +25,7 @@ const PendingPosts = ({ posts }) => {
                 <NoPendingPost />
               ) : (
                 posts.map((post) => {
-                  return <OnePendingPost key={member._id} post={post} />;
+                  return <OnePendingPost key={post._id} post={post} />;
                 })
               )}
             </tbody>
