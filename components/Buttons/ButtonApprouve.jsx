@@ -5,7 +5,7 @@ const ButtonApprouve = ({ postId }) => {
   useEffect(() => {
     setToken(localStorage.token);
   });
-  const router = useRouter();
+  //const router = useRouter();
   const state = {
     state: "Approuvé",
   };
@@ -14,9 +14,10 @@ const ButtonApprouve = ({ postId }) => {
       method: "POST",
       body: JSON.stringify(state),
       headers: {
+        "Content-Type": "application/json",
         Authorization: token,
       },
-    }); //.then(() => router.reload(window.location.pathname));
+    }).then(() => router.reload(window.location.pathname));
   };
   return (
     <>

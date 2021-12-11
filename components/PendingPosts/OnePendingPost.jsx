@@ -25,8 +25,11 @@ const OnePendingPost = ({ post }) => {
         <td className="p-3">{post.post_nature}</td>
         <td className="p-3">{post.price}€</td>
         <td className="p-3">
-          <ButtonApprouve postId={post._id} />
-          <ButtonCloture postId={post._id} />
+          {post.state}
+          <div className="grid grid-cols-2 gap-2">
+            <ButtonApprouve postId={post._id} />
+            <ButtonCloture postId={post._id} />
+          </div>
         </td>
       </tr>
     </>

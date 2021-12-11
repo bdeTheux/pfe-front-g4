@@ -14,6 +14,7 @@ const ButtonCloture = () => {
       method: "POST",
       body: JSON.stringify(state),
       headers: {
+        "Content-Type": "application/json",
         Authorization: token,
       },
     }).then(() => router.reload(window.location.pathname));

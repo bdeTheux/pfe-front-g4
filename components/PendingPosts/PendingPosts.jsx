@@ -6,7 +6,7 @@ const PendingPosts = ({ posts }) => {
     <div className="flex items-center justify-center bg-white">
       <div className="col-span-12">
         <div className="overflow-auto lg:overflow-visible sm:rounded-lg">
-          <table className="border-separate space-y-6 text-sm">
+          <table className="border-separate space-y-6 text-sm table-auto">
             <thead className="bg-green-700">
               <tr>
                 <th className="p-3">Titre</th>
