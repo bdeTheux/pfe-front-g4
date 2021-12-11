@@ -1,11 +1,19 @@
 import { PencilIcon, TrashIcon } from "@heroicons/react/outline";
-
+import { useState, useEffect } from "react";
 
 const LiCategory = ({category}) => {
 
+  const [token, setToken] = useState("")
+
+  useEffect(() => {
+    setToken(localStorage.getItem('token'))
+})
   const handleDelete = async () => {
     const res = await fetch(`https://pfe-back-g4-dev.herokuapp.com/categories/${category.name}`, {
-      method : 'DELETE'
+      method : 'DELETE',
+      headers :{
+        Authorization : token,
+      }
     })
   }
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LiCategory from "../Category/LiCategory";
 import SelectCategories from "../Category/SelectCategories"
 
@@ -6,6 +6,12 @@ import SelectCategories from "../Category/SelectCategories"
 const CategoryPage = ({ categories }) => {
   const [categoryName, setCategoryName] = useState("");
   const [categoryParent, setCategoryParent] = useState("")
+  const [token, setToken] = useState("")
+
+  useEffect(() => {
+    setToken(localStorage.getItem('token'))
+})
+  
   let label = "Choisissez une catégorie Parente"
  
   const submitCategory = async () => {
@@ -20,7 +26,8 @@ const CategoryPage = ({ categories }) => {
         method: 'POST',
         body: JSON.stringify(newCategory),
         headers:{
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization : token
         }
     })
     console.log(newCategory)
