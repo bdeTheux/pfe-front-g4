@@ -1,9 +1,10 @@
 import Member from "../Member/Member";
-import Link from "next/link";
+import NoMember from "../Member/NoMember";
 
 const MembersList = ({ users }) => {
+  console.log(users);
   return (
-    <div className="flex items-center justify-center min-h-screen bg-white">
+    <div className="flex items-center justify-center bg-white">
       <div className="col-span-12">
         <div className="overflow-auto lg:overflow-visible sm:rounded-lg">
           <table className="border-separate space-y-6 text-sm">
@@ -16,9 +17,13 @@ const MembersList = ({ users }) => {
               </tr>
             </thead>
             <tbody>
-              {users.map((member) => (
-                <Member key={member.id} member={member} />
-              ))}
+              {users.length == 0 ? (
+                <NoMember />
+              ) : (
+                users.map((member) => {
+                  return <Member key={member._id} member={member} />;
+                })
+              )}
             </tbody>
           </table>
         </div>

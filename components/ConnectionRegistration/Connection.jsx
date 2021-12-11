@@ -1,4 +1,38 @@
+import { useState } from "react";
+import { useRouter } from "next/router";
+
 const Connection = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const onLogin = async () => {
+    const loginUser = {
+      email: email,
+      password: password,
+    };
+
+    const res = await fetch("https://pfe-back-g4-dev.herokuapp.com/login/", {
+      method: "POST",
+      body: JSON.stringify(loginUser),
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await res.json();
+    console.log("ici", data);
+    console.log(res.status);
+    if (res.status == 200) {
+      console.log("token : ", data.token);
+      localStorage.setItem("token", data.token);
+      router.push("/management/management"); //management/management
+    } else {
+      return {
+        redirect: {
+          destination: "/connectionRegistration/connectionRegistration",
+          permanent: false,
+        },
+      };
+    }
+  };
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -13,7 +47,7 @@ const Connection = () => {
               <div className="shadow-sm -space-y-px">
                 <div>
                   <label htmlFor="email-address-connection" className="sr-only">
-                    Adresse email ou pseudo
+                    Adresse email
                   </label>
                   <input
                     id="email-address-connection"
@@ -22,7 +56,8 @@ const Connection = () => {
                     autoComplete="email"
                     required
                     className="appearance-none rounded-t-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
-                    placeholder="Email ou pseudo"
+                    placeholder="Email"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div>
@@ -35,8 +70,9 @@ const Connection = () => {
                     type="password"
                     autoComplete="current-password"
                     required
-                    className="appearance-none rounded--b-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
+                    className="appearance-none rounded-b-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
                     placeholder="Password"
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
               </div>
@@ -65,8 +101,9 @@ const Connection = () => {
                   </a>
                 </div>
                 <button
-                  type="submit"
+                  type="button"
                   className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white focus:border-green-700 bg-green-800 hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700"
+                  onClick={onLogin}
                 >
                   Sign in
                 </button>

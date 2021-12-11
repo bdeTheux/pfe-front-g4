@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { LocationMarkerIcon } from "@heroicons/react/solid";
 import LocationBadges from "../LocationBadges/LocationBadges";
 
 /*
