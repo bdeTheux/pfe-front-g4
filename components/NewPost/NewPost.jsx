@@ -109,7 +109,7 @@ const NewPost = ({ categories }) => {
                       onChange={(val) => setPostNature(val.target.value)}
                       name="postNature"
                       type="radio"
-                      value="sell"
+                      value="A vendre"
                       required
                     />
                     <label> A donner: </label>
@@ -118,7 +118,7 @@ const NewPost = ({ categories }) => {
                       onChange={(val) => setPostNature(val.target.value)}
                       name="postNature"
                       type="radio"
-                      value="given"
+                      value="A donner"
                       required
                     />
                   </div>

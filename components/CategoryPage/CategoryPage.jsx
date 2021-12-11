@@ -42,7 +42,7 @@ const CategoryPage = ({ categories }) => {
   console.log(categoryName);
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex m-auto bg-gray-100">
       <div className="m-auto">
         <div>
           <p className="text-4xl font-light pt-16">Gestion</p>
@@ -111,7 +111,7 @@ const CategoryPage = ({ categories }) => {
               <div className="">
                 <div name="categories" required className="flex flex-col">
                   {categories.map(element => {
-                    return <LiCategory category={element} key={element.name} />;
+                    return <LiCategory categories={categories} category={element} key={element.name} />;
                   })}
                 </div>
               </div>
