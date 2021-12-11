@@ -1,11 +1,16 @@
 import Meta from "../../components/Meta/Meta";
 import { useState, useEffect } from "react";
 import ButtonMailTo from "../ButtonMailTo/ButtonMailTo";
+import dynamic from "next/dynamic";
 
 const OnePost = ({ postId }) => {
   const [post, setPost] = useState([]);
   const [user, setUser] = useState([]);
   const [token, setToken] = useState([]);
+  const Map = dynamic(() => import("../Map/Map"), {
+    loading: () => "Loading...",
+    ssr: false,
+  });
   useEffect(() => {
     fetch(`https://pfe-back-g4-dev.herokuapp.com/posts/${postId}`).then(
       (res) => {
@@ -31,6 +36,7 @@ const OnePost = ({ postId }) => {
   }, []);
 
   console.log(token);
+
   return (
     <div>
       <Meta title={post.title} />
@@ -76,10 +82,15 @@ const OnePost = ({ postId }) => {
                   </p>
                   <p className="leading-relaxed">Contact : {user.email}</p>
                   <p className="leading-relaxed">
-                    Possibles lieux d'échange : {post.places}
+                    Possibles lieux d'échange : {post.address_id || post.places}
                   </p>
-                  <p>petite carte</p>
-                  <ButtonMailTo mailto={user.email} title={post.title} />
+                  <div className="mb-1">
+                    <ButtonMailTo mailto={user.email} title={post.title} />
+                  </div>
+                  <div className="mb-5">
+                    <p> </p>
+                  </div>
+                  <Map />
                 </div>
               </div>
             </div>
