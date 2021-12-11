@@ -11,8 +11,16 @@ const postsTest = [
     image:
       "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80",
     price: 25,
-    campus: "Woluwe",
-  },
+    places:[
+      {
+        campus: "Woluwe",
+      },
+      {
+        campus: "Louvain-La-Neuve",
+      }
+    ]
+    },
+  /*
   {
     id: 2,
     title: "Bomber Jacket",
@@ -69,13 +77,26 @@ const postsTest = [
     price: 10,
     campus: "Ixelles",
   },
+  */
 ];
 
-//limit the posts to a length of 3
-const posts = postsTest;
-posts.length = 4;
+export const getServerSideProps = async () => {
+  const res = await fetch("http://pfe-back-g4-dev.herokuapp.com/posts/");
 
-export default function Home() {
+  const posts = await res.json();
+  console.log(posts);
+  console.log(typeof posts);
+  if (posts.length > 4) posts.length = 4;
+  return {
+    props: {
+      posts,
+    },
+  };
+};
+
+//limit the posts to a length of 3
+
+export default function Home({ posts }) {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 md:py-6">
       <Head>

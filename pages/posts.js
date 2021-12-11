@@ -1,124 +1,146 @@
-import { Fragment, useState } from 'react'
-import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
-import { XIcon } from '@heroicons/react/outline'
-import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon } from '@heroicons/react/solid'
-import PostsList from '../components/PostsList/PostsList'
+import { Fragment, useState } from "react";
+import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
+import { XIcon } from "@heroicons/react/outline";
+import {
+  ChevronDownIcon,
+  FilterIcon,
+  MinusSmIcon,
+  PlusSmIcon,
+} from "@heroicons/react/solid";
+import PostsList from "../components/PostsList/PostsList";
 
 const sortOptions = [
-  { name: 'Plus Populaire', href: '#', current: true },
-  { name: 'Nouveau', href: '#', current: false },
-  { name: 'Prix croissant', href: '#', current: false },
-  { name: 'Price décroissant', href: '#', current: false },
-]
+  { name: "Plus Populaire", href: "#", current: true },
+  { name: "Nouveau", href: "#", current: false },
+  { name: "Prix croissant", href: "#", current: false },
+  { name: "Price décroissant", href: "#", current: false },
+];
 const subCategories = [
-  { name: 'Vêtements Homme', href: '#' },
-  { name: 'Vêtements Femme', href: '#' },
-  { name: 'Accessoires', href: '#' },
-  { name: 'Meubles', href: '#' },
-  { name: 'Electromenager', href: '#' },
-]
+  { name: "Vêtements Homme", href: "#" },
+  { name: "Vêtements Femme", href: "#" },
+  { name: "Accessoires", href: "#" },
+  { name: "Meubles", href: "#" },
+  { name: "Electromenager", href: "#" },
+];
 const filters = [
   {
-    id: 'category',
-    name: 'Categorie',
+    id: "category",
+    name: "Categorie",
     options: [
-      { value: 'TRUC', label: 'TRUC', checked: false },
-      { value: 'MACHIN', label: 'MACHIN', checked: false },
-      { value: 'TRUCC', label: 'TRUCC', checked: true },
+      { value: "TRUC", label: "TRUC", checked: false },
+      { value: "MACHIN", label: "MACHIN", checked: false },
+      { value: "TRUCC", label: "TRUCC", checked: true },
     ],
   },
   {
-    id: 'size',
-    name: 'Taille',
+    id: "size",
+    name: "Taille",
     options: [
-      { value: 'S', label: 'S', checked: false },
-      { value: 'M', label: 'M', checked: false },
-      { value: 'L', label: 'L', checked: false },
-      { value: 'XL', label: 'XL', checked: false },
-      { value: 'XXL', label: 'XXL', checked: false },
+      { value: "S", label: "S", checked: false },
+      { value: "M", label: "M", checked: false },
+      { value: "L", label: "L", checked: false },
+      { value: "XL", label: "XL", checked: false },
+      { value: "XXL", label: "XXL", checked: false },
     ],
   },
-]
+];
 
 const postsTest = [
-    {
-      id: 1,
-      title: "Pull",
-      image:
-        "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80",
-      price: 25,
-      campus: "Woluwe",
+  {
+    id: 1,
+    title: "Pull",
+    image:
+      "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80",
+    price: 25,
+    campus: "Woluwe",
+  },
+  {
+    id: 2,
+    title: "Bomber Jacket",
+    image:
+      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=736&q=80",
+    price: 35,
+    campus: "Woluwe",
+  },
+  {
+    id: 3,
+    title: "Chaussure Nike",
+    image:
+      "https://images.unsplash.com/photo-1615424902876-df124220b0b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80",
+    price: 15,
+    campus: "Louvain-La-Neuve",
+  },
+  {
+    id: 4,
+    title: "Denim dress",
+    image:
+      "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    price: 10,
+    campus: "Ixelles",
+  },
+  {
+    id: 5,
+    title: "Pull",
+    image:
+      "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80",
+    price: 25,
+    campus: "Woluwe",
+  },
+  {
+    id: 6,
+    title: "Bomber Jacket",
+    image:
+      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=736&q=80",
+    price: 35,
+    campus: "Woluwe",
+  },
+  {
+    id: 7,
+    title: "Chaussure Nike",
+    image:
+      "https://images.unsplash.com/photo-1615424902876-df124220b0b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80",
+    price: 15,
+    campus: "Louvain-La-Neuve",
+  },
+  {
+    id: 8,
+    title: "Denim dress",
+    image:
+      "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    price: 10,
+    campus: "Ixelles",
+  },
+];
+
+export const getServerSideProps = async () => {
+  const res = await fetch("http://pfe-back-g4-dev.herokuapp.com/posts/");
+
+  const posts = await res.json();
+  console.log(posts);
+  console.log(typeof posts);
+  return {
+    props: {
+      posts,
     },
-    {
-      id: 2,
-      title: "Bomber Jacket",
-      image:
-        "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=736&q=80",
-      price: 35,
-      campus: "Woluwe",
-    },
-    {
-      id: 3,
-      title: "Chaussure Nike",
-      image:
-        "https://images.unsplash.com/photo-1615424902876-df124220b0b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80",
-      price: 15,
-      campus: "Louvain-La-Neuve",
-    },
-    {
-      id: 4,
-      title: "Denim dress",
-      image:
-        "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-      price: 10,
-      campus: "Ixelles",
-    },
-    {
-        id: 5,
-        title: "Pull",
-        image:
-          "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80",
-        price: 25,
-        campus: "Woluwe",
-      },
-      {
-        id: 6,
-        title: "Bomber Jacket",
-        image:
-          "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=736&q=80",
-        price: 35,
-        campus: "Woluwe",
-      },
-      {
-        id: 7,
-        title: "Chaussure Nike",
-        image:
-          "https://images.unsplash.com/photo-1615424902876-df124220b0b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80",
-        price: 15,
-        campus: "Louvain-La-Neuve",
-      },
-      {
-        id: 8,
-        title: "Denim dress",
-        image:
-          "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-        price: 10,
-        campus: "Ixelles",
-      },
-  ];
+  };
+};
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
-export default function posts() {
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+export default function posts({posts}) {
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   return (
     <div className="bg-white md:mt-5">
       <div>
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
-          <Dialog as="div" className="fixed inset-0 flex z-40 lg:hidden" onClose={setMobileFiltersOpen}>
+          <Dialog
+            as="div"
+            className="fixed inset-0 flex z-40 lg:hidden"
+            onClose={setMobileFiltersOpen}
+          >
             <Transition.Child
               as={Fragment}
               enter="transition-opacity ease-linear duration-300"
@@ -156,7 +178,10 @@ export default function posts() {
                 {/* Filters */}
                 <form className="mt-4 border-t border-gray-200">
                   <h3 className="sr-only">Categories</h3>
-                  <ul role="list" className="font-medium text-gray-900 px-2 py-3">
+                  <ul
+                    role="list"
+                    className="font-medium text-gray-900 px-2 py-3"
+                  >
                     {subCategories.map((category) => (
                       <li key={category.name}>
                         <a href={category.href} className="block px-2 py-3">
@@ -167,17 +192,29 @@ export default function posts() {
                   </ul>
 
                   {filters.map((section) => (
-                    <Disclosure as="div" key={section.id} className="border-t border-gray-200 px-4 py-6">
+                    <Disclosure
+                      as="div"
+                      key={section.id}
+                      className="border-t border-gray-200 px-4 py-6"
+                    >
                       {({ open }) => (
                         <>
                           <h3 className="-mx-2 -my-3 flow-root">
                             <Disclosure.Button className="px-2 py-3 bg-white w-full flex items-center justify-between text-gray-400 hover:text-gray-200">
-                              <span className="font-medium text-gray-900">{section.name}</span>
+                              <span className="font-medium text-gray-900">
+                                {section.name}
+                              </span>
                               <span className="ml-6 flex items-center">
                                 {open ? (
-                                  <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
+                                  <MinusSmIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
                                 ) : (
-                                  <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
+                                  <PlusSmIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
                                 )}
                               </span>
                             </Disclosure.Button>
@@ -185,7 +222,10 @@ export default function posts() {
                           <Disclosure.Panel className="pt-6">
                             <div className="space-y-6">
                               {section.options.map((option, optionIdx) => (
-                                <div key={option.value} className="flex items-center">
+                                <div
+                                  key={option.value}
+                                  className="flex items-center"
+                                >
                                   <input
                                     id={`filter-mobile-${section.id}-${optionIdx}`}
                                     name={`${section.id}[]`}
@@ -216,9 +256,11 @@ export default function posts() {
 
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative z-10 flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200">
-            <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">Les annonces</h1>
+            <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">
+              Les annonces
+            </h1>
 
-            <div className="flex items-center">
+            <div className="flex items-center z-50">
               <Menu as="div" className="relative inline-block text-left">
                 <div>
                   <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
@@ -239,17 +281,19 @@ export default function posts() {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <div className="py-1">
+                  <Menu.Items className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ">
+                    <div className="py-1 ">
                       {sortOptions.map((option) => (
                         <Menu.Item key={option.name}>
                           {({ active }) => (
                             <a
                               href={option.href}
                               className={classNames(
-                                option.current ? 'font-medium text-gray-900' : 'text-gray-500',
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm'
+                                option.current
+                                  ? "font-medium text-gray-900"
+                                  : "text-gray-500",
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm"
                               )}
                             >
                               {option.name}
@@ -281,7 +325,10 @@ export default function posts() {
               {/* Filters */}
               <form className="hidden lg:block">
                 <h3 className="sr-only">Categories</h3>
-                <ul role="list" className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
+                <ul
+                  role="list"
+                  className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200"
+                >
                   {subCategories.map((category) => (
                     <li key={category.name}>
                       <a href={category.href}>{category.name}</a>
@@ -290,17 +337,29 @@ export default function posts() {
                 </ul>
 
                 {filters.map((section) => (
-                  <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
+                  <Disclosure
+                    as="div"
+                    key={section.id}
+                    className="border-b border-gray-200 py-6"
+                  >
                     {({ open }) => (
                       <>
                         <h3 className="-my-3 flow-root">
                           <Disclosure.Button className="py-3 bg-white w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500 hover:bg-gray-200 transition duration-500 ease-in-out p-3 rounded-lg">
-                            <span className="font-medium text-gray-900">{section.name}</span>
+                            <span className="font-medium text-gray-900">
+                              {section.name}
+                            </span>
                             <span className="ml-6 flex items-center">
                               {open ? (
-                                <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
+                                <MinusSmIcon
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
                               ) : (
-                                <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
+                                <PlusSmIcon
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
                               )}
                             </span>
                           </Disclosure.Button>
@@ -308,7 +367,10 @@ export default function posts() {
                         <Disclosure.Panel className="pt-6">
                           <div className="space-y-4">
                             {section.options.map((option, optionIdx) => (
-                              <div key={option.value} className="flex items-center">
+                              <div
+                                key={option.value}
+                                className="flex items-center"
+                              >
                                 <input
                                   id={`filter-${section.id}-${optionIdx}`}
                                   name={`${section.id}[]`}
@@ -334,14 +396,12 @@ export default function posts() {
               </form>
 
               <div className="lg:col-span-3">
-              <PostsList posts={postsTest} />
-                
+                <PostsList posts={posts} />
               </div>
             </div>
           </section>
         </main>
       </div>
     </div>
-  )
+  );
 }
-
