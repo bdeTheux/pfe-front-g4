@@ -1,5 +1,5 @@
-import ButtonBan from "../ButtonBan/ButtonBan";
-import Image from "next/image";
+import ButtonApprouve from "../Buttons/ButtonApprouve";
+import ButtonCloture from "../Buttons/ButtonCloture";
 const OnePendingPost = ({ post }) => {
   return (
     <>
@@ -20,11 +20,14 @@ const OnePendingPost = ({ post }) => {
           />
         </td>
         <td className="p-3">{post.category_id}</td>
-        <td className="p-3">{post.places}</td>
+        <td className="p-3">{post.address_id || post.places.join(", ")}</td>
         <td className="p-3">nom prenom</td>
         <td className="p-3">{post.post_nature}</td>
         <td className="p-3">{post.price}€</td>
-        <td className="p-3"></td>
+        <td className="p-3">
+          <ButtonApprouve postId={post._id} />
+          <ButtonCloture postId={post._id} />
+        </td>
       </tr>
     </>
   );
