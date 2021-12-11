@@ -119,9 +119,9 @@ const CategoryPage = ({ categories }) => {
           </div>
         </div>
         <p className="text-4xl text-center font-light pt-16">
-          Votre annonce sera soumise à un modérateur.
+          
           <br />
-          Vous en serez notifié !
+          
         </p>
       </div>
     </div>

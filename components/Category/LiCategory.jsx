@@ -21,6 +21,7 @@ const LiCategory = ({ categories, category }) => {
     );
   };
   const handleUpdate = () => {
+
     const updatedCategory = {
       name: categoryName,
       parent: categoryParent,
@@ -44,6 +45,9 @@ const LiCategory = ({ categories, category }) => {
       })
       .then((temp) => console.log(temp));
   };
+  var handleChange = function(event){
+    this.setState({html: event.target.value});
+}.bind(this);
 
   return (
     <div
@@ -53,22 +57,8 @@ const LiCategory = ({ categories, category }) => {
       <form method="POST">
         <div className="flex-row">
           <input type="hidden" name="_method" value="put" />
-          <input
-            value={categoryName}
-            onChange={(val) => setCategoryName(val.target.value)}
-            name="categoryName"
-            type="text"
-            placeholder={category.name}
-            className=" text-black placeholder-gray-800 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-          />
-          <input
-            value={categoryParent}
-            onChange={(val) => setCategoryParent(val.target.value)}
-            name="categoryParent"
-            type="text"
-            placeholder={category.parent}
-            className=" text-black placeholder-gray-800 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-          />
+          <p>Nom de la categorie</p><textarea name="categoryName" defaultValue={category.name}  onChange={(val) => setCategoryName(val.target.value)} className=" text-black placeholder-gray-800 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"></textarea>
+          <p>Nom de la categorie parente</p><textarea name="categoryParent" defaultValue={category.parent}  onChange={(val) => setCategoryParent(val.target.value)} className=" text-black placeholder-gray-800 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"></textarea>
         </div>
 
         <div className="flex-initial pl-3 mt-2">
