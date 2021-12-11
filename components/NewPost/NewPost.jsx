@@ -24,18 +24,18 @@ const NewPost = ({ categories }) => {
       post_nature: postNature,
       price: price,
       places: campus,
-      seller_id: 1
     };
 
-    
+    console.log(newPostSubmit)
     
       fetch(`https://pfe-back-g4-dev.herokuapp.com/posts/`, {
         method: "POST",
-        body: JSON.stringify(newPostSubmit),
         headers: {
           "Content-Type": "application/json",
           Authorization: token,
         },
+        body: JSON.stringify(newPostSubmit),
+        
       }).then((res) => console.log(res.json()));
       
         
@@ -167,7 +167,7 @@ const NewPost = ({ categories }) => {
                   />
                   <label> Louvain-la-Neuve </label>
                   <input
-                    value="LLN"
+                    value="Louvain-la-Neuve"
                     onChange={handleCampus}
                     name="postNature"
                     type="checkbox"
