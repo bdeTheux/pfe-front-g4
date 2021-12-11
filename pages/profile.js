@@ -1,15 +1,9 @@
-import { useState } from "react";
 import { Tab } from "@headlessui/react";
 import Head from "next/head";
-import Profile from "../components/Profile/Profile"
+import Profile from "../components/Profile/Profile";
 import ProfileHistory from "../components/ProfileHistory/ProfileHistory";
 
-const currentUserTest = {
-  firstName: "Samy",
-  lastName: "Alliche",
-  email: "samy.alliche@student.vinci.be",
-  campus: "Woluwe",
-};
+
 const history = [
   {
     id: 1,
@@ -85,11 +79,14 @@ const history = [
   },
 ];
 
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function profile() {
+  
+
   return (
     <div className="mt-2 md:mt-28 md:px-10 mx-10 md:mx-20 lg:mx-80">
       <Head>
@@ -126,8 +123,8 @@ export default function profile() {
           </Tab>
         </Tab.List>
         <Tab.Panels className="mt-2">
-          <Profile currentUser={currentUserTest}/>
-          <ProfileHistory historyItems={history}/>
+          <Profile />
+          <ProfileHistory historyItems={history} />
         </Tab.Panels>
       </Tab.Group>
     </div>
