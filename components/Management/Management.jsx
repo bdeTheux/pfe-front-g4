@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const Management = () => {
   const [users, setUsers] = useState([]);
   const [pendingPosts, setPendingPosts] = useState([]);
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
   useEffect(() => {
     fetch("/api/users/", {
       headers: {
@@ -33,11 +33,11 @@ const Management = () => {
       .then((temp2) => {
         setPendingPosts(temp2);
       });
-      fetch("https://pfe-back-g4-dev.herokuapp.com/categories/",{
-        headers: {
-          "Content-Type": "application.json",
-        },
-      })
+    fetch("/api/categories/", {
+      headers: {
+        "Content-Type": "application.json",
+      },
+    })
       .then((res3) => {
         return res3.json();
       })
@@ -119,7 +119,7 @@ const Management = () => {
                 "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-green-400 ring-white ring-opacity-60"
               )}
             >
-              <CategoryPage categories={categories}/>
+              <CategoryPage categories={categories} />
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>

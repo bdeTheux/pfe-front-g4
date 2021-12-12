@@ -28,7 +28,7 @@ const NewPost = ({ categories }) => {
 
     console.log(newPostSubmit)
     
-      fetch(`https://pfe-back-g4-dev.herokuapp.com/posts/`, {
+      fetch(`/api/posts/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

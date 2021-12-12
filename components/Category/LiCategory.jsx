@@ -14,7 +14,7 @@ const LiCategory = ({ categories, category }) => {
   const handleDelete = async () => {
     console.log(category.name)
     const res = await fetch(
-      `https://pfe-back-g4-dev.herokuapp.com/categories/${category.name}`,
+      `/api/categories/${category.name}`,
       {
         method: "DELETE",
         headers: {
@@ -37,7 +37,7 @@ const LiCategory = ({ categories, category }) => {
     console
     console.log(updatedCategory)
     
-    fetch(`https://pfe-back-g4-dev.herokuapp.com/categories/${category.name}`, {
+    fetch(`/api/categories/${category.name}`, {
       method: "Put",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +65,7 @@ const LiCategory = ({ categories, category }) => {
         <div className="flex-row">
           <input type="hidden" name="_method" value="put" />
           <p>Nom de la categorie</p><textarea name="categoryName" defaultValue={category.name}  onChange={(val) => setCategoryName(val.target.value)} className=" text-black placeholder-gray-800 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"></textarea>
-          <SelectCategories categories={categories} setCategory={setCategoryParent} label={category.parent}/>
+          <p>Categorie parente</p><SelectCategories categories={categories} setCategory={setCategoryParent} label={category.parent}/>
 
         </div>
 
