@@ -25,7 +25,7 @@ const Registration = () => {
     const data = await res.json();
     if (res.status == 201) {
       localStorage.setItem("token", data.token);
-      router.push("/posts/posts");
+      router.push("/");
     } else {
       return {
         redirect: {
