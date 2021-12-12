@@ -1,4 +1,4 @@
-import Management from "../../components/Management/Management";
+import Management from "../components/Management/Management";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -23,7 +23,7 @@ export default function management() {
   }, []);
 
   if(user === null){
-    router.push('/connectionRegistration/connectionRegistration')
+    router.push('/connectionRegistration')
     return <></>
   }
 

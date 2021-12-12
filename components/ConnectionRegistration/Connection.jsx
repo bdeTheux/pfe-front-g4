@@ -28,7 +28,7 @@ const Connection = () => {
     } else {
       return {
         redirect: {
-          destination: "/connectionRegistration/",
+          destination: "/connectionRegistration",
           permanent: false,
         },
       };

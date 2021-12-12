@@ -120,7 +120,7 @@ const NavbarAdmin = () => {
                   Publier une annonce
                 </a>
               </Link>
-              <Link href="/management/management">
+              <Link href="/management">
                 <a
                   className="
             flex
@@ -244,7 +244,7 @@ const NavbarAdmin = () => {
                 Publier une annonce
               </a>
             </Link>
-            <Link href="/management/management">
+            <Link href="/management">
               <a
                 className="
             flex

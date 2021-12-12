@@ -114,7 +114,7 @@ export default function profile() {
   },[]);
 
   if(user === null){
-    router.push('/connectionRegistration/connectionRegistration')
+    router.push('/connectionRegistration')
     return <></>
   }
 
