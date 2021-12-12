@@ -1,7 +1,9 @@
-import { MenuIcon, SearchIcon } from "@heroicons/react/outline";
+import { KeyIcon, MenuIcon, SearchIcon } from "@heroicons/react/outline";
+import { UserCircleIcon } from "@heroicons/react/solid";
+
 import Link from "next/link";
 
-const Navbar = () => {
+const NavbarAdmin = () => {
   return (
     <header
       className="
@@ -51,11 +53,6 @@ const Navbar = () => {
           lg:items-center
         "
           >
-            <Link href="/">
-              <a className="text-gray-500 dark:text-gray-200 hover:text-gray-800">
-                Something
-              </a>
-            </Link>
             <div className="relative hidden lg:block">
               <div>
                 <button
@@ -97,12 +94,13 @@ const Navbar = () => {
                 type="submit"
                 className="absolute right-0 top-0 mt-5 mr-4"
               >
-                <SearchIcon className="text-gray-600 h-5 w-5"/>
+                <SearchIcon className="text-gray-600 h-5 w-5" />
               </button>
             </form>
-            <Link href="/newPost">
-              <a
-                className="
+            <div className="inline-grid grid-cols-4">
+              <Link href="/newPost">
+                <a
+                  className="
             flex
             items-center
             justify-center
@@ -115,36 +113,61 @@ const Navbar = () => {
             lg:h-10
             bg-green-500
             hover:bg-green-300
+            col-span-2
+            mr-2
           "
-              >
-                Publier une annonce
-              </a>
-            </Link>
-            <Link href="/connectionRegistration">
-              <a
-                className="
+                >
+                  Publier une annonce
+                </a>
+              </Link>
+              <Link href="/management">
+                <a
+                  className="
             flex
             items-center
             justify-center
             h-12
             px-4
-            mt-2
             text-sm text-center text-gray-600
             transition-colors
             duration-200
             transform
-            border
-            rounded-lg
+            bg-yellow-500
+            rounded-md
             lg:h-10
-            dark:text-gray-300 dark:border-gray-300
-            hover:bg-gray-100
+            hover:bg-yellow-300
+            dark:hover:bg-yellow-700
+            focus:outline-none
+            mr-2
+          "
+                >
+                  <KeyIcon className="h-8 w-8 text-white" />
+                </a>
+              </Link>
+              <Link href="/profile">
+                <a
+                  className="
+            flex
+            items-center
+            justify-center
+            h-12
+            px-4
+            text-sm text-center text-gray-600
+            transition-colors
+            duration-200
+            transform
+            rounded-md
+            border
+            lg:h-10
+            hover:bg-gray-200
             dark:hover:bg-gray-700
             focus:outline-none
           "
-              >
-                Inscription/Connexion
-              </a>
-            </Link>
+                >
+                  <UserCircleIcon className="h-10 w-10 text-gray-600 mr-2" />
+                </a>
+              </Link>
+            </div>
           </div>
         </div>
         <div
@@ -196,7 +219,7 @@ const Navbar = () => {
                 type="submit"
                 className="absolute right-0 top-0 mt-5 mr-4"
               >
-                <SearchIcon className="text-gray-600 h-4 w-4"/>
+                <SearchIcon className="text-gray-600 h-4 w-4" />
               </button>
             </div>
             <Link href="/newPost">
@@ -214,12 +237,14 @@ const Navbar = () => {
             lg:h-10
             bg-green-500
             hover:bg-green-300
+            col-span-2
+            mr-2
           "
               >
                 Publier une annonce
               </a>
             </Link>
-            <Link href="/connectionRegistration">
+            <Link href="/management">
               <a
                 className="
             flex
@@ -231,16 +256,38 @@ const Navbar = () => {
             transition-colors
             duration-200
             transform
-            border
+            bg-yellow-500
             rounded-md
             lg:h-10
-            dark:text-gray-300 dark:border-gray-300
-            hover:bg-gray-100
+            hover:bg-yellow-300
+            dark:hover:bg-yellow-700
+            focus:outline-none
+            mr-2
+          "
+              >
+                <KeyIcon className="h-7 w-7 text-white" />
+              </a>
+            </Link>
+            <Link href="/profile">
+              <a
+                className="
+            flex
+            items-center
+            justify-center
+            h-12
+            px-4
+            text-sm text-center text-gray-600
+            transition-colors
+            duration-200
+            transform
+            rounded-md
+            lg:h-10
+            hover:bg-gray-200
             dark:hover:bg-gray-700
             focus:outline-none
           "
               >
-                S'inscrire / Se connecter
+                <UserCircleIcon className="h-10 w-10 text-gray-600" />
               </a>
             </Link>
           </div>
@@ -250,4 +297,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarAdmin;

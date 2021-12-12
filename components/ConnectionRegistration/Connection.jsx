@@ -20,11 +20,15 @@ const Connection = () => {
     const data = await res.json();
     if (res.status == 200) {
       localStorage.setItem("token", data.token);
-      router.push("/");
+      router.push("/"); //management/management
+      setTimeout(() =>{
+        router.reload();
+      }, 500)
+      
     } else {
       return {
         redirect: {
-          destination: "/connectionRegistration/",
+          destination: "/connectionRegistration",
           permanent: false,
         },
       };

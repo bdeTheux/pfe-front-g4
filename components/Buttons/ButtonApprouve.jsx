@@ -5,7 +5,7 @@ const ButtonApprouve = ({ postId }) => {
   useEffect(() => {
     setToken(localStorage.token);
   });
-  //const router = useRouter();
+  const router = useRouter();
   const state = {
     state: "Approuvé",
   };

@@ -1,6 +1,8 @@
+const { urlObjectKeys } = require('next/dist/shared/lib/utils');
+
 module.exports = {
-  mode: "jit",
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
+  mode: 'jit',
+  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
@@ -14,5 +16,8 @@ module.exports = {
   "editor.quickSuggestions": {
     strings: true,
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+    require("@tailwindcss/forms"),
+  ],
 };
