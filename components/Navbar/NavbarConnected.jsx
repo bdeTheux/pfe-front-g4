@@ -1,7 +1,8 @@
 import { MenuIcon, SearchIcon } from "@heroicons/react/outline";
+import { UserCircleIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 
-const Navbar = () => {
+const NavbarConnected = () => {
   return (
     <header
       className="
@@ -51,11 +52,6 @@ const Navbar = () => {
           lg:items-center
         "
           >
-            <Link href="/">
-              <a className="text-gray-500 dark:text-gray-200 hover:text-gray-800">
-                Something
-              </a>
-            </Link>
             <div className="relative hidden lg:block">
               <div>
                 <button
@@ -97,9 +93,10 @@ const Navbar = () => {
                 type="submit"
                 className="absolute right-0 top-0 mt-5 mr-4"
               >
-                <SearchIcon className="text-gray-600 h-5 w-5"/>
+                <SearchIcon className="text-gray-600 h-5 w-5" />
               </button>
             </form>
+            <div className="inline-grid grid-cols-4">
             <Link href="/newPost">
               <a
                 className="
@@ -115,12 +112,14 @@ const Navbar = () => {
             lg:h-10
             bg-green-500
             hover:bg-green-300
+            col-span-3
+            mr-2
           "
               >
                 Publier une annonce
               </a>
             </Link>
-            <Link href="/connectionRegistration">
+            <Link href="/profile">
               <a
                 className="
             flex
@@ -128,23 +127,23 @@ const Navbar = () => {
             justify-center
             h-12
             px-4
-            mt-2
             text-sm text-center text-gray-600
             transition-colors
             duration-200
             transform
-            border
-            rounded-lg
+            rounded-md
             lg:h-10
-            dark:text-gray-300 dark:border-gray-300
-            hover:bg-gray-100
+            hover:bg-gray-200
             dark:hover:bg-gray-700
             focus:outline-none
           "
               >
-                Inscription/Connexion
+                <UserCircleIcon className="h-10 w-10 text-gray-600 mr-2" />
+                Profile
               </a>
             </Link>
+            </div>
+            
           </div>
         </div>
         <div
@@ -196,30 +195,10 @@ const Navbar = () => {
                 type="submit"
                 className="absolute right-0 top-0 mt-5 mr-4"
               >
-                <SearchIcon className="text-gray-600 h-4 w-4"/>
+                <SearchIcon className="text-gray-600 h-4 w-4" />
               </button>
             </div>
-            <Link href="/newPost">
-              <a
-                className="
-            flex
-            items-center
-            justify-center
-            h-12
-            px-4
-            text-sm
-            font-semibold
-            text-center text-white
-            rounded-md
-            lg:h-10
-            bg-green-500
-            hover:bg-green-300
-          "
-              >
-                Publier une annonce
-              </a>
-            </Link>
-            <Link href="/connectionRegistration">
+            <Link href="/profile">
               <a
                 className="
             flex
@@ -231,16 +210,14 @@ const Navbar = () => {
             transition-colors
             duration-200
             transform
-            border
             rounded-md
             lg:h-10
-            dark:text-gray-300 dark:border-gray-300
-            hover:bg-gray-100
+            hover:bg-gray-200
             dark:hover:bg-gray-700
             focus:outline-none
           "
               >
-                S'inscrire / Se connecter
+                <UserCircleIcon className="h-10 w-10 text-gray-600" />
               </a>
             </Link>
           </div>
@@ -250,4 +227,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarConnected;
