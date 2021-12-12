@@ -1,43 +1,40 @@
 import { useState, useEffect } from "react";
 import LiCategory from "../Category/LiCategory";
-import SelectCategories from "../Category/SelectCategories"
-
+import SelectCategories from "../Category/SelectCategories";
 
 const CategoryPage = ({ categories }) => {
   const [categoryName, setCategoryName] = useState("");
-  const [categoryParent, setCategoryParent] = useState("")
-  const [token, setToken] = useState("")
+  const [categoryParent, setCategoryParent] = useState("");
+  const [token, setToken] = useState("");
 
   useEffect(() => {
-    setToken(localStorage.getItem('token'))
-})
-  
-  let label = "Choisissez une catégorie Parente"
- 
+    setToken(localStorage.getItem("token"));
+  });
+
+  let label = "Choisissez une catégorie Parente";
+
   const submitCategory = async () => {
-        
     let newCategory = {
-        "name" : categoryName,
-        "parent" : categoryParent,
-        "sub_categories" : [],        
-    }
-    console.log("before fetch " + JSON.stringify(newCategory))
-    const res = await fetch(`https://pfe-back-g4-dev.herokuapp.com/categories/`, {
-        method: 'POST',
+      name: categoryName,
+      parent: categoryParent,
+      sub_categories: [],
+    };
+    console.log("before fetch " + JSON.stringify(newCategory));
+    const res = await fetch(
+      `https://pfe-back-g4-dev.herokuapp.com/categories/`,
+      {
+        method: "POST",
         body: JSON.stringify(newCategory),
-        headers:{
-            'Content-Type': 'application/json',
-            Authorization : token
-        }
-    })
-    console.log(newCategory)
-    const data = await res.json()
-    console.log(data)
-}
-
-
-
-
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      }
+    );
+    console.log(newCategory);
+    const data = await res.json();
+    console.log(data);
+  };
 
   console.log(categoryName);
 
@@ -69,7 +66,11 @@ const CategoryPage = ({ categories }) => {
                     />
                   </div>
                   <div className="flex-grow w-1/4 pr-2">
-                  <SelectCategories categories={categories} setCategory={setCategoryParent} label={label}/>
+                    <SelectCategories
+                      categories={categories}
+                      setCategory={setCategoryParent}
+                      label={label}
+                    />
                   </div>
 
                   <hr className="mt-4" />
@@ -110,8 +111,14 @@ const CategoryPage = ({ categories }) => {
 
               <div className="">
                 <div name="categories" required className="flex flex-col">
-                  {categories.map(element => {
-                    return <LiCategory categories={categories} category={element} key={element.name} />;
+                  {categories.map((element) => {
+                    return (
+                      <LiCategory
+                        categories={categories}
+                        category={element}
+                        key={element.name}
+                      />
+                    );
                   })}
                 </div>
               </div>
@@ -119,9 +126,7 @@ const CategoryPage = ({ categories }) => {
           </div>
         </div>
         <p className="text-4xl text-center font-light pt-16">
-          
           <br />
-          
         </p>
       </div>
     </div>

@@ -6,44 +6,41 @@ const LiCategory = ({ categories, category }) => {
   const [token, setToken] = useState("");
   const [categoryName, setCategoryName] = useState("");
   const [categoryParent, setCategoryParent] = useState("");
-  const label = "categorie parente"
+  const label = "categorie parente";
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
   });
   const handleDelete = async () => {
-    console.log(category.name)
-    const res = await fetch(
-      `/api/categories/${category.name}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+    console.log(category.name);
+    const res = await fetch(`/api/categories/${category.name}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: token,
+      },
+    });
   };
   const handleUpdate = () => {
-    if(categoryName === "") categoryName = category.name
-   
-    if(categoryParent === ""){
-      categoryParent = category.parent
+    if (categoryName === "") categoryName = category.name;
+
+    if (categoryParent === "") {
+      categoryParent = category.parent;
     }
     const updatedCategory = {
       name: categoryName,
       parent: categoryParent,
       sub_categories: category.sub_categories,
     };
-    console
-    console.log(updatedCategory)
-    
+    console;
+    console.log(updatedCategory);
+
     fetch(`/api/categories/${category.name}`, {
       method: "Put",
       headers: {
         "Content-Type": "application/json",
         Authorization: token,
       },
-        body: JSON.stringify(updatedCategory),
+      body: JSON.stringify(updatedCategory),
     })
       .then((res) => {
         const data = res.json();
@@ -52,9 +49,9 @@ const LiCategory = ({ categories, category }) => {
       })
       .then((temp) => console.log(temp));
   };
-  var handleChange = function(event){
-    this.setState({html: event.target.value});
-}.bind(this);
+  var handleChange = function (event) {
+    this.setState({ html: event.target.value });
+  }.bind(this);
 
   return (
     <div
@@ -64,9 +61,19 @@ const LiCategory = ({ categories, category }) => {
       <form method="POST">
         <div className="flex-row">
           <input type="hidden" name="_method" value="put" />
-          <p>Nom de la categorie</p><textarea name="categoryName" defaultValue={category.name}  onChange={(val) => setCategoryName(val.target.value)} className=" text-black placeholder-gray-800 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"></textarea>
-          <p>Categorie parente</p><SelectCategories categories={categories} setCategory={setCategoryParent} label={category.parent}/>
-
+          <p>Nom de la categorie</p>
+          <textarea
+            name="categoryName"
+            defaultValue={category.name}
+            onChange={(val) => setCategoryName(val.target.value)}
+            className=" text-black placeholder-gray-800 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+          ></textarea>
+          <p>Categorie parente</p>
+          <SelectCategories
+            categories={categories}
+            setCategory={setCategoryParent}
+            label={category.parent}
+          />
         </div>
 
         <div className="flex-initial pl-3 mt-2">
@@ -93,7 +100,6 @@ const LiCategory = ({ categories, category }) => {
 };
 
 export default LiCategory;
-
 
 /*
 

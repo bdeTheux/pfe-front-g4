@@ -9,14 +9,13 @@ const NewPost = ({ categories }) => {
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
   const [campus, setCampus] = useState([]);
-  const [token, setToken] = useState("")
+  const [token, setToken] = useState("");
   useEffect(() => {
-      setToken(localStorage.getItem('token'))
-  })
+    setToken(localStorage.getItem("token"));
+  });
   let label = "Choisissez une catégorie";
 
   const submitPost = () => {
-      
     let newPostSubmit = {
       title: title,
       category_id: category,
@@ -26,20 +25,16 @@ const NewPost = ({ categories }) => {
       places: campus,
     };
 
-    console.log(newPostSubmit)
-    
-      fetch(`/api/posts/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-        body: JSON.stringify(newPostSubmit),
-        
-      }).then((res) => console.log(res.json()));
-      
-        
+    console.log(newPostSubmit);
 
+    fetch(`/api/posts/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      body: JSON.stringify(newPostSubmit),
+    }).then((res) => console.log(res.json()));
   };
 
   const handleCampus = (e) => {
@@ -98,7 +93,6 @@ const NewPost = ({ categories }) => {
                       type="number"
                       placeholder="0.0€"
                       required
-                      
                       className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400 "
                     />
                   </div>
@@ -183,7 +177,6 @@ const NewPost = ({ categories }) => {
                     required
                   />
                 </div>
-                
               </div>
 
               <hr className="mt-4" />
