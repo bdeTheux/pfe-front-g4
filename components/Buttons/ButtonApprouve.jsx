@@ -10,7 +10,7 @@ const ButtonApprouve = ({ postId }) => {
     state: "Approuvé",
   };
   const handleApprouve = () => {
-    fetch(`https://pfe-back-g4-dev.herokuapp.com/posts/${postId}/stateChange`, {
+    fetch(`/api/posts/${postId}/stateChange`, {
       method: "POST",
       body: JSON.stringify(state),
       headers: {

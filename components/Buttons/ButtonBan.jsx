@@ -9,10 +9,7 @@ const ButtonBan = ({ member }) => {
   const router = useRouter();
 
   const handleBan = async (id) => {
-    console.log("token dans handle ", token);
-    console.log(id);
-
-    fetch(`https://pfe-back-g4-dev.herokuapp.com/users/${id}/ban`, {
+    fetch(`/api/users/${id}/ban`, {
       method: "POST",
       headers: {
         Authorization: token,
