@@ -7,33 +7,28 @@ const Management = () => {
   const [users, setUsers] = useState([]);
   const [pendingPosts, setPendingPosts] = useState([]);
   useEffect(() => {
-    console.log("trii", localStorage.token);
-    fetch("https://pfe-back-g4-dev.herokuapp.com/users/", {
+    fetch("/api/users/", {
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("token"),
       },
     })
       .then((res) => {
-        console.log("res", res);
         return res.json();
       })
       .then((temp) => {
-        console.log("temp", temp);
         setUsers(temp);
       });
-    fetch("https://pfe-back-g4-dev.herokuapp.com/posts/pending", {
+    fetch("/api/posts/pending", {
       headers: {
         "Content-Type": "application.json",
         Authorization: localStorage.getItem("token"),
       },
     })
       .then((res2) => {
-        console.log("res", res2);
         return res2.json();
       })
       .then((temp2) => {
-        console.log("temp ", temp2);
         setPendingPosts(temp2);
       });
   }, []);

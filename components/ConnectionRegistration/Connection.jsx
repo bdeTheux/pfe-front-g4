@@ -13,16 +13,12 @@ const Connection = () => {
     };
 
     const res = await fetch("/api/login/", {
-      //https://pfe-back-g4-dev.herokuapp.com/login/
       method: "POST",
       body: JSON.stringify(loginUser),
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
-    console.log("ici", data);
-    console.log(res.status);
     if (res.status == 200) {
-      console.log("token : ", data.token);
       localStorage.setItem("token", data.token);
       router.push("/management/management"); //management/management
     } else {

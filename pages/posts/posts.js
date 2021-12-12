@@ -4,7 +4,7 @@ export default function postsList({ posts }) {
 }
 
 export const getServerSideProps = async () => {
-  const res = await fetch("https://pfe-back-g4-dev.herokuapp.com/posts/");
+  const res = await fetch("/api/posts/");
 
   const posts = await res.json();
   return {
