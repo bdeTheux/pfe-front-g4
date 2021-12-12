@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 
 const Layout = ({ children }) => {
   const [user, setUser] = useState([]);
+  const[reRender, setReRender] = useState(false);
   const router = useRouter();
 
   useEffect(() => {

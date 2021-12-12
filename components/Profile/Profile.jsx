@@ -1,13 +1,15 @@
-
 import { Tab } from "@headlessui/react";
 import Link from "next/link";
 import { PencilIcon } from "@heroicons/react/solid";
 import { LogoutIcon } from "@heroicons/react/outline";
 import Button from "../Button/Button";
+import { useRouter } from "next/router";
 
-const Logout = () => {
-  //TODO
-  alert("TODO: Logout");
+const logout = (router) => {
+  localStorage.clear();
+  router.push("/");
+    router.reload();
+
 };
 
 const userTest = {
@@ -17,8 +19,8 @@ const userTest = {
   campus: "Woluwe",
 };
 
-const Profile = ({user}) => {
-  
+const Profile = ({ user }) => {
+  const router = useRouter();
 
   return (
     <Tab.Panel className="bg-white rounded-xl p-2 focus:outline-none ring-1 ring-offset-1 ring-offset-indigo-400 ring-white ring-opacity-60">
@@ -42,7 +44,7 @@ const Profile = ({user}) => {
         <li className="relative p-2 rounded-md">
           <h3 className="text-sm font-medium text-xs font-black text-gray-600 leading-5">
             Prénom
-         </h3>
+          </h3>
           <p className="flex mt-1 space-x-1 font-normal leading-4 text-gray-700">
             {user.first_name}
           </p>
@@ -73,7 +75,7 @@ const Profile = ({user}) => {
         </li>
       </ul>
       <div className="mt-5">
-        <Button onClick={Logout} color={`red`}>
+        <Button onClick={() => logout(router)} color={`red`}>
           Log-Out
           <LogoutIcon className="text-white h-5 w-5 mt-0.5 ml-2" />
         </Button>
