@@ -120,7 +120,7 @@ const Navbar = () => {
                 Publier une annonce
               </a>
             </Link>
-            <Link href="/connectionRegistration/connectionRegistration">
+            <Link href="/connectionRegistration">
               <a
                 className="
             flex
@@ -219,7 +219,7 @@ const Navbar = () => {
                 Publier une annonce
               </a>
             </Link>
-            <Link href="/connectionRegistration/connectionRegistration">
+            <Link href="/connectionRegistration">
               <a
                 className="
             flex
