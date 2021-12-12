@@ -75,7 +75,7 @@ const OnePost = ({ postId }) => {
                   </p>
                   <p className="leading-relaxed">Contact : {user.email}</p>
                   <p className="leading-relaxed">
-                    Possibles lieux d'échange : {post.address_id || post.places}
+                    Possibles lieux d'échange : {post.places}
                   </p>
                   <div className="mb-1">
                     <ButtonMailTo mailto={user.email} title={post.title} />

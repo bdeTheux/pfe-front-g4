@@ -5,7 +5,7 @@ const Registration = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [campus, setCampus] = useState("");
+  const [campus, setCampus] = useState("Woluwe");
   const [password, setPassword] = useState("");
   const router = useRouter();
   const onRegister = async () => {
@@ -16,7 +16,6 @@ const Registration = () => {
       campus: campus,
       password: password,
     };
-
     const res = await fetch("/api/signup/", {
       method: "POST",
       body: JSON.stringify(newUser),
