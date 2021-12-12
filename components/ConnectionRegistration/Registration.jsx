@@ -18,32 +18,27 @@ const Registration = () => {
     };
     console.log("new user : ", newUser);
 
-    fetch("/api/signup/", {
+    const res = await fetch("/api/signup/", {
       method: "POST",
       body: JSON.stringify(newUser),
       headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => {
-        const data = res;
-        console.log(data);
-        return data;
-      })
-      .then((temp) => {
-        console.log(temp);
-        if (temp.status == 201) {
-          console.log("token : ", temp.token);
-          localStorage.setItem("token", temp.token);
-          router.push("/management/management"); //management/management
-        } else {
-          return {
-            redirect: {
-              destination: "/connectionRegistration",
-              permanent: false,
-            },
-          };
-        }
-      })
-      .catch((e) => console.log(e));
+    });
+    const data = await res.json();
+    console.log("data", data);
+    console.log(res.status);
+    if (res.status == 201) {
+      console.log("data in 201", data);
+      console.log("token : ", data.token);
+      localStorage.setItem("token", data.token);
+      router.push("/posts/posts");
+    } else {
+      return {
+        redirect: {
+          destination: "/connectionRegistration",
+          permanent: false,
+        },
+      };
+    }
   };
 
   return (
