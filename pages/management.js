@@ -1,4 +1,4 @@
-import Management from "../../components/Management/Management";
+import Management from "../components/Management/Management";
 
 export default function management() {
   return <Management />;

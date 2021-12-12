@@ -20,7 +20,7 @@ const Connection = () => {
     const data = await res.json();
     if (res.status == 200) {
       localStorage.setItem("token", data.token);
-      router.push("/management/management"); //management/management
+      router.push("/");
     } else {
       return {
         redirect: {

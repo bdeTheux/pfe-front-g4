@@ -31,7 +31,7 @@ const ButtonBan = ({ member }) => {
     return (
       <button
         onClick={() => handleBan(member._id)}
-        href="http://localhost:3000/management/management"
+        href="http://localhost:3000/management/"
         className="bg-red-500 hover:bg-red-700 font-bold py-2 px-4 border-red-700 rounded"
       >
         Bannir
