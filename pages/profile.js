@@ -3,6 +3,7 @@ import Head from "next/head";
 import Profile from "../components/Profile/Profile";
 import ProfileHistory from "../components/ProfileHistory/ProfileHistory";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 const currentUserTest = {
   firstName: "Samy",
@@ -91,8 +92,9 @@ function classNames(...classes) {
 }
 
 export default function profile() {
-  
+
   const [user, setUser] = useState([]);
+  const router = useRouter();
   
   useEffect(() => {
     fetch("https://pfe-back-g4-dev.herokuapp.com/users/whoami", {
@@ -108,7 +110,13 @@ export default function profile() {
       .then((temp) => {
         setUser(temp);
       });
+      
   },[]);
+
+  if(user === null){
+    router.push('/connectionRegistration/connectionRegistration')
+    return <></>
+  }
 
   return (
     <div className="mt-2 md:mt-28 md:px-10 mx-10 md:mx-20 lg:mx-80">
