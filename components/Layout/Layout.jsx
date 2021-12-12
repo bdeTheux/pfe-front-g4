@@ -1,12 +1,13 @@
 import Navbar from "../Navbar/Navbar";
-import NavbarAdmin from "../Navbar/NavbarAdmin"
+import NavbarAdmin from "../Navbar/NavbarAdmin";
 import NavbarConnected from "../Navbar/NavbarConnected";
+import BanPage from "../BanPage/BanPage";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 const Layout = ({ children }) => {
   const [user, setUser] = useState([]);
-  const[reRender, setReRender] = useState(false);
+  const [reRender, setReRender] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -21,7 +22,7 @@ const Layout = ({ children }) => {
         return res.json();
       })
       .then((temp) => {
-          console.log(temp);
+        console.log(temp);
         setUser(temp);
       });
   }, []);
@@ -36,8 +37,15 @@ const Layout = ({ children }) => {
         </div>
       </div>
     );
+  } else if (user.is_banned) {
+    localStorage.setItem("token", "");
+    console.log("je passe ici");
+    return (
+      <div>
+        <BanPage />
+      </div>
+    );
   }
-
   //if user is an admin
   else if (user.is_admin) {
     return (
@@ -48,7 +56,6 @@ const Layout = ({ children }) => {
         </div>
       </div>
     );
-
   } else {
     return (
       <div>
