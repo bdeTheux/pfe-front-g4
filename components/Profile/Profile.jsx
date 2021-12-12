@@ -25,7 +25,7 @@ const Profile = ({ user }) => {
   return (
     <Tab.Panel className="bg-white rounded-xl p-2 focus:outline-none ring-1 ring-offset-1 ring-offset-indigo-400 ring-white ring-opacity-60">
       <div className="absolute z-30 p-2 rounded-md md:right-36 lg:right-96">
-        <Link href="/editUser">
+        <Link href="/profile/edit">
           <span className="hidden sm:block">
             <a
               type="button"

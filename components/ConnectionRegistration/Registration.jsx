@@ -29,7 +29,7 @@ const Registration = () => {
     } else {
       return {
         redirect: {
-          destination: "/connectionRegistration/",
+          destination: "/connectionRegistration",
           permanent: false,
         },
       };
