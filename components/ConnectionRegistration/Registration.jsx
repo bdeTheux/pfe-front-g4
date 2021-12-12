@@ -25,6 +25,9 @@ const Registration = () => {
     if (res.status == 201) {
       localStorage.setItem("token", data.token);
       router.push("/");
+      setTimeout(() => {
+        router.reload();
+      }, 500);
     } else {
       return {
         redirect: {
