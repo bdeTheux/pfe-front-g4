@@ -28,9 +28,9 @@ const ButtonRefuse = ({ postId }) => {
     <>
       <button
         onClick={() => handleRefuse()}
-        className="flex bg-red-500 hover:bg-red-700 font-bold py-2 px-4 border-red-700 rounded"
+        className="flex bg-red-500 hover:bg-red-700 font-bold w-8 h-8 border-red-700 rounded"
       >
-        <BanIcon className="flex ml-3 w-6 justify-center" />
+        <BanIcon className="w-8 h-8 text-white" />
       </button>
     </>
   );

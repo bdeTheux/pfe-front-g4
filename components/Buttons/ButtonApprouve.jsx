@@ -24,9 +24,9 @@ const ButtonApprouve = ({ postId }) => {
     <>
       <button
         onClick={() => handleApprouve()}
-        className="bg-green-500 hover:bg-green-700 font-bold py-2 px-4 border-green-700 rounded"
+        className="bg-green-500 hover:bg-green-700 font-bold w-8 h-8 border-green-700 rounded"
       >
-        <CheckIcon className="flex ml-2 w-6 justify-center" />
+        <CheckIcon className="w-8 h-8 text-white" />
       </button>
     </>
   );
