@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import Alert from "../Alert/Alert";
+import AlertVerif from "../Alert/AlertVerif";
 
 const Connection = () => {
   const [email, setEmail] = useState("");
@@ -43,13 +43,7 @@ const Connection = () => {
   };
   return (
     <div>
-      <div>
-        {localStorage.getItem("error") !== "none" ? (
-          <Alert message={localStorage.getItem("error")} />
-        ) : (
-          ""
-        )}
-      </div>
+      <AlertVerif />
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>

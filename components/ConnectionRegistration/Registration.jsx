@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import AlertVerif from "../Alert/AlertVerif";
 
 const Registration = () => {
   const [firstName, setFirstName] = useState("");
@@ -45,13 +46,7 @@ const Registration = () => {
 
   return (
     <div>
-      <div>
-        {localStorage.getItem("error") !== "none" ? (
-          <Alert message={localStorage.getItem("error")} />
-        ) : (
-          ""
-        )}
-      </div>
+      <AlertVerif />
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
@@ -105,7 +100,7 @@ const Registration = () => {
                       name="email-address"
                       type="email"
                       autoComplete="email-address"
-                      pattern="[a-z0-9._%+-]+@(?:student.vinci.be|vinci.be)"
+                      pattern={/[a-zA-Z]+\.[a-zA-Z]+@(student\.)?vinci.be/}
                       required
                       className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
                       placeholder="Email vinci"
@@ -125,7 +120,7 @@ const Registration = () => {
                       name="campus"
                       autoComplete="campus"
                       className="mt-1 block w-full py-2 px-3 border rounded-none border-gray-300 bg-white shadow-sm focus:outline-none focus:ring-green-700 focus:border-green-700 sm:text-sm"
-                      onChange={(e) => -setCampus(e.target.value)}
+                      onChange={(e) => setCampus(e.target.value)}
                       defaultValue="Woluwe"
                     >
                       <option key="Woluwe" value="Woluwe">
