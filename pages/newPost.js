@@ -16,9 +16,7 @@ const newPost = () => {
     setPosts(data);
   };
   const submitPost = async () => {
-    campus.forEach((element) => {
-      console.log("element" + element);
-    });
+    campus.forEach((element) => {});
     let newPostSubmit = {
       title: title,
       description: description,
@@ -27,17 +25,14 @@ const newPost = () => {
       image: image,
       campus: campus,
     };
-    console.log("before fetch " + JSON.stringify({ newPostSubmit }));
-    const res = await fetch(`https://pfe-back-g4-dev.herokuapp.com/posts/`, {
+    const res = await fetch(`/api/posts/`, {
       method: "POST",
       body: JSON.stringify({ newPostSubmit }),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    console.log(newPostSubmit);
     const data = await res.json();
-    console.log(data);
   };
 
   const handleCampus = (e) => {

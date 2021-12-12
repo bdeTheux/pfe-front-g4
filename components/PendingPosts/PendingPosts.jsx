@@ -1,7 +1,6 @@
 import NoPendingPost from "../PendingPosts/NoPendingPost";
 import OnePendingPost from "./OnePendingPost";
 const PendingPosts = ({ posts }) => {
-  console.log(posts);
   return (
     <div className="flex items-center justify-center bg-white">
       <div className="col-span-12">

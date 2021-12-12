@@ -16,7 +16,6 @@ const Registration = () => {
       campus: campus,
       password: password,
     };
-    console.log("new user : ", newUser);
 
     const res = await fetch("/api/signup/", {
       method: "POST",
@@ -24,11 +23,7 @@ const Registration = () => {
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
-    console.log("data", data);
-    console.log(res.status);
     if (res.status == 201) {
-      console.log("data in 201", data);
-      console.log("token : ", data.token);
       localStorage.setItem("token", data.token);
       router.push("/posts/posts");
     } else {
