@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 import { useRouter } from "next/router";
 
 const logout = (router) => {
-  localStorage.clear();
+  localStorage.setItem("token", "");
   router.push("/");
   router.reload();
 
