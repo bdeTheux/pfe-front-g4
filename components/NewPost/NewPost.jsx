@@ -104,22 +104,22 @@ const NewPost = ({ categories }) => {
                   </div>
 
                   <div className="flex-grow">
-                    <label> A vendre: </label>
+                    <label> À vendre: </label>
                     <input
                       value={postNature}
                       onChange={(val) => setPostNature(val.target.value)}
                       name="postNature"
                       type="radio"
-                      value="A vendre"
+                      value="À vendre"
                       required
                     />
-                    <label> A donner: </label>
+                    <label> À donner: </label>
                     <input
                       value={postNature}
                       onChange={(val) => setPostNature(val.target.value)}
                       name="postNature"
                       type="radio"
-                      value="A donner"
+                      value="À donner"
                       required
                     />
                   </div>
