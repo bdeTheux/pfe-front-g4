@@ -1,15 +1,18 @@
 import { PencilIcon, TrashIcon } from "@heroicons/react/outline";
 import { useState, useEffect } from "react";
+import SelectCategories from "./SelectCategories";
 
 const LiCategory = ({ categories, category }) => {
   const [token, setToken] = useState("");
   const [categoryName, setCategoryName] = useState("");
   const [categoryParent, setCategoryParent] = useState("");
+  const label = "categorie parente"
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
   });
   const handleDelete = async () => {
+    console.log(category.name)
     const res = await fetch(
       `https://pfe-back-g4-dev.herokuapp.com/categories/${category.name}`,
       {
@@ -21,7 +24,11 @@ const LiCategory = ({ categories, category }) => {
     );
   };
   const handleUpdate = () => {
-
+    if(categoryName === "") categoryName = category.name
+   
+    if(categoryParent === ""){
+      categoryParent = category.parent
+    }
     const updatedCategory = {
       name: categoryName,
       parent: categoryParent,
@@ -58,7 +65,8 @@ const LiCategory = ({ categories, category }) => {
         <div className="flex-row">
           <input type="hidden" name="_method" value="put" />
           <p>Nom de la categorie</p><textarea name="categoryName" defaultValue={category.name}  onChange={(val) => setCategoryName(val.target.value)} className=" text-black placeholder-gray-800 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"></textarea>
-          <p>Nom de la categorie parente</p><textarea name="categoryParent" defaultValue={category.parent}  onChange={(val) => setCategoryParent(val.target.value)} className=" text-black placeholder-gray-800 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"></textarea>
+          <SelectCategories categories={categories} setCategory={setCategoryParent} label={category.parent}/>
+
         </div>
 
         <div className="flex-initial pl-3 mt-2">
@@ -85,3 +93,15 @@ const LiCategory = ({ categories, category }) => {
 };
 
 export default LiCategory;
+
+
+/*
+
+
+          <p>Nom de la categorie parente</p><textarea name="categoryParent" defaultValue={category.parent}  onChange={(val) => setCategoryParent(val.target.value)} className=" text-black placeholder-gray-800 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"></textarea>
+
+          <SelectCategories categories={categories} setCategory={setCategoryParent} label={label}/>
+           console.log("categoryParent : " + categoryParent + " type :" + typeof categoryParent)
+    console.log("category parent : " + category.parent + " type : "+ typeof category.parent)
+
+*/
