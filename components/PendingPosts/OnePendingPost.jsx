@@ -1,5 +1,5 @@
 import ButtonApprouve from "../Buttons/ButtonApprouve";
-import ButtonCloture from "../Buttons/ButtonCloture";
+import ButtonRefuse from "../Buttons/ButtonRefuse";
 import { useState, useEffect } from "react";
 const OnePendingPost = ({ post }) => {
   const [user, setUser] = useState("");
@@ -12,7 +12,7 @@ const OnePendingPost = ({ post }) => {
     }).then((res) => {
       res.json().then((temp) => setUser(temp));
     });
-  });
+  }, []);
   return (
     <>
       <tr className="bg-green-100">
@@ -39,10 +39,9 @@ const OnePendingPost = ({ post }) => {
         <td className="p-3">{post.post_nature}</td>
         <td className="p-3">{post.price}€</td>
         <td className="p-3">
-          {post.state}
           <div className="grid grid-cols-2 gap-2">
             <ButtonApprouve postId={post._id} />
-            <ButtonCloture postId={post._id} />
+            <ButtonRefuse postId={post._id} />
           </div>
         </td>
       </tr>

@@ -39,7 +39,6 @@ const Layout = ({ children }) => {
     );
   } else if (user.is_banned) {
     localStorage.setItem("token", "");
-    console.log("je passe ici");
     return (
       <div>
         <BanPage />

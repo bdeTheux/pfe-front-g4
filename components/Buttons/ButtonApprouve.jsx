@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { CheckIcon } from "@heroicons/react/outline";
 const ButtonApprouve = ({ postId }) => {
   const [token, setToken] = useState("");
   useEffect(() => {
@@ -25,7 +26,7 @@ const ButtonApprouve = ({ postId }) => {
         onClick={() => handleApprouve()}
         className="bg-green-500 hover:bg-green-700 font-bold py-2 px-4 border-green-700 rounded"
       >
-        Valider
+        <CheckIcon className="flex ml-2 w-6 justify-center" />
       </button>
     </>
   );

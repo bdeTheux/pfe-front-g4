@@ -21,10 +21,9 @@ const Connection = () => {
     if (res.status == 200) {
       localStorage.setItem("token", data.token);
       router.push("/"); //management/management
-      setTimeout(() =>{
+      setTimeout(() => {
         router.reload();
-      }, 500)
-      
+      }, 500);
     } else {
       return {
         redirect: {
