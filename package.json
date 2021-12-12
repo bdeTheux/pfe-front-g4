@@ -6,8 +6,8 @@
     "start": "next start -p $PORT"
   },
   "dependencies": {
-    "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
+    "@headlessui/react": "^1.4.2",
     "@tailwindcss/aspect-ratio": "^0.3.0",
     "@tailwindcss/forms": "^0.3.4",
     "cookie": "^0.4.1",
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "postcss": "^8.4.4",
     "tailwindcss": "^2.2.19"
   }

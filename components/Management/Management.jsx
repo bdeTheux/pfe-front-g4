@@ -1,11 +1,13 @@
 import MembersList from "../MembersList/MembersList";
 import PendingPosts from "../PendingPosts/PendingPosts";
+import CategoryPage from "../CategoryPage/CategoryPage";
 import { Tab } from "@headlessui/react";
 import { useEffect, useState } from "react";
 
 const Management = () => {
   const [users, setUsers] = useState([]);
   const [pendingPosts, setPendingPosts] = useState([]);
+  const [categories, setCategories] = useState([]);
   useEffect(() => {
     fetch("/api/users/", {
       headers: {
@@ -30,6 +32,17 @@ const Management = () => {
       })
       .then((temp2) => {
         setPendingPosts(temp2);
+      });
+    fetch("/api/categories/", {
+      headers: {
+        "Content-Type": "application.json",
+      },
+    })
+      .then((res3) => {
+        return res3.json();
+      })
+      .then((temp3) => {
+        setCategories(temp3);
       });
   }, []);
 
@@ -106,7 +119,7 @@ const Management = () => {
                 "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-green-400 ring-white ring-opacity-60"
               )}
             >
-              <p>sks</p>
+              <CategoryPage categories={categories} />
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>
