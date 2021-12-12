@@ -12,7 +12,8 @@ const Connection = () => {
       password: password,
     };
 
-    const res = await fetch("https://pfe-back-g4-dev.herokuapp.com/login/", {
+    const res = await fetch("/api/login/", {
+      //https://pfe-back-g4-dev.herokuapp.com/login/
       method: "POST",
       body: JSON.stringify(loginUser),
       headers: { "Content-Type": "application/json" },
@@ -31,7 +32,7 @@ const Connection = () => {
     } else {
       return {
         redirect: {
-          destination: "/connectionRegistration/connectionRegistration",
+          destination: "/connectionRegistration/",
           permanent: false,
         },
       };
@@ -109,7 +110,7 @@ const Connection = () => {
                   className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white focus:border-green-700 bg-green-800 hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-700"
                   onClick={onLogin}
                 >
-                  Sign in
+                  Se connecter
                 </button>
               </div>
             </div>
