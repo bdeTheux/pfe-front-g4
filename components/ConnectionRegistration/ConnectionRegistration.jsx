@@ -25,10 +25,10 @@ const ConnectionRegistration = () => {
   }, []);
   if(user) {
     //router.push("/profile")
-    return <div className="mt-32 flex justify-center font-black text-xl">Erreurr: Vous êtes déjà connecté</div>;
+    return <div className="mt-32 flex justify-center font-black text-xl">Erreur: Vous êtes déjà connecté</div>;
   }
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 divide-x">
+      <div className="md:mt-24 grid grid-cols-1 md:grid-cols-2 divide-x">
         <div>
           <Registration />
         </div>

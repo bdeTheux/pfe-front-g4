@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 const logout = (router) => {
   localStorage.clear();
   router.push("/");
-    router.reload();
+  router.reload();
 
 };
 
