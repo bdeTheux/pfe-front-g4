@@ -1,6 +1,6 @@
 import ButtonApprouve from "../Buttons/ButtonApprouve";
 import ButtonCloture from "../Buttons/ButtonCloture";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 const OnePendingPost = ({ post }) => {
   const [user, setUser] = useState("");
   useEffect(() => {
