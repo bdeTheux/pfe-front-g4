@@ -2,7 +2,6 @@ import Member from "../Member/Member";
 import NoMember from "../Member/NoMember";
 
 const MembersList = ({ users }) => {
-  console.log(users);
   return (
     <div className="flex items-center justify-center bg-white">
       <div className="col-span-12">

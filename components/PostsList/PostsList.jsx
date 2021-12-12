@@ -1,13 +1,11 @@
 import Post from "../Post/Post";
 
 const PostsList = ({ posts }) => {
-  console.log("in components postsList ", posts);
-
   return (
-    <div>
-      {Array.from(posts).map((post) => {
-        return <Post key={post._id} post={post} />;
-      })}
+    <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+      {posts.map((post) => (
+        <Post key={post._id} post={post} />
+      ))}
     </div>
   );
 };

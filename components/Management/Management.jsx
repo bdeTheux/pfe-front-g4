@@ -1,23 +1,36 @@
 import MembersList from "../MembersList/MembersList";
+import PendingPosts from "../PendingPosts/PendingPosts";
 import { Tab } from "@headlessui/react";
-import { useAppContext } from "../../context/AppContext";
 import { useEffect, useState } from "react";
 
 const Management = () => {
   const [users, setUsers] = useState([]);
-  useEffect(async () => {
-    const resUsers = await fetch(
-      "https://pfe-back-g4-dev.herokuapp.com/users/",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-      }
-    );
-    const temp = await resUsers.json();
-    console.log("temp", temp);
-    setUsers(temp || []);
+  const [pendingPosts, setPendingPosts] = useState([]);
+  useEffect(() => {
+    fetch("/api/users/", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((temp) => {
+        setUsers(temp);
+      });
+    fetch("/api/posts/pending", {
+      headers: {
+        "Content-Type": "application.json",
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+      .then((res2) => {
+        return res2.json();
+      })
+      .then((temp2) => {
+        setPendingPosts(temp2);
+      });
   }, []);
 
   function classNames(...classes) {
@@ -85,7 +98,7 @@ const Management = () => {
                 "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-green-400 ring-white ring-opacity-60"
               )}
             >
-              <p>kdk</p>
+              <PendingPosts posts={pendingPosts} />
             </Tab.Panel>
             <Tab.Panel
               className={classNames(

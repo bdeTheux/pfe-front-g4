@@ -1,4 +1,4 @@
-import ButtonBan from "../ButtonBan/ButtonBan";
+import ButtonBan from "../Buttons/ButtonBan";
 const Member = ({ member }) => {
   return (
     <>

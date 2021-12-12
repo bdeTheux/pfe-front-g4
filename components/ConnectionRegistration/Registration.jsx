@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const Registration = () => {
   const [firstName, setFirstName] = useState("");
@@ -6,7 +7,7 @@ const Registration = () => {
   const [email, setEmail] = useState("");
   const [campus, setCampus] = useState("");
   const [password, setPassword] = useState("");
-
+  const router = useRouter();
   const onRegister = async () => {
     const newUser = {
       first_name: firstName,
@@ -15,14 +16,24 @@ const Registration = () => {
       campus: campus,
       password: password,
     };
-    console.log("new user : ", newUser);
-    const res = await fetch("https://pfe-back-g4-dev.herokuapp.com/signup/", {
+
+    const res = await fetch("/api/signup/", {
       method: "POST",
       body: JSON.stringify(newUser),
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
-    console.log(data);
+    if (res.status == 201) {
+      localStorage.setItem("token", data.token);
+      router.push("/");
+    } else {
+      return {
+        redirect: {
+          destination: "/connectionRegistration/",
+          permanent: false,
+        },
+      };
+    }
   };
 
   return (
@@ -90,21 +101,27 @@ const Registration = () => {
                   <label
                     htmlFor="email-address-registration"
                     className="campus"
-                  ></label>
+                  >
+                    Sélectionner votre campus principal :
+                  </label>
                   <select
                     id="campus"
+                    required
                     name="campus"
                     autoComplete="campus"
                     className="mt-1 block w-full py-2 px-3 border rounded-none border-gray-300 bg-white shadow-sm focus:outline-none focus:ring-green-700 focus:border-green-700 sm:text-sm"
-                    defaultValue={"DEFAULT"}
-                    onChange={(e) => setCampus(e.target.value)}
+                    onChange={(e) => -setCampus(e.target.value)}
+                    defaultValue="Woluwe"
                   >
-                    <option value="DEFAULT" disabled selected>
-                      Sélectionnez votre campus
+                    <option key="Woluwe" value="Woluwe">
+                      Woluwé
                     </option>
-                    <option value="Woluwé">Woluwé</option>
-                    <option value="Louvain-la-Neuve">Louvain-la-Neuve</option>
-                    <option value="Ixelles">Ixelles</option>
+                    <option key="Louvain-la-Neuve" value="Louvain-la-Neuve">
+                      Louvain-la-Neuve
+                    </option>
+                    <option key="Ixelles" value="Ixelles">
+                      Ixelles
+                    </option>
                   </select>
                 </div>
               </div>
