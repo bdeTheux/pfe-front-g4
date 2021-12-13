@@ -2,7 +2,7 @@ import Router from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import ReactDom from "react-dom";
 import SelectCategories from "../Category/SelectCategories";
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 
 const PopUpUpdatePost = ({ token, post, setShow }) => {
   const [title, setTitle] = useState("");
@@ -11,9 +11,8 @@ const PopUpUpdatePost = ({ token, post, setShow }) => {
   const [price, setPrice] = useState("");
   const [postNature, setPostNature] = useState("");
   const [places, setPlaces] = useState(post.places);
-  const [categories, setCategories] = useState([])
-  const router = useRouter()
-
+  const [categories, setCategories] = useState([]);
+  const router = useRouter();
 
   const modalRef = useRef();
   const closeModal = (e) => {
@@ -35,7 +34,6 @@ const PopUpUpdatePost = ({ token, post, setShow }) => {
   );
 
   const handleUpdate = () => {
-    console.log(post.places);
     if (title === "") title = post.title;
     if (category === "") category = post.category_id;
     if (description === "") description = post.description;
@@ -51,9 +49,7 @@ const PopUpUpdatePost = ({ token, post, setShow }) => {
       post_nature: postNature,
       places: places,
     };
-    setShow(false);
-    console.log(updatedPost);
-    
+
     fetch(`/api/posts/${post._id}`, {
       method: "Put",
       headers: {
@@ -67,18 +63,22 @@ const PopUpUpdatePost = ({ token, post, setShow }) => {
         console.log(data);
         return data;
       })
-      .then((temp) => console.log(temp));
+      .then((temp) => console.log(temp)).then(() =>{
+        setShow(false);
+        router.reload(window.location.pathname);
+      });
+      
   };
 
   const handleCampus = (e) => {
     //places[places.length] = e.target.value;
-    setPlaces(places => [...places, e.target.value]);
+    setPlaces((places) => [...places, e.target.value]);
   };
 
   const handleClose = () => {
-    setPlaces(post.places)
+    setPlaces(post.places);
     setShow(false);
-    router.reload(window.location.pathname)
+    router.reload(window.location.pathname);
   };
 
   return ReactDom.createPortal(
@@ -144,7 +144,7 @@ const PopUpUpdatePost = ({ token, post, setShow }) => {
                             Description de l'annonce
                           </p>
                           <textarea
-                          onChange={(val) => setDescription(val.target.value)}
+                            onChange={(val) => setDescription(val.target.value)}
                             defaultValue={post.description}
                             className="text-black placeholder-gray-800 px-4 py-2.5 mx-3 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
                           />
@@ -154,7 +154,7 @@ const PopUpUpdatePost = ({ token, post, setShow }) => {
                             Prix de l'annonce
                           </p>
                           <textarea
-                          onChange={(val) => setPrice(val.target.value)}
+                            onChange={(val) => setPrice(val.target.value)}
                             defaultValue={post.price}
                             className="text-black placeholder-gray-800 px-4 py-2.5 mx-3 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
                           />
@@ -163,11 +163,31 @@ const PopUpUpdatePost = ({ token, post, setShow }) => {
                           <p className="text-sm text-gray-500">
                             Nature de l'annonce
                           </p>
-                          <textarea
-                          onChange={(val) => setPostNature(val.target.value)}
-                            defaultValue={post.post_nature}
-                            className="text-black placeholder-gray-800 px-4 py-2.5 mx-3 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                          />
+
+                          <div className="flex-grow">
+                            <label> À vendre: </label>
+                            <input
+                                defaultChecked={post.post_nature.includes("À vendre")}
+                              onChange={(val) =>
+                                setPostNature(val.target.value)
+                              }
+                              name="postNature"
+                              type="radio"
+                              value="À vendre"
+                              required
+                            />
+                            <label> À donner: </label>
+                            <input
+                              defaultChecked={post.post_nature.includes("À donner")}
+                              onChange={(val) =>
+                                setPostNature(val.target.value)
+                              }
+                              name="postNature"
+                              type="radio"
+                              value="À donner"
+                              required
+                            />
+                          </div>
                         </div>
                         <div className="w-full bg-white rounded-lg sahdow-lg overflow-hidden flex flex-col justify-center items-center">
                           <p className="text-sm text-gray-500">
