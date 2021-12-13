@@ -54,7 +54,7 @@ const PopUpUpdatePost = ({ token, post, setShow }) => {
       method: "Put",
       headers: {
         "Content-Type": "application/json",
-        Authorization: token,
+        Authorization: localStorage.getItem("token"),
       },
       body: JSON.stringify(updatedPost),
     })

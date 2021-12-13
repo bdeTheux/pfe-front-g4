@@ -18,7 +18,7 @@ const PopUpButton = ({token, post}) => {
   onClick={handleShow}>
             <PencilIcon className="flex ml-3 w-6 text-green-500" />
                       Modifier</button>
-            {show ? <PopUpUpdatePost token={token} post={post} setShow={setShow} /> : null}
+            {show ? <PopUpUpdatePost post={post} setShow={setShow} /> : null}
             <div id="link"></div>
         </div>
     )

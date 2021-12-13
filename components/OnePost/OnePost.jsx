@@ -4,17 +4,20 @@ import ButtonMailTo from "../ButtonMailTo/ButtonMailTo";
 import dynamic from "next/dynamic";
 
 import { PencilIcon, TrashIcon } from "@heroicons/react/outline";
-import { PopUpUpdatePost } from "../PopUp/PopUpUpdatePost"
-import  PopUpButton  from "../PopUp/PopUpButton"
+import { PopUpUpdatePost } from "../PopUp/PopUpUpdatePost";
+import PopUpButton from "../PopUp/PopUpButton";
+import { useRouter } from "next/router";
 
 import Map from "../Map/Map";
-
 
 const OnePost = ({ postId }) => {
   const [post, setPost] = useState([]);
   const [user, setUser] = useState([]);
   const [token, setToken] = useState([]);
   const [show, setShow] = useState(false);
+
+  const router = useRouter();
+
   const handleClose = () => {
     setShow(false);
   };
@@ -26,12 +29,10 @@ const OnePost = ({ postId }) => {
     const res = fetch(`/api/posts/${post._id}`, {
       method: "DELETE",
       headers: {
-        Authorization: token,
+        Authorization: localStorage.getItem("token"),
       },
-    });
+    }).then((temp) => router.push("/"));
   };
-
-  
 
   const [userConnected, setUserConnected] = useState([]);
   const [locations, setLocations] = useState([]);
@@ -161,8 +162,7 @@ const OnePost = ({ postId }) => {
                   </button>
 
                   <div>
-                    <PopUpButton token={token} post={post} className="flex ml-3 w-6 "/>
-
+                    <PopUpButton post={post} className="flex ml-3 w-6 " />
                   </div>
                 </div>
               </div>
@@ -175,4 +175,3 @@ const OnePost = ({ postId }) => {
 };
 
 export default OnePost;
-
