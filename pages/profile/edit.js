@@ -140,9 +140,9 @@ export default function edit() {
           </Tab>
           <Tab
             disabled
-            className="w-full py-2.5 text-sm leading-5 font-medium text-gray-700 rounded-lg focus:outline-none flex justify-center focus:ring-2 ring-offset-2 ring-offset-indigo-400 ring-white indigo-opacity-60 cursor-not-allowed"
+            className="w-full py-2.5 text-sm leading-5 font-medium text-gray-400 rounded-lg focus:outline-none flex justify-center focus:ring-2 ring-offset-2 ring-offset-indigo-400 ring-white indigo-opacity-60 cursor-not-allowed"
           >
-            <ArchiveIcon className="text-indigo-700 h-5 w-5 mr-2" />
+            <ArchiveIcon className="text-gray-400 h-5 w-5 mr-2" />
             Historique
           </Tab>
         </Tab.List>

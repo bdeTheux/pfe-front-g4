@@ -17,7 +17,7 @@ const Post = ({ post }) => {
       }}
     >
       <a key={post._id} className="group">
-      <LocationBadges locations={post.address_id}/>
+      {/*<LocationBadges locations={post.address_id} white={false}/>*/}
         <div className="w-full aspect-w-5 aspect-h-5 bg-gray-200 rounded-3xl overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
           <Image
             src="/images/bidon.jpg"

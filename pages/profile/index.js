@@ -13,7 +13,7 @@ const currentUserTest = {
   email: "samy.alliche@student.vinci.be",
   campus: "Woluwe",
 };
-const history = [
+const historyTest = [
   {
     id: 1,
     title: "Pull",
@@ -90,6 +90,8 @@ const history = [
 
 
 
+
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -97,6 +99,8 @@ function classNames(...classes) {
 export default function profile() {
 
   const [user, setUser] = useState([]);
+  const [history, setHistory] = useState([{}]);
+
   const router = useRouter();
   
   useEffect(() => {
@@ -112,7 +116,24 @@ export default function profile() {
       })
       .then((temp) => {
         setUser(temp);
+        console.log("user", temp)
       });
+
+      fetch("/api/posts/myposts", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((temp) => {
+          
+          setHistory(temp);
+          console.log("history", temp)
+        });
       
   },[]);
 
