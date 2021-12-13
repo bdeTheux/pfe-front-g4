@@ -2,15 +2,14 @@ import Meta from "../../components/Meta/Meta";
 import { useState, useEffect } from "react";
 import ButtonMailTo from "../ButtonMailTo/ButtonMailTo";
 import dynamic from "next/dynamic";
+import Map from "../Map/Map";
 
 const OnePost = ({ postId }) => {
   const [post, setPost] = useState([]);
   const [user, setUser] = useState([]);
-  const [token, setToken] = useState([]);
-  const Map = dynamic(() => import("../Map/Map"), {
-    loading: () => "Loading...",
-    ssr: false,
-  });
+  const [userConnected, setUserConnected] = useState([]);
+  const [locations, setLocations] = useState([]);
+
   useEffect(() => {
     fetch(`/api/posts/${postId}`).then((res) => {
       res.json().then((temp2) => {
@@ -19,15 +18,47 @@ const OnePost = ({ postId }) => {
             "Content-Type": "application/json",
             Authorization: localStorage.getItem("token"),
           },
-        }).then((res) =>
-          res.json().then((temp) => {
-            setUser(temp);
-            setPost(temp2);
-            setToken(localStorage.getItem("token"));
-          })
-        );
+        }).then((res) => {
+          res
+            .json()
+            .then((temp) => {
+              setUser(temp);
+              setPost(temp2);
+              return temp2;
+            })
+            .then((temp3) => {
+              temp3.places.forEach((element) => {
+                fetch(`/api/addresses/${element}`, {
+                  headers: { "Content-Type": "application/json" },
+                })
+                  .then((res) => res.json())
+                  .then((loc) => {
+                    const toAdd = {
+                      lat: loc.lat,
+                      lng: loc.long,
+                    };
+                    setLocations((locations) => [...locations, toAdd]);
+                  });
+              });
+            });
+        });
       });
     });
+
+    fetch("https://pfe-back-g4-dev.herokuapp.com/users/whoami", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((temp) => {
+        console.log(temp);
+        setUserConnected(temp);
+      });
   }, []);
 
   return (
@@ -70,20 +101,28 @@ const OnePost = ({ postId }) => {
                   <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
                     Informations sur le vendeur
                   </h1>
-                  <p className="leading-relaxed">
-                    Nom : {user.first_name} {user.last_name}
-                  </p>
-                  <p className="leading-relaxed">Contact : {user.email}</p>
-                  <p className="leading-relaxed">
-                    Possibles lieux d'échange : {post.address_id || post.places}
-                  </p>
-                  <div className="mb-1">
-                    <ButtonMailTo mailto={user.email} title={post.title} />
-                  </div>
-                  <div className="mb-5">
-                    <p> </p>
-                  </div>
-                  <Map />
+                  {userConnected === null ? (
+                    <p className="leading-relaxed">
+                      Veuillez vous connectez pour accéder à ces informations
+                    </p>
+                  ) : (
+                    <div>
+                      <p className="leading-relaxed">
+                        Nom : {user.first_name} {user.last_name}
+                      </p>
+                      <p className="leading-relaxed">Contact : {user.email}</p>
+                      <p className="leading-relaxed">
+                        Possibles lieux d'échange : {post.places}
+                      </p>
+                      <div className="mb-1">
+                        <ButtonMailTo mailto={user.email} title={post.title} />
+                      </div>
+                      <div className="mb-5">
+                        <p>{("dans le code", console.log(locations))} </p>
+                      </div>
+                      <Map locations={locations} />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

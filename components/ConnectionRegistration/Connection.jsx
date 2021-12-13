@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import AlertVerif from "../Alert/AlertVerif";
 
 const Connection = () => {
   const [email, setEmail] = useState("");
@@ -18,13 +19,19 @@ const Connection = () => {
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
+    console.log("data", data);
+    if (data.description) {
+      localStorage.setItem("error", data.description);
+    } else {
+      localStorage.setItem("error", "none");
+    }
     if (res.status == 200) {
       localStorage.setItem("token", data.token);
       router.push("/"); //management/management
-      setTimeout(() =>{
+      console.log("error");
+      setTimeout(() => {
         router.reload();
-      }, 500)
-      
+      }, 500);
     } else {
       return {
         redirect: {
