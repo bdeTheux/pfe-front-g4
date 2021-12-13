@@ -24,7 +24,7 @@ const Registration = () => {
     });
     const data = await res.json();
     if (data.description) {
-      localStorage.setItem("error", data.description);
+      localStorage.setItem("error", data);
     } else {
       localStorage.setItem("error", "none");
     }
