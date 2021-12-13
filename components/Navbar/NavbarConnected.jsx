@@ -97,9 +97,9 @@ const NavbarConnected = () => {
               </button>
             </form>
             <div className="inline-grid grid-cols-4">
-            <Link href="/newPost">
-              <a
-                className="
+              <Link href="/newPost">
+                <a
+                  className="
             flex
             items-center
             justify-center
@@ -115,13 +115,13 @@ const NavbarConnected = () => {
             col-span-3
             mr-2
           "
-              >
-                Publier une annonce
-              </a>
-            </Link>
-            <Link href="/profile">
-              <a
-                className="
+                >
+                  Publier une annonce
+                </a>
+              </Link>
+              <Link href="/profile">
+                <a
+                  className="
             flex
             items-center
             justify-center
@@ -137,13 +137,12 @@ const NavbarConnected = () => {
             dark:hover:bg-gray-700
             focus:outline-none
           "
-              >
-                <UserCircleIcon className="h-10 w-10 text-gray-600 mr-2" />
-                Profile
-              </a>
-            </Link>
+                >
+                  <UserCircleIcon className="h-10 w-10 text-gray-600 mr-2" />
+                  Profile
+                </a>
+              </Link>
             </div>
-            
           </div>
         </div>
         <div
@@ -198,6 +197,28 @@ const NavbarConnected = () => {
                 <SearchIcon className="text-gray-600 h-4 w-4" />
               </button>
             </div>
+            <Link href="/newPost">
+              <a
+                className="
+            flex
+            items-center
+            justify-center
+            h-12
+            px-4
+            text-sm
+            font-semibold
+            text-center text-white
+            rounded-md
+            lg:h-10
+            bg-green-500
+            hover:bg-green-300
+            col-span-2
+            mr-2
+          "
+              >
+                Publier une annonce
+              </a>
+            </Link>
             <Link href="/profile">
               <a
                 className="
