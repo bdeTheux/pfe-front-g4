@@ -1,5 +1,8 @@
+import axios from "axios";
+import e from "cors";
 import { useState, useEffect } from "react";
 import SelectCategories from "../Category/SelectCategories";
+import { UploadIcon } from "@heroicons/react/outline";
 
 const NewPost = ({ categories }) => {
   const [title, setTitle] = useState("");
@@ -7,15 +10,26 @@ const NewPost = ({ categories }) => {
   const [description, setDescription] = useState("");
   const [postNature, setPostNature] = useState("");
   const [price, setPrice] = useState("");
-  const [image, setImage] = useState("");
+  const [images, setImages] = useState([]);
   const [campus, setCampus] = useState([]);
   const [token, setToken] = useState("");
+  const [isGiven, setIsGiven] = useState(false)
   useEffect(() => {
     setToken(localStorage.getItem("token"));
   });
   let label = "Choisissez une catégorie";
 
   const submitPost = () => {
+    const formData = new FormData();
+    formData.append('title',title);
+    formData.append('category_id', category)
+    formData.append('description', description)
+    formData.append('post_nature', postNature)
+    formData.append('price', price)
+    formData.append('files[]', images)
+    formData.append('places', campus)
+    console.log(new FormData(updateForm))
+    
     let newPostSubmit = {
       title: title,
       category_id: category,
@@ -23,18 +37,28 @@ const NewPost = ({ categories }) => {
       post_nature: postNature,
       price: price,
       places: campus,
+      "files[]" : images
     };
 
     console.log(newPostSubmit);
 
-    fetch(`/api/posts/`, {
+     axios({
+      method: 'post',
+      url: '/api/posts/',
+      data: formData,
+      headers: {
+          'Content-Type': `multipart/form-data`,
+          Authorization: token,
+      },
+  });
+    /*fetch(`/api/posts/`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: token,
       },
-      body: JSON.stringify(newPostSubmit),
-    }).then((res) => console.log(res.json()));
+      body: new FormData(updateForm),
+    }).then((res) => console.log(res.json()));*/
   };
 
   const handleCampus = (e) => {
@@ -43,9 +67,29 @@ const NewPost = ({ categories }) => {
     setCampus(campus);
   };
 
+  const handleImages = (e)=>{
+    images[images.length] = e.target.value;
+
+    setImages(images)
+  }
+
   const handlerCategory = (val) => {
     setCategory(val.target.value);
   };
+
+  const handlePrice = (e) => {
+    if(e.target.value === "À vendre"){
+      setIsGiven(false)
+      console.log(isGiven)
+
+    }else{
+      setIsGiven(true)
+      setPrice(0)
+      console.log(isGiven)
+    }
+    setPostNature(e.target.value)
+    
+  }
   return (
     <div className="flex h-screen bg-gray-100">
       <div className="m-auto">
@@ -60,7 +104,7 @@ const NewPost = ({ categories }) => {
                 </h1>
               </div>
             </div>
-            <form method="post" className="">
+            <form method="post" id="updateForm" className="">
               <div className="px-5 pb-5">
                 <input
                   onChange={(val) => setTitle(val.target.value)}
@@ -92,16 +136,16 @@ const NewPost = ({ categories }) => {
                       name="price"
                       type="number"
                       placeholder="0.0€"
-                      required
                       className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400 "
+                      disabled={isGiven}
                     />
                   </div>
 
-                  <div className="flex-grow">
+                  <div className="flex-grow py-5">
                     <label> À vendre: </label>
                     <input
                       value={postNature}
-                      onChange={(val) => setPostNature(val.target.value)}
+                      onChange={handlePrice}
                       name="postNature"
                       type="radio"
                       value="À vendre"
@@ -110,7 +154,7 @@ const NewPost = ({ categories }) => {
                     <label> À donner: </label>
                     <input
                       value={postNature}
-                      onChange={(val) => setPostNature(val.target.value)}
+                      onChange={handlePrice}
                       name="postNature"
                       type="radio"
                       value="À donner"
@@ -118,39 +162,7 @@ const NewPost = ({ categories }) => {
                     />
                   </div>
                 </div>
-                <label className=" text-black placeholder-gray-600 w-full py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
-                  <input
-                    value={image}
-                    onChange={(val) => setImage(val.target.value)}
-                    name="file"
-                    type="file"
-                    multiple
-                    hidden
-                    required
-                  />
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    enableBackground="new 0 0 24 24"
-                    height="24px"
-                    viewBox="0 0 24 24"
-                    width="24px"
-                    fill="#000000"
-                  >
-                    <g>
-                      <rect fill="none" height="24" width="24"></rect>
-                    </g>
-                    <g>
-                      <g>
-                        <polygon
-                          opacity=".3"
-                          points="14.17,11 13,11 13,5 11,5 11,11 9.83,11 12,13.17"
-                        ></polygon>
-                        <rect height="2" width="14" x="5" y="18"></rect>
-                        <path d="M19,9h-4V3H9v6H5l7,7L19,9z M11,11V5h2v6h1.17L12,13.17L9.83,11H11z"></path>
-                      </g>
-                    </g>
-                  </svg>
-                </label>
+                
                 <div className="flex-grow">
                   <label> Woluwe </label>
                   <input
@@ -177,6 +189,18 @@ const NewPost = ({ categories }) => {
                     required
                   />
                 </div>
+                <label className="flex flex-grow w-1/12 pr-2 ">
+                  <input
+                    value={images}
+                    onChange={handleImages}
+                    name="file"
+                    type="file"
+                    multiple
+                    hidden
+                    required
+                  />
+                  <UploadIcon className=""/>
+                </label>
               </div>
 
               <hr className="mt-4" />
