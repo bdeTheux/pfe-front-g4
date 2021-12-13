@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import AlertVerif from "../Alert/AlertVerif";
 
 const Registration = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [campus, setCampus] = useState("");
+  const [campus, setCampus] = useState("Woluwe");
   const [password, setPassword] = useState("");
   const router = useRouter();
   const onRegister = async () => {
@@ -16,16 +17,23 @@ const Registration = () => {
       campus: campus,
       password: password,
     };
-
     const res = await fetch("/api/signup/", {
       method: "POST",
       body: JSON.stringify(newUser),
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
+    if (data.description) {
+      localStorage.setItem("error", data.description);
+    } else {
+      localStorage.setItem("error", "none");
+    }
     if (res.status == 201) {
       localStorage.setItem("token", data.token);
       router.push("/");
+      setTimeout(() => {
+        router.reload();
+      }, 500);
     } else {
       return {
         redirect: {
@@ -90,7 +98,7 @@ const Registration = () => {
                     name="email-address"
                     type="email"
                     autoComplete="email-address"
-                    pattern="[a-z0-9._%+-]+@(?:student.vinci.be|vinci.be)"
+                    pattern={/[a-zA-Z]+\.[a-zA-Z]+@(student\.)?vinci.be/}
                     required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-700 focus:border-green-700 focus:z-10 sm:text-sm"
                     placeholder="Email vinci"
@@ -110,7 +118,7 @@ const Registration = () => {
                     name="campus"
                     autoComplete="campus"
                     className="mt-1 block w-full py-2 px-3 border rounded-none border-gray-300 bg-white shadow-sm focus:outline-none focus:ring-green-700 focus:border-green-700 sm:text-sm"
-                    onChange={(e) => -setCampus(e.target.value)}
+                    onChange={(e) => setCampus(e.target.value)}
                     defaultValue="Woluwe"
                   >
                     <option key="Woluwe" value="Woluwe">
