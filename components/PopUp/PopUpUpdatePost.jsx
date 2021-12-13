@@ -72,7 +72,15 @@ const PopUpUpdatePost = ({ token, post, setShow }) => {
 
   const handleCampus = (e) => {
     //places[places.length] = e.target.value;
-    setPlaces((places) => [...places, e.target.value]);
+    let city = e.target.value
+    setPlaces((e) => {
+        if (places.includes(city)){
+            return places.filter(e => e != city);
+
+        }
+
+        return [...places, city]
+    });
   };
 
   const handleClose = () => {
