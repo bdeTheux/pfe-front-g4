@@ -63,23 +63,22 @@ const PopUpUpdatePost = ({ token, post, setShow }) => {
         console.log(data);
         return data;
       })
-      .then((temp) => console.log(temp)).then(() =>{
+      .then((temp) => console.log(temp))
+      .then(() => {
         setShow(false);
         router.reload(window.location.pathname);
       });
-      
   };
 
   const handleCampus = (e) => {
     //places[places.length] = e.target.value;
-    let city = e.target.value
+    let city = e.target.value;
     setPlaces((e) => {
-        if (places.includes(city)){
-            return places.filter(e => e != city);
+      if (places.includes(city)) {
+        return places.filter((e) => e != city);
+      }
 
-        }
-
-        return [...places, city]
+      return [...places, city];
     });
   };
 
@@ -175,7 +174,9 @@ const PopUpUpdatePost = ({ token, post, setShow }) => {
                           <div className="flex-grow">
                             <label> À vendre: </label>
                             <input
-                                defaultChecked={post.post_nature.includes("À vendre")}
+                              defaultChecked={post.post_nature.includes(
+                                "À vendre"
+                              )}
                               onChange={(val) =>
                                 setPostNature(val.target.value)
                               }
@@ -186,7 +187,9 @@ const PopUpUpdatePost = ({ token, post, setShow }) => {
                             />
                             <label> À donner: </label>
                             <input
-                              defaultChecked={post.post_nature.includes("À donner")}
+                              defaultChecked={post.post_nature.includes(
+                                "À donner"
+                              )}
                               onChange={(val) =>
                                 setPostNature(val.target.value)
                               }
