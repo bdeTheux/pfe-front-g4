@@ -3,11 +3,20 @@ import { useState, useEffect } from "react";
 import ButtonMailTo from "../ButtonMailTo/ButtonMailTo";
 import dynamic from "next/dynamic";
 import { PencilIcon, TrashIcon } from "@heroicons/react/outline";
+import { PopUpUpdatePost } from "../PopUp/PopUpUpdatePost"
+import  PopUpButton  from "../PopUp/PopUpButton"
 
 const OnePost = ({ postId }) => {
   const [post, setPost] = useState([]);
   const [user, setUser] = useState([]);
   const [token, setToken] = useState([]);
+  const [show, setShow] = useState(false);
+  const handleClose = () => {
+    setShow(false);
+  };
+  const handleShow = () => {
+    setShow(true);
+  };
 
   const handleDelete = () => {
     const res = fetch(`/api/posts/${post._id}`, {
@@ -16,30 +25,7 @@ const OnePost = ({ postId }) => {
         Authorization: token,
       },
     });
-  }
-
-  const  handleUpdate = () => {
-
-    const updatedPost = {
-
-    }
-    
-    fetch(`/api/posts/${post._id}`, {
-      method: "Put",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-      body: JSON.stringify(updatedPost),
-    })
-      .then((res) => {
-        const data = res.json();
-        console.log(data);
-        return data;
-      })
-      .then((temp) => console.log(temp));
-  }
-
+  };
 
   const Map = dynamic(() => import("../Map/Map"), {
     loading: () => "Loading...",
@@ -83,7 +69,6 @@ const OnePost = ({ postId }) => {
                   </h2>
                   <h1 className="flex text-gray-900 text-3xl title-font font-medium mb-1">
                     {post.title}
-                    
                   </h1>
                   <div className="flex mb-4">
                     <span className="flex items-center"></span>
@@ -120,28 +105,22 @@ const OnePost = ({ postId }) => {
                   </div>
                   <Map />
                 </div>
-                <div class="flex-row">
-                      <button
-                        onClick={handleDelete}
-                        type="button"
-                        class="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
-                      >
-                        <TrashIcon className="flex ml-3 w-6 text-red-500" />
-                        <span class="pl-2 mx-1">Delete</span>
-                      </button>
+                <div className="flex-row">
+                  <button
+                    onClick={handleDelete}
+                    type="button"
+                    className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
+                  >
+                    <TrashIcon className="flex ml-3 w-6 text-red-500" />
+                    <span className="pl-2 mx-1">Delete</span>
+                  </button>
 
+                  <div>
+                    <PopUpButton token={token} post={post} className="flex ml-3 w-6 "/>
 
-                      <button
-                        onClick={handleUpdate}
-                        type="button"
-                        class="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-green-200 hover:fill-current hover:text-green-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
-                      >
-                        <PencilIcon className="flex ml-3 w-6"/>
-                        <span class="pl-2 mx-1">Update</span>
-                      </button>
-                    </div>
+                  </div>
+                </div>
               </div>
-              
             </div>
           </div>
         </section>
@@ -151,3 +130,4 @@ const OnePost = ({ postId }) => {
 };
 
 export default OnePost;
+

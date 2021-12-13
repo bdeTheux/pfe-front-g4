@@ -1,19 +1,84 @@
+import Router from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import ReactDom from "react-dom";
+import SelectCategories from "../Category/SelectCategories";
+import { useRouter } from "next/router"
 
-const PopUpUpdatePost = ({ setShow }) => {
-    const [title, setTitle] = useState("")
-    const [category, setCategory] = useState("")
-    const [description, setDescription] = useState("")
-    const [price, setPrice] = useState("")
-    const [priceNature, setPriceNature] = useState("")
-    const [places, setPlaces] = useState([])
+const PopUpUpdatePost = ({ token, post, setShow }) => {
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [postNature, setPostNature] = useState("");
+  const [places, setPlaces] = useState(post.places);
+  const [categories, setCategories] = useState([])
+  const router = useRouter()
+
 
   const modalRef = useRef();
   const closeModal = (e) => {
     if (e.target === modalRef.current) {
       setShow(false);
     }
+  };
+  useEffect(
+    () =>
+      fetch(`/api/categories/`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((temp) => setCategories(temp)),
+    []
+  );
+
+  const handleUpdate = () => {
+    console.log(post.places);
+    if (title === "") title = post.title;
+    if (category === "") category = post.category_id;
+    if (description === "") description = post.description;
+    if (price === "") price = post.price;
+    if (postNature === "") postNature = post.post_nature;
+    if (places === "") places = post.places;
+
+    const updatedPost = {
+      title: title,
+      category_id: category,
+      description: description,
+      price: price,
+      post_nature: postNature,
+      places: places,
+    };
+    setShow(false);
+    console.log(updatedPost);
+    
+    fetch(`/api/posts/${post._id}`, {
+      method: "Put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      body: JSON.stringify(updatedPost),
+    })
+      .then((res) => {
+        const data = res.json();
+        console.log(data);
+        return data;
+      })
+      .then((temp) => console.log(temp));
+  };
+
+  const handleCampus = (e) => {
+    //places[places.length] = e.target.value;
+    setPlaces(places => [...places, e.target.value]);
+  };
+
+  const handleClose = () => {
+    setPlaces(post.places)
+    setShow(false);
+    router.reload(window.location.pathname)
   };
 
   return ReactDom.createPortal(
@@ -50,62 +115,95 @@ const PopUpUpdatePost = ({ setShow }) => {
                 </h3>
                 <div className="">
                   <form method="POST">
-                    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
-                      <div class="text-center pb-12"></div>
-                      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div class="w-full bg-white rounded-lg sahdow-lg overflow-hidden flex flex-col justify-center items-center">
+                    <input type="hidden" name="_method" value="put" />
+                    <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
+                      <div className="text-center pb-12"></div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="w-full bg-white rounded-lg sahdow-lg overflow-hidden flex flex-col justify-center items-center">
                           <p className="text-sm text-gray-500">
                             Titre de l'annonce
                           </p>
                           <textarea
-                            defaultValue="title"
+                            defaultValue={post.title}
+                            onChange={(val) => setTitle(val.target.value)}
                             className="text-black placeholder-gray-800 px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
                           />
                         </div>
-                        <div class="w-full bg-white rounded-lg sahdow-lg overflow-hidden flex flex-col justify-center items-center">
+                        <div className="w-full bg-white rounded-lg sahdow-lg overflow-hidden flex flex-col justify-center items-center">
                           <p className="text-sm text-gray-500">
                             Categorie de l'annonce
                           </p>
-                          <textarea
-                            defaultValue="category"
-                            className="text-black placeholder-gray-800 px-4 py-2.5 mx-3 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                          <SelectCategories
+                            categories={categories}
+                            setCategory={setCategory}
+                            label={post.category_id}
                           />
                         </div>
-                        <div class="w-full bg-white rounded-lg sahdow-lg overflow-hidden flex flex-col justify-center items-center">
+                        <div className="w-full bg-white rounded-lg sahdow-lg overflow-hidden flex flex-col justify-center items-center">
                           <p className="text-sm text-gray-500">
                             Description de l'annonce
                           </p>
                           <textarea
-                            defaultValue="description"
+                          onChange={(val) => setDescription(val.target.value)}
+                            defaultValue={post.description}
                             className="text-black placeholder-gray-800 px-4 py-2.5 mx-3 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
                           />
                         </div>
-                        <div class="w-full bg-white rounded-lg sahdow-lg overflow-hidden flex flex-col justify-center items-center">
+                        <div className="w-full bg-white rounded-lg sahdow-lg overflow-hidden flex flex-col justify-center items-center">
                           <p className="text-sm text-gray-500">
                             Prix de l'annonce
                           </p>
                           <textarea
-                            defaultValue="price"
+                          onChange={(val) => setPrice(val.target.value)}
+                            defaultValue={post.price}
                             className="text-black placeholder-gray-800 px-4 py-2.5 mx-3 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
                           />
                         </div>
-                        <div class="w-full bg-white rounded-lg sahdow-lg overflow-hidden flex flex-col justify-center items-center">
+                        <div className="w-full bg-white rounded-lg sahdow-lg overflow-hidden flex flex-col justify-center items-center">
                           <p className="text-sm text-gray-500">
                             Nature de l'annonce
                           </p>
                           <textarea
-                            defaultValue="price_nature"
+                          onChange={(val) => setPostNature(val.target.value)}
+                            defaultValue={post.post_nature}
                             className="text-black placeholder-gray-800 px-4 py-2.5 mx-3 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
                           />
                         </div>
-                        <div class="w-full bg-white rounded-lg sahdow-lg overflow-hidden flex flex-col justify-center items-center">
+                        <div className="w-full bg-white rounded-lg sahdow-lg overflow-hidden flex flex-col justify-center items-center">
                           <p className="text-sm text-gray-500">
                             Campus de l'annonce
                           </p>
-                          <textarea
-                            defaultValue="places"
-                            className="text-black placeholder-gray-800 px-4 py-2.5 mx-3 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-                          />
+                          <div className="flex-grow">
+                            <label> Woluwe </label>
+                            <input
+                              onChange={handleCampus}
+                              value="Woluwe"
+                              name="postNature"
+                              type="checkbox"
+                              required
+                              defaultChecked={post.places.includes("Woluwe")}
+                            />
+                            <label> Louvain-la-Neuve </label>
+                            <input
+                              onChange={handleCampus}
+                              value="Louvain-la-Neuve"
+                              name="postNature"
+                              type="checkbox"
+                              defaultChecked={post.places.includes(
+                                "Louvain-la-Neuve"
+                              )}
+                              required
+                            />
+                            <label> Ixelles </label>
+                            <input
+                              onChange={handleCampus}
+                              value="Ixelles"
+                              name="postNature"
+                              type="checkbox"
+                              defaultChecked={post.places.includes("Ixelles")}
+                              required
+                            />
+                          </div>
                         </div>
                       </div>
                     </section>
@@ -117,13 +215,14 @@ const PopUpUpdatePost = ({ setShow }) => {
           <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
             <button
               type="button"
-              onClick={() => setShow(false)}
+              onClick={handleUpdate}
               className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
             >
               Mettre à jour
             </button>
             <button
               type="button"
+              onClick={handleClose}
               className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
             >
               Annuler
