@@ -1,12 +1,12 @@
 import Alert from "./Alert";
 const AlertVerif = () => {
-  console.log(localStorage.getItem("error"));
   return (
     <div>
-      {localStorage.getItem("error") !== null ? (
-        <Alert message={localStorage.getItem("error")} />
-      ) : (
+      {!localStorage.getItem("error") ||
+      localStorage.getItem("error") == "null" ? (
         <p></p>
+      ) : (
+        <Alert message={localStorage.getItem("error")} />
       )}
     </div>
   );

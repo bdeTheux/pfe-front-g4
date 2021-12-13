@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import ButtonMailTo from "../ButtonMailTo/ButtonMailTo";
 import dynamic from "next/dynamic";
 import Map from "../Map/Map";
+import BanPage from "../BanPage/BanPage";
 
 const OnePost = ({ postId }) => {
   const [post, setPost] = useState([]);
@@ -60,7 +61,9 @@ const OnePost = ({ postId }) => {
         setUserConnected(temp);
       });
   }, []);
-
+  if (userConnected.is_banned) {
+    return <BanPage />;
+  }
   return (
     <div>
       <Meta title={post.title} />
@@ -101,9 +104,10 @@ const OnePost = ({ postId }) => {
                   <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
                     Informations sur le vendeur
                   </h1>
-                  {userConnected === null ? (
+                  {userConnected === null || userConnected.is_banned ? (
                     <p className="leading-relaxed">
                       Veuillez vous connectez pour accéder à ces informations
+                      (ou vous avez été banni)
                     </p>
                   ) : (
                     <div>

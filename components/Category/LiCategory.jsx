@@ -12,7 +12,6 @@ const LiCategory = ({ categories, category }) => {
     setToken(localStorage.getItem("token"));
   });
   const handleDelete = async () => {
-    console.log(category.name);
     const res = await fetch(`/api/categories/${category.name}`, {
       method: "DELETE",
       headers: {
@@ -31,8 +30,6 @@ const LiCategory = ({ categories, category }) => {
       parent: categoryParent,
       sub_categories: category.sub_categories,
     };
-    console;
-    console.log(updatedCategory);
 
     fetch(`/api/categories/${category.name}`, {
       method: "Put",
@@ -44,7 +41,6 @@ const LiCategory = ({ categories, category }) => {
     })
       .then((res) => {
         const data = res.json();
-        console.log(data);
         return data;
       })
       .then((temp) => console.log(temp));

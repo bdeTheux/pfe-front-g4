@@ -19,7 +19,6 @@ const Connection = () => {
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
-    console.log("data", data);
     if (data.code == 401) {
       localStorage.setItem("error", data.description);
     } else {
@@ -28,7 +27,6 @@ const Connection = () => {
     if (res.status == 200) {
       localStorage.setItem("token", data.token);
       router.push("/");
-      console.log("error");
       setTimeout(() => {
         router.reload();
       }, 500);

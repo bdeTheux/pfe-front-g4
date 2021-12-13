@@ -22,7 +22,6 @@ const Layout = ({ children }) => {
         return res.json();
       })
       .then((temp) => {
-        console.log(temp);
         setUser(temp);
       });
   }, []);
