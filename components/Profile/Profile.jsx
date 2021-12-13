@@ -76,7 +76,7 @@ const Profile = ({ user }) => {
       </ul>
       <div className="mt-5">
         <Button onClick={() => logout(router)} color={`red`}>
-          Log-Out
+          Se déconnecter
           <LogoutIcon className="text-white h-5 w-5 mt-0.5 ml-2" />
         </Button>
       </div>

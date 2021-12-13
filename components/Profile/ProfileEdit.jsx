@@ -1,6 +1,6 @@
 import Link from "next/link";
 import {
-    ArrowNarrowLeftIcon,
+  ArrowNarrowLeftIcon,
   ArrowNarrowRightIcon,
   CheckIcon,
   XIcon,
@@ -12,7 +12,7 @@ import { Listbox, Transition, Tab, Dialog } from "@headlessui/react";
 import { SelectorIcon } from "@heroicons/react/solid";
 
 ////////////////////////////////////////////////////////////////
-//Utility functions////////////////////////////////////////////
+//Utility////////////////////////////////////////////
 const confirmChanges = (router) => {
   alert("confirmChanges : TODO");
 };
@@ -36,7 +36,9 @@ const campuses = [
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-//End Utility functions////////////////////////////////////////
+
+//End Utility////////////////////////////////////////
+///////////////////////////////////////////////////////////////
 
 const ProfileEdit = ({ user }) => {
   let [isOpen, setIsOpen] = useState(false);
@@ -48,6 +50,7 @@ const ProfileEdit = ({ user }) => {
   function openModal() {
     setIsOpen(true);
   }
+  
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -58,14 +61,6 @@ const ProfileEdit = ({ user }) => {
   const router = useRouter();
 
   const onEdit = async () => {
-    const newInfos = {
-      _id: user._id,
-      first_name: firstName,
-      last_name: lastName,
-      email: email,
-      campus: campus,
-      password: password,
-    };
 
     const res = await fetch(`/api/users/${user._id}`, {
       method: "PUT",
@@ -78,6 +73,41 @@ const ProfileEdit = ({ user }) => {
     } else {
       alert("Error 401: request failed");
     }
+  };
+  const handleUpdate = () => {
+    if (firstName === "") firstName = user.title;
+    if (lastName === "") lastName = user.category_id;
+    if (email === "") email = user.email;
+    if (campus === "") campus = user.campus;
+    if (password === "") password = user.password;
+
+    const newInfos = {
+      _id: user._id,
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      campus: campus,
+      password: password,
+    };
+
+    fetch(`/api/users/edit`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+      body: JSON.stringify(newInfos),
+    })
+      .then((res) => {
+        const data = res.json();
+        console.log(data);
+        return data;
+      })
+      .then((temp) => console.log(temp))
+      .then(() => {
+        setIsOpen(false);
+        router.push("/profile");
+      });
   };
 
   const [selected, setSelected] = useState(campuses[0]);
@@ -102,7 +132,7 @@ const ProfileEdit = ({ user }) => {
               id="first-name"
               autoComplete="given-name"
               className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm border-gray-300 rounded-md"
-              value={user.first_name}
+              defaultValue={user.first_name}
               onChange={(e) => setFirstName(e.target.value)}
             />
           </div>
@@ -119,7 +149,7 @@ const ProfileEdit = ({ user }) => {
               id="family-name"
               autoComplete="family-name"
               className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm border-gray-300 rounded-md"
-              value={user.last_name}
+              defaultValue={user.last_name}
               onChange={(e) => setLastName(e.target.value)}
             />
           </div>
@@ -136,7 +166,7 @@ const ProfileEdit = ({ user }) => {
               id="email"
               autoComplete="email"
               className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm border-gray-300 rounded-md"
-              value={user.email}
+              defaultValue={user.email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -154,7 +184,11 @@ const ProfileEdit = ({ user }) => {
                     <p className="flex mt-2 space-x-1 font-normal leading-4 text-gray-700 p-2">
                       {user.campus}
                     </p>
-                    <ArrowNarrowRightIcon className="h-7 w-7 mt-2.5" />
+                    <div className="grid grid-cols-3 space-x-2 ">
+                      <p className="text-xs text-gray-500 p-2 md:p-4 italic col-span-2 select-none">Sera remplacé par</p>
+                      <ArrowNarrowRightIcon className="h-7 w-7 mt-2.5" />
+                    </div>
+
                     <div className="mt-1 relative">
                       <Listbox.Button className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm  py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         <span className="flex items-center">
@@ -238,7 +272,7 @@ const ProfileEdit = ({ user }) => {
           </div>
         </form>
         <div className="mt-5 grid grid-cols-2">
-          <Button onClick={openModal} color={`green`}>
+          <Button onClick={() => setIsOpen(true)} color={`green`}>
             Confirmer
             <CheckIcon className="text-white h-5 w-5 mt-0.5 ml-2" />
           </Button>
@@ -255,7 +289,7 @@ const ProfileEdit = ({ user }) => {
         <Dialog
           as="div"
           className="fixed inset-0 z-10 overflow-y-auto"
-          onClose={closeModal}
+          onClose={()=>setIsOpen(false)}
         >
           <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
           <div className="min-h-screen px-4 text-center">
@@ -312,11 +346,11 @@ const ProfileEdit = ({ user }) => {
                 </form>
 
                 <div className="mt-4 flex flex-row space-x-2">
-                  <Button onClick={closeModal} color="red">
+                  <Button onClick={()=>setIsOpen(false)} color="red">
                     <ArrowNarrowLeftIcon className="text-white h-4 w-4 mr-2" />
                     Retour
                   </Button>
-                  <Button onClick={() => confirmChanges(router)} color="green">
+                  <Button onClick={() => handleUpdate()} color="green">
                     Accepter
                     <CheckIcon className="text-white h-5 w-5 mt-0.5 ml-2" />
                   </Button>

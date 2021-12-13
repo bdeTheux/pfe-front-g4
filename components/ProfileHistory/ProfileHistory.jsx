@@ -1,5 +1,5 @@
 import { Tab } from "@headlessui/react";
-import { CheckCircleIcon, ClockIcon, BanIcon } from "@heroicons/react/outline";
+import { CheckCircleIcon, ClockIcon, HandIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 import React from "react";
 import HistoryDisclosure from "./HistoryDisclosure";
@@ -25,7 +25,7 @@ const ProfileHistory = ({ historyItems }) => {
         <CheckCircleIcon className="w-5 h-5 text-gray-700" />
       </HistoryDisclosure>
       <HistoryDisclosure statusName="Clôturé" statusArray={closed}>
-        <BanIcon className="w-5 h-5 text-gray-700" />
+        <HandIcon className="w-5 h-5 text-gray-700" />
       </HistoryDisclosure>
       <HistoryDisclosure statusName="En attente d'approbation" statusArray={pending}>
         <ClockIcon className="w-5 h-5 text-gray-700" />

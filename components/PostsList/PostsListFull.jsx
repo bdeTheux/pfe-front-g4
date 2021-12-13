@@ -1,26 +1,20 @@
-import { Fragment, useState , useEffect } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
-import { XIcon } from "@heroicons/react/outline";
+import { EmojiSadIcon, XIcon } from "@heroicons/react/outline";
 import {
   ChevronDownIcon,
   FilterIcon,
   MinusSmIcon,
   PlusSmIcon,
 } from "@heroicons/react/solid";
-import PostsList from "../components/PostsList/PostsList";
+import PostsList from "./PostsList";
+import Link from "next/link";
 
 const sortOptions = [
   { name: "Plus Populaire", href: "#", current: true },
   { name: "Nouveau", href: "#", current: false },
   { name: "Prix croissant", href: "#", current: false },
   { name: "Price décroissant", href: "#", current: false },
-];
-const subCategories = [
-  { name: "Vêtements Homme", href: "#" },
-  { name: "Vêtements Femme", href: "#" },
-  { name: "Accessoires", href: "#" },
-  { name: "Meubles", href: "#" },
-  { name: "Electromenager", href: "#" },
 ];
 const filters = [
   {
@@ -45,53 +39,27 @@ const filters = [
   },
 ];
 
-export const getServerSideProps = async () => {
-  const res = await fetch("http://pfe-back-g4-dev.herokuapp.com/posts/");
-
-  const posts = await res.json();
-  return {
-    props: {
-      posts,
-    },
-  };
-};
-
-/*
-export async function getServerSideProps() {
-  const [postsRes, categoriesRes] = await Promise.all([
-    fetch("http://pfe-back-g4-dev.herokuapp.com/posts/"),
-    fetch("http://pfe-back-g4-dev.herokuapp.com/categories/tree")
-  ]);
-  const [posts, categories] = await Promise.all([
-    postsRes.json(), 
-    categoriesRes.json()
-  ]);
-  return { props: { posts, categories } };
-}
-*/
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-
-export default function posts({posts}) {
+const PostsListFull = ({ posts, title }) => {
+  const [categories, setCategories] = useState([]);
   useEffect(() => {
-    fetch("/api/categories/tree", {
-      method: "GET",
+    fetch("/api/categories/", {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application.json",
       },
     })
       .then((res) => {
         return res.json();
       })
       .then((temp) => {
-          console.log(temp);
+        setCategories(temp);
       });
   }, []);
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  console.log(posts)
+  console.log(posts);
   return (
     <div className="bg-white md:mt-5">
       <div>
@@ -142,11 +110,21 @@ export default function posts({posts}) {
                     role="list"
                     className="font-medium text-gray-900 px-2 py-3"
                   >
-                    {subCategories.map((category) => (
-                      <li key={category.name}>
-                        <a href={category.href} className="block px-2 py-3">
-                          {category.name}
-                        </a>
+                    <li>
+                      <Link href="/posts">
+                        <a className="block px-2 py-3">Tout afficher</a>
+                      </Link>
+                    </li>
+                    {categories.map((category) => (
+                      <li>
+                        <Link
+                          href={{
+                            pathname: "/posts/[categoryName]",
+                            query: { categoryName: category.name },
+                          }}
+                        >
+                          <a className="block px-2 py-3">{category.name}</a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -217,7 +195,7 @@ export default function posts({posts}) {
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative z-10 flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200">
             <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">
-              Les annonces
+              {title}
             </h1>
 
             <div className="flex items-center z-50">
@@ -289,9 +267,21 @@ export default function posts({posts}) {
                   role="list"
                   className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200"
                 >
-                  {subCategories.map((category) => (
+                  <li>
+                    <Link href="/posts">
+                      <a className="font-bold">Tout afficher</a>
+                    </Link>
+                  </li>
+                  {categories.map((category) => (
                     <li key={category.name}>
-                      <a href={category.href}>{category.name}</a>
+                      <Link
+                        href={{
+                          pathname: "/posts/[categoryName]",
+                          query: { categoryName: category.name },
+                        }}
+                      >
+                        <a>{category.name}</a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -356,7 +346,19 @@ export default function posts({posts}) {
               </form>
 
               <div className="lg:col-span-3">
-                <PostsList posts={posts} />
+                {posts.length !== 0 ? (
+                  <PostsList posts={posts} />
+                ) : (
+                  <div className="flex flex-col items-center m-3 pb-5 rounded-xl bg-yellow-50">
+                    <div className="flex items-center text-gray-800 ">
+                      <EmojiSadIcon className="h-12 w-12 " />
+                      <p className="text-xl font-extrabold p-5">
+                        Rien à afficher dans cette catégorie
+                      </p>
+                    </div>
+                    <p className="font-light">Revenez plus tard</p>
+                  </div>
+                )}
               </div>
             </div>
           </section>
@@ -364,4 +366,6 @@ export default function posts({posts}) {
       </div>
     </div>
   );
-}
+};
+
+export default PostsListFull;
