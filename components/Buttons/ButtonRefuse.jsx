@@ -22,7 +22,7 @@ const ButtonRefuse = ({ postId }) => {
       .then((res) => {
         return res.json();
       })
-      .then(() => router.reload(window.location.pathname)); //
+      .then(() => router.reload(window.location.pathname));
   };
   return (
     <>

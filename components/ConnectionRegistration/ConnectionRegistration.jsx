@@ -2,6 +2,7 @@ import Connection from "./Connection";
 import Registration from "./Registration";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import AlertVerif from "../Alert/AlertVerif";
 
 const ConnectionRegistration = () => {
   const [user, setUser] = useState([]);
@@ -31,12 +32,15 @@ const ConnectionRegistration = () => {
     );
   }
   return (
-    <div className="md:mt-24 grid grid-cols-1 md:grid-cols-2 divide-x">
-      <div>
-        <Registration />
-      </div>
-      <div>
-        <Connection />
+    <div>
+      <AlertVerif />
+      <div className="md:mt-24 grid grid-cols-1 md:grid-cols-2 divide-x">
+        <div>
+          <Registration />
+        </div>
+        <div>
+          <Connection />
+        </div>
       </div>
     </div>
   );
