@@ -4,6 +4,8 @@ import Profile from "../../components/Profile/Profile";
 import ProfileHistory from "../../components/ProfileHistory/ProfileHistory";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { ArchiveIcon, IdentificationIcon } from "@heroicons/react/outline";
+
 
 const currentUserTest = {
   firstName: "Samy",
@@ -87,6 +89,7 @@ const history = [
 ];
 
 
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -129,27 +132,29 @@ export default function profile() {
           <Tab
             className={({ selected }) =>
               classNames(
-                "w-full py-2.5 text-sm leading-5 font-medium text-indigo-700 rounded-lg",
+                "w-full py-2.5 text-sm leading-5 font-medium text-indigo-700 rounded-lg flex justify-center",
                 "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-indigo-400 ring-white indigo-opacity-60",
                 selected
-                  ? "bg-white shadow"
+                  ? "bg-indigo-100 shadow"
                   : "text-indigo-500 hover:bg-white/[0.12] hover:text-indigo-400"
               )
             }
           >
+            <IdentificationIcon className="text-indigo-700 h-5 w-5 mr-2" />
             Informations personnelles
           </Tab>
           <Tab
             className={({ selected }) =>
               classNames(
-                "w-full py-2.5 text-sm leading-5 font-medium text-indigo-700 rounded-lg",
+                "w-full py-2.5 text-sm leading-5 font-medium text-indigo-700 rounded-lg flex justify-center",
                 "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-indigo-400 ring-white indigo-opacity-60",
                 selected
-                  ? "bg-white shadow"
-                  : "text-indigo-500 hover:bg-white/[0.12] hover:text-indigo-400"
+                  ? "bg-indigo-100 shadow"
+                  : "text-gray-500 hover:bg-white/[0.12] hover:text-indigo-400"
               )
             }
           >
+            <ArchiveIcon className="text-indigo-700 h-5 w-5 mr-2" />
             Historique
           </Tab>
         </Tab.List>

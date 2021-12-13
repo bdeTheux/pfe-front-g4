@@ -1,13 +1,36 @@
 import { Tab } from "@headlessui/react";
 import Image from "next/image";
 
+
 import React from "react";
+import { useEffect, useState } from "react";
 
 const ProfileHistory = ({ historyItems }) => {
+  const [history, setHistory] = useState([]);
+  const hist;
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
+  useEffect(() => {
+    fetch("/api/posts/myPosts", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        return res.json();
+        
+      })
+      .then((temp) => {
+        setHistory(temp);
+          console.log("history", history);
+
+      });
+
+  }, []);
 
   return (
     <Tab.Panel

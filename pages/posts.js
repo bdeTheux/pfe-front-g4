@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState , useEffect } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import {
@@ -46,7 +46,7 @@ const filters = [
 ];
 
 export const getServerSideProps = async () => {
-  const res = await fetch("https://pfe-back-g4-dev.herokuapp.com/posts/");
+  const res = await fetch("http://pfe-back-g4-dev.herokuapp.com/posts/");
 
   const posts = await res.json();
   return {
@@ -56,13 +56,42 @@ export const getServerSideProps = async () => {
   };
 };
 
+/*
+export async function getServerSideProps() {
+  const [postsRes, categoriesRes] = await Promise.all([
+    fetch("http://pfe-back-g4-dev.herokuapp.com/posts/"),
+    fetch("http://pfe-back-g4-dev.herokuapp.com/categories/tree")
+  ]);
+  const [posts, categories] = await Promise.all([
+    postsRes.json(), 
+    categoriesRes.json()
+  ]);
+  return { props: { posts, categories } };
+}
+*/
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function posts({posts}) {
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  useEffect(() => {
+    fetch("/api/categories/tree", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((temp) => {
+          console.log(temp);
+      });
+  }, []);
 
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  console.log(posts)
   return (
     <div className="bg-white md:mt-5">
       <div>
