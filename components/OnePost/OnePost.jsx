@@ -1,7 +1,6 @@
 import Meta from "../../components/Meta/Meta";
 import { useState, useEffect } from "react";
 import ButtonMailTo from "../ButtonMailTo/ButtonMailTo";
-import dynamic from "next/dynamic";
 
 import { PencilIcon, TrashIcon } from "@heroicons/react/outline";
 import { PopUpUpdatePost } from "../PopUp/PopUpUpdatePost";
@@ -9,55 +8,8 @@ import PopUpButton from "../PopUp/PopUpButton";
 import { useRouter } from "next/router";
 
 import Map from "../Map/Map";
-import BanPage from "../BanPage/BanPage";
-import { isBanned } from "../Layout/Layout";
-
-/*const isBanned = () => {
-  const [userConnected, setUserConnected] = useState([]);
-  useEffect(() => {
-    if (
-      localStorage.getItem("token") != null &&
-      localStorage.getItem("token") != ""
-    ) {
-      console.log("token pas vide");
-      fetch("/api/users/whoami", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-      })
-        .then((res) => {
-          const data = res.json();
-          console.log(data);
-          return data;
-        })
-        .then((temp) => {
-          console.log(temp);
-          setUserConnected(temp);
-        })
-        .then(() => {
-          if (userConnected.is_banned) {
-            console.log("il est banned");
-            isBanned = true;
-          } else {
-            isBanned = false;
-          }
-        });
-    }
-    console.log("pas de localstorage");
-  });
-
-  return false;
-};*/
 
 const OnePost = ({ postId }) => {
-  //console.log("is banned", () => isBanned());
-  /*let isBan = isBanned(localStorage);
-  console.log(isBan);
-  if (isBan) {
-    return <BanPage />;
-  }*/
   const [post, setPost] = useState([]);
   const [user, setUser] = useState([]);
   const [token, setToken] = useState([]);
@@ -66,6 +18,19 @@ const OnePost = ({ postId }) => {
   const [locations, setLocations] = useState([]);
 
   useEffect(() => {
+    fetch("https://pfe-back-g4-dev.herokuapp.com/users/whoami", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((temp) => {
+        setUserConnected(temp);
+      });
     fetch(`/api/posts/${postId}`).then((res) => {
       res.json().then((temp2) => {
         fetch(`/api/users/${temp2.seller_id}`, {
@@ -99,20 +64,6 @@ const OnePost = ({ postId }) => {
         });
       });
     });
-
-    fetch("https://pfe-back-g4-dev.herokuapp.com/users/whoami", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((temp) => {
-        setUserConnected(temp);
-      });
   }, []);
 
   const router = useRouter();
@@ -173,7 +124,7 @@ const OnePost = ({ postId }) => {
                   <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
                     Informations sur le vendeur
                   </h1>
-                  {userConnected === null || userConnected.is_banned ? (
+                  {userConnected === null ? (
                     <p className="leading-relaxed">
                       Veuillez vous connectez pour accéder à ces informations
                       (ou vous avez été banni)
@@ -194,7 +145,8 @@ const OnePost = ({ postId }) => {
                     </div>
                   )}
                 </div>
-                {userConnected._id == post.seller_id ? (
+                {userConnected !== null &&
+                userConnected._id == post.seller_id ? (
                   <div className="flex-row">
                     <button
                       onClick={handleDelete}

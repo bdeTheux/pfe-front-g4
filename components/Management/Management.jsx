@@ -4,18 +4,12 @@ import CategoryPage from "../CategoryPage/CategoryPage";
 import { useRouter } from "next/router";
 import { Tab } from "@headlessui/react";
 import { useEffect, useState } from "react";
-//import { isBanned } from "../Layout/Layout";
-import BanPage from "../BanPage/BanPage";
 
 const Management = () => {
   const [users, setUsers] = useState([]);
   const [pendingPosts, setPendingPosts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [userConnected, setUserConnected] = useState([]);
   const router = useRouter();
-  /*const isBan = isBanned();
-  console.log("ban ? :", isBan);
-  if (isBan) return <BanPage />;*/
   useEffect(() => {
     fetch("/api/users/", {
       headers: {
@@ -51,24 +45,6 @@ const Management = () => {
       })
       .then((temp3) => {
         setCategories(temp3);
-      });
-    fetch("https://pfe-back-g4-dev.herokuapp.com/users/whoami", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((temp) => {
-        setUserConnected(temp);
-      })
-      .then(() => {
-        if (!userConnected.is_admin) {
-          router.push("/");
-        }
       });
   }, []);
 
