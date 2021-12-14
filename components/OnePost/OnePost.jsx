@@ -4,8 +4,54 @@ import ButtonMailTo from "../ButtonMailTo/ButtonMailTo";
 import dynamic from "next/dynamic";
 import Map from "../Map/Map";
 import BanPage from "../BanPage/BanPage";
+import { isBanned } from "../Layout/Layout";
+
+/*const isBanned = () => {
+  const [userConnected, setUserConnected] = useState([]);
+  useEffect(() => {
+    if (
+      localStorage.getItem("token") != null &&
+      localStorage.getItem("token") != ""
+    ) {
+      console.log("token pas vide");
+      fetch("/api/users/whoami", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+        .then((res) => {
+          const data = res.json();
+          console.log(data);
+          return data;
+        })
+        .then((temp) => {
+          console.log(temp);
+          setUserConnected(temp);
+        })
+        .then(() => {
+          if (userConnected.is_banned) {
+            console.log("il est banned");
+            isBanned = true;
+          } else {
+            isBanned = false;
+          }
+        });
+    }
+    console.log("pas de localstorage");
+  });
+
+  return false;
+};*/
 
 const OnePost = ({ postId }) => {
+  //console.log("is banned", () => isBanned());
+  /*let isBan = isBanned(localStorage);
+  console.log(isBan);
+  if (isBan) {
+    return <BanPage />;
+  }*/
   const [post, setPost] = useState([]);
   const [user, setUser] = useState([]);
   const [userConnected, setUserConnected] = useState([]);
@@ -57,7 +103,6 @@ const OnePost = ({ postId }) => {
         return res.json();
       })
       .then((temp) => {
-        console.log(temp);
         setUserConnected(temp);
       });
   }, []);
@@ -118,9 +163,6 @@ const OnePost = ({ postId }) => {
                       </p>
                       <div className="mb-1">
                         <ButtonMailTo mailto={user.email} title={post.title} />
-                      </div>
-                      <div className="mb-5">
-                        <p>{("dans le code", console.log(locations))} </p>
                       </div>
                       <Map locations={locations} />
                     </div>

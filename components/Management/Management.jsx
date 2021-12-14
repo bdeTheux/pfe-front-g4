@@ -3,11 +3,16 @@ import PendingPosts from "../PendingPosts/PendingPosts";
 import CategoryPage from "../CategoryPage/CategoryPage";
 import { Tab } from "@headlessui/react";
 import { useEffect, useState } from "react";
+//import { isBanned } from "../Layout/Layout";
+import BanPage from "../BanPage/BanPage";
 
 const Management = () => {
   const [users, setUsers] = useState([]);
   const [pendingPosts, setPendingPosts] = useState([]);
   const [categories, setCategories] = useState([]);
+  /*const isBan = isBanned();
+  console.log("ban ? :", isBan);
+  if (isBan) return <BanPage />;*/
   useEffect(() => {
     fetch("/api/users/", {
       headers: {

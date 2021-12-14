@@ -5,7 +5,45 @@ import BanPage from "../BanPage/BanPage";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-const Layout = ({ children }) => {
+export const isBanned = ({ localStorage1 }) => {
+  const [userConnected, setUserConnected] = useState([]);
+  useEffect(() => {
+    if (
+      localStorage1.getItem("token") != null &&
+      localStorage1.getItem("token") != ""
+    ) {
+      console.log("token pas vide");
+      fetch("/api/users/whoami", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage1.getItem("token"),
+        },
+      })
+        .then((res) => {
+          const data = res.json();
+          console.log(data);
+          return data;
+        })
+        .then((temp) => {
+          console.log(temp);
+          setUserConnected(temp);
+        })
+        .then(() => {
+          if (userConnected.is_banned) {
+            console.log("il est banned");
+            isBanned = "banned";
+          } else {
+            isBanned = "not banned";
+          }
+        });
+    }
+  });
+
+  return "not localstorage";
+};
+
+export const Layout = ({ children }) => {
   const [user, setUser] = useState([]);
   const [reRender, setReRender] = useState(false);
   const router = useRouter();
@@ -59,4 +97,4 @@ const Layout = ({ children }) => {
   }
 };
 
-export default Layout;
+export default { Layout, isBanned };

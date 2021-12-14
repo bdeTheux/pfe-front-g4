@@ -1,40 +1,41 @@
 import BanPage from "../components/BanPage/BanPage";
 import { useState } from "react";
 
-export const getInitialProps = () => {
-  const userConnected = useState([]);
+export function middleware(req, res, next) {
+  //console.log("je passe dans le middleware");
+  //console.log(req.headers);
+  let userConnected;
   let isBanned = false;
-  fetch("https://pfe-back-g4-dev.herokuapp.com/users/whoami", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: localStorage.getItem("token"),
-    },
-  })
-    .then((res) => res.json())
-    .then((temp) => {
-      userConnected = temp;
+  /*if (window.localStorage.getItem("token") != "") {
+    console.log("token pas vide");
+    fetch("/api/users/whoami", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: window.localStorage.getItem("token"),
+      },
     })
-    .then(() => {
-      if (userConnected.is_banned) {
-        isBanned = true;
-        return {
-          props: {
-            isBanned,
-          },
-        };
-      } else {
-        isBanned = false;
-        return {
-          props: {
-            isBanned,
-          },
-        };
-      }
-    });
-};
-export function middleware({ isBanned }) {
-  if (isBanned) {
-    return <BanPage />;
+      .then((res) => {
+        const data = res.json();
+        console.log(data);
+        return data;
+      })
+      .then((temp) => {
+        console.log(temp);
+        userConnected = temp;
+      })
+      .then(() => {
+        if (userConnected.is_banned) {
+          console.log("il est banned");
+          isBanned = true;
+        } else {
+          isBanned = false;
+        }
+      });
   }
+  console.log(req);
+  console.log("middleware");
+  if (false) {
+    return <BanPage />;
+  }*/
 }

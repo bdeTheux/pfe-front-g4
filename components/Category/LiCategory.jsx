@@ -38,12 +38,10 @@ const LiCategory = ({ categories, category }) => {
         Authorization: token,
       },
       body: JSON.stringify(updatedCategory),
-    })
-      .then((res) => {
-        const data = res.json();
-        return data;
-      })
-      .then((temp) => console.log(temp));
+    }).then((res) => {
+      const data = res.json();
+      return data;
+    });
   };
   var handleChange = function (event) {
     this.setState({ html: event.target.value });

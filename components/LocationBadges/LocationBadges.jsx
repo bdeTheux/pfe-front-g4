@@ -1,10 +1,8 @@
 import React from "react";
 import { LocationMarkerIcon } from "@heroicons/react/solid";
 
-
 const LocationBadges = ({ locations }) => {
-  console.log(locations);
-  return (<></>)
+  return <></>;
   return (
     <ul>
       {locations.map((location) => (

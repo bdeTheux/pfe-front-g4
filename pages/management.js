@@ -1,6 +1,7 @@
 import Management from "../components/Management/Management";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import BanPage from "../components/BanPage/BanPage";
 
 export default function management() {
   const [user, setUser] = useState([]);
@@ -22,9 +23,9 @@ export default function management() {
       });
   }, []);
 
-  if(user === null){
-    router.push('/connectionRegistration')
-    return <></>
+  if (user === null) {
+    router.push("/connectionRegistration");
+    return <></>;
   }
 
   return <Management />;

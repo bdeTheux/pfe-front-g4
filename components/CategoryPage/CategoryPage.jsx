@@ -19,7 +19,7 @@ const CategoryPage = ({ categories }) => {
       parent: categoryParent,
       sub_categories: [],
     };
-    console.log("before fetch " + JSON.stringify(newCategory));
+
     const res = await fetch(
       `https://pfe-back-g4-dev.herokuapp.com/categories/`,
       {
@@ -31,12 +31,8 @@ const CategoryPage = ({ categories }) => {
         },
       }
     );
-    console.log(newCategory);
     const data = await res.json();
-    console.log(data);
   };
-
-  console.log(categoryName);
 
   return (
     <div className="flex m-auto bg-gray-100">

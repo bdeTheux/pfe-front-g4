@@ -25,8 +25,6 @@ const NewPost = ({ categories }) => {
       places: campus,
     };
 
-    console.log(newPostSubmit);
-
     fetch(`/api/posts/`, {
       method: "POST",
       headers: {
@@ -34,7 +32,7 @@ const NewPost = ({ categories }) => {
         Authorization: token,
       },
       body: JSON.stringify(newPostSubmit),
-    }).then((res) => console.log(res.json()));
+    });
   };
 
   const handleCampus = (e) => {
