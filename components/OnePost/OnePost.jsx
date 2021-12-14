@@ -2,6 +2,12 @@ import Meta from "../../components/Meta/Meta";
 import { useState, useEffect } from "react";
 import ButtonMailTo from "../ButtonMailTo/ButtonMailTo";
 import dynamic from "next/dynamic";
+
+import { PencilIcon, TrashIcon } from "@heroicons/react/outline";
+import { PopUpUpdatePost } from "../PopUp/PopUpUpdatePost";
+import PopUpButton from "../PopUp/PopUpButton";
+import { useRouter } from "next/router";
+
 import Map from "../Map/Map";
 import BanPage from "../BanPage/BanPage";
 import { isBanned } from "../Layout/Layout";
@@ -54,6 +60,27 @@ const OnePost = ({ postId }) => {
   }*/
   const [post, setPost] = useState([]);
   const [user, setUser] = useState([]);
+  const [token, setToken] = useState([]);
+  const [show, setShow] = useState(false);
+
+  const router = useRouter();
+
+  const handleClose = () => {
+    setShow(false);
+  };
+  const handleShow = () => {
+    setShow(true);
+  };
+
+  const handleDelete = () => {
+    const res = fetch(`/api/posts/${post._id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    }).then((temp) => router.push("/"));
+  };
+
   const [userConnected, setUserConnected] = useState([]);
   const [locations, setLocations] = useState([]);
 
@@ -124,14 +151,14 @@ const OnePost = ({ postId }) => {
                   <h2 className="text-sm title-font text-gray-500 tracking-widest">
                     {post.category}
                   </h2>
-                  <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
+                  <h1 className="flex text-gray-900 text-3xl title-font font-medium mb-1">
                     {post.title}
                   </h1>
                   <div className="flex mb-4">
                     <span className="flex items-center"></span>
                   </div>
-                  <p className="leading-relaxed">{post.postNature}</p>
-                  {post.postNature === "A vendre" ? (
+                  <p className="leading-relaxed">{post.post_nature}</p>
+                  {post.post_nature === "En vente" ? (
                     <div className="flex">
                       <span className="title-font font-medium text-2xl text-gray-900">
                         ${post.price}€
@@ -167,6 +194,20 @@ const OnePost = ({ postId }) => {
                       <Map locations={locations} />
                     </div>
                   )}
+                </div>
+                <div className="flex-row">
+                  <button
+                    onClick={handleDelete}
+                    type="button"
+                    className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
+                  >
+                    <TrashIcon className="flex ml-3 w-6 text-red-500" />
+                    <span className="pl-2 mx-1">Delete</span>
+                  </button>
+
+                  <div>
+                    <PopUpButton post={post} className="flex ml-3 w-6 " />
+                  </div>
                 </div>
               </div>
             </div>
