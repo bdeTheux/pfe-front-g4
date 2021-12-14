@@ -9,14 +9,15 @@ import {
 } from "@heroicons/react/solid";
 import PostsList from "./PostsList";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const sortOptions = [
-  { id: 0, name: "Nouveau", href: "/posts", current: true },
-  { id: 1, name: "Prix croissant", href: "#ascendingPrice", current: false },
+  { id: 0, name: "Nouveau", href: "#", current: true },
+  { id: 1, name: "Prix croissant", href: "#", current: false },
   {
     id: 2,
     name: "Price décroissant",
-    href: "#descendingPrice",
+    href: "#",
     current: false,
   },
 ];
@@ -25,9 +26,10 @@ const filters = [
     id: "campus",
     name: "Campus",
     options: [
-      { id: 0, value: "Woluwe", label: "Woluwe", checked: false },
-      { id: 1, value: "LLN", label: "Louvain-La-Neuve", checked: false },
-      { id: 2, value: "Ixelles", label: "Ixelles", checked: false },
+      { id: 0, value: "Tout", campus: "Tout" },
+      { id: 1, value: "Woluwe", campus: "Woluwe" },
+      { id: 2, value: "Louvain-la-Neuve", campus: "Louvain-la-Neuve" },
+      { id: 3, value: "Ixelles", campus: "Ixelles" },
     ],
   },
 ];
@@ -35,10 +37,44 @@ const filters = [
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-const PostsListFull = ({ posts, title }) => {
+const PostsListFull = ({ title, camp }) => {
   const [categories, setCategories] = useState([]);
-  const [postsList, setPostsList] = useState(posts);
-  console.log("filtres", filters[0].options);
+  const [postsList, setPostsList] = useState([]);
+  const [campus, setCampus] = useState(camp);
+  /*
+  if(campus){
+    filters.options.forEach((e)=>{
+      e.campus === campus ? e.checked = true : e.checked = false
+    })
+  }*/
+  //const [order, setOrder] = useState(sortOptions)
+  const router = useRouter();
+  console.log("route", router.asPath);
+
+  console.log("campus", campus);
+
+  function pathBuilder(camp, cat) {
+    setCampus(camp);
+    let newPath = "/api/posts";
+    if (camp !== "Tout" && camp !== null && camp !== undefined) {
+      if (cat !== "Les annonces") {
+        newPath += "/?campus=" + camp + "&category=" + cat;
+      } else {
+        newPath += "/?campus=" + camp;
+      }
+    } else if (cat !== "Les annonces") {
+      newPath += "/?category=" + cat;
+    }
+    console.log("urlin", newPath);
+    return newPath;
+  }
+  /*
+  function testPath(){
+    const route = router.asPath.split("/");
+    route[]
+    return 
+  }
+  */
 
   function sortPosts(posts, sortTypeId) {
     if (sortTypeId === 1) {
@@ -57,6 +93,7 @@ const PostsListFull = ({ posts, title }) => {
     });
   }
 
+  /*
   function filterCampus(posts, campusId) {
     filters[0].options.forEach((campus) => {
       if (campus.id === campusId) campus.checked = !campus.checked;
@@ -64,15 +101,27 @@ const PostsListFull = ({ posts, title }) => {
     });
     const campus = filters[0].options[campusId];
     console.log("1111", filters[0].options[campusId]);
-    const filtered = [...posts].filter((post) => {post.places.includes(campus.label)})
+    const filtered = [...posts].filter((post) => {post.places.includes(campus.campus)})
     console.log("222",filtered);
 
     
 
     setPostsList(filtered);
-  }
+  }*/
 
   useEffect(() => {
+    fetch(pathBuilder(campus, title), {
+      headers: {
+        "Content-Type": "application.json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((temp) => {
+        setPostsList(temp);
+        console.log("temp", temp);
+      });
     fetch("/api/categories/", {
       headers: {
         "Content-Type": "application.json",
@@ -84,10 +133,12 @@ const PostsListFull = ({ posts, title }) => {
       .then((temp) => {
         setCategories(temp);
       });
+    pathBuilder(campus, title);
+    //pathBuilder("Ixelles", "Les annonces");
   }, []);
+  console.log("pl", postsList);
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  console.log(posts);
   return (
     <div className="bg-white md:mt-5">
       <div>
@@ -175,14 +226,14 @@ const PostsListFull = ({ posts, title }) => {
                                     name={`${section.id}[]`}
                                     defaultValue={option.value}
                                     type="checkbox"
-                                    defaultChecked={option.checked}
+                                    defaultChecked={option.campus === campus}
                                     className="h-4 w-4 border-gray-300 rounded text-gray-600 focus:ring-gray-500"
                                   />
                                   <label
                                     htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
                                     className="ml-3 min-w-0 flex-1 text-gray-500"
                                   >
-                                    {option.label}
+                                    {option.campus}
                                   </label>
                                 </div>
                               ))}
@@ -250,27 +301,64 @@ const PostsListFull = ({ posts, title }) => {
                 >
                   <Menu.Items className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ">
                     <div className="py-1 ">
-                      {sortOptions.map((option) => (
                         <Menu.Item
-                          key={option.name}
-                          onClick={() => sortPosts(postsList, option.id)}
+                          key="0"
+                          onClick={() => sortPosts(postsList, 0)}
                         >
                           {({ active }) => (
                             <a
-                              href={option.href}
+                              href={router.asPath}
                               className={classNames(
-                                option.current
+                                sortOptions[0].current
                                   ? "font-medium text-gray-900"
                                   : "text-gray-500",
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm"
                               )}
                             >
-                              {option.name}
+                              Nouveau
                             </a>
                           )}
                         </Menu.Item>
-                      ))}
+                        <Menu.Item
+                        key="1"
+                        onClick={() => sortPosts(postsList, 1)}
+                      >
+                        {({ active }) => (
+                          <a
+                            href="#ascending"
+                            className={classNames(
+                              sortOptions[1].current
+                                ? "font-medium text-gray-900"
+                                : "text-gray-500",
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm"
+                            )}
+                          >
+                            Prix croissant
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item
+                      key="2"
+                      onClick={() => sortPosts(postsList, 2)}
+                    >
+                      {({ active }) => (
+                        <a
+                          href="#descending"
+                          className={classNames(
+                            sortOptions[2].current
+                              ? "font-medium text-gray-900"
+                              : "text-gray-500",
+                            active ? "bg-gray-100" : "",
+                            "block px-4 py-2 text-sm"
+                          )}
+                        >
+                          Prix décroissant
+                        </a>
+                      )}
+                    </Menu.Item>
+                      
                     </div>
                   </Menu.Items>
                 </Transition>
@@ -330,22 +418,112 @@ const PostsListFull = ({ posts, title }) => {
                                 key={option.value}
                                 className="flex items-center"
                               >
-                                <input
-                                  id={`filter-${section.id}-${optionIdx}`}
-                                  name={`${section.id}[]`}
-                                  defaultValue={option.value}
-                                  type="checkbox"
-                                  defaultChecked={option.checked}
-                                  className="h-4 w-4 border-gray-300 rounded text-gray-600 focus:ring-gray-500"
-                                  onClick={() =>
-                                    filterCampus(postsList, option.id)
-                                  }
-                                />
+                                {option.campus !== "Tout" ? (
+                                  <>
+                                    {title === "Les annonces" ? (
+                                      <>
+                                        <Link
+                                          href={{
+                                            pathname: "/posts/[categoryName]",
+                                            query: {
+                                              categoryName: option.campus,
+                                            },
+                                          }}
+                                        >
+                                          <input
+                                            id={`filter-${section.id}-${optionIdx}`}
+                                            name={`${section.id}[]`}
+                                            defaultValue={option.value}
+                                            type="radio"
+                                            defaultChecked={
+                                              option.campus === campus
+                                            }
+                                            className="h-4 w-4 border-gray-300 rounded text-gray-600 focus:ring-gray-500"
+                                            onClick={() => {
+                                              pathBuilder(option.campus, title);
+                                              //if()
+                                              //router.push(router.asPath+"/"+ option.campus)
+                                            }}
+                                          />
+                                        </Link>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <Link
+                                          href={`/posts/${title}&${option.campus}`}>
+                                          <input
+                                            id={`filter-${section.id}-${optionIdx}`}
+                                            name={`${section.id}[]`}
+                                            defaultValue={option.value}
+                                            type="radio"
+                                            defaultChecked={
+                                              option.campus === campus
+                                            }
+                                            className="h-4 w-4 border-gray-300 rounded text-gray-600 focus:ring-gray-500"
+                                            onClick={() => {
+                                              pathBuilder(option.campus, title);
+                                              //if()
+                                              //router.push(router.asPath+"/"+ option.campus)
+                                            }}
+                                          />
+                                        </Link>
+                                      </>
+                                    )}
+                                  </>
+                                ) : (
+                                  <>
+                                    {title === "Les annonces" ? (
+                                      <Link href="/posts">
+                                        <input
+                                          id={`filter-${section.id}-${optionIdx}`}
+                                          name={`${section.id}[]`}
+                                          defaultValue={option.value}
+                                          type="radio"
+                                          defaultChecked={
+                                            option.campus === campus
+                                          }
+                                          className="h-4 w-4 border-gray-300 rounded text-gray-600 focus:ring-gray-500"
+                                          onClick={() => {
+                                            pathBuilder(option.campus, title);
+                                            //if()
+                                            //router.push(router.asPath+"/"+ option.campus)
+                                          }}
+                                        />
+                                      </Link>
+                                    ) : (
+                                      <Link
+                                          href={{
+                                            pathname: "/posts/[categoryName]",
+                                            query: {
+                                              categoryName: title,
+                                            },
+                                          }}
+                                        >
+                                        <input
+                                          id={`filter-${section.id}-${optionIdx}`}
+                                          name={`${section.id}[]`}
+                                          defaultValue={option.value}
+                                          type="radio"
+                                          defaultChecked={
+                                            option.campus === campus
+                                          }
+                                          className="h-4 w-4 border-gray-300 rounded text-gray-600 focus:ring-gray-500"
+                                          onClick={() => {
+                                            pathBuilder(option.campus, title);
+                                            //if()
+                                            //router.push(router.asPath+"/"+ option.campus)
+                                          }}
+                                        />
+                                      </Link>
+                                    )}
+                                  </>
+                                )}
+
                                 <label
                                   htmlFor={`filter-${section.id}-${optionIdx}`}
                                   className="ml-3 text-sm text-gray-600"
                                 >
-                                  {option.label}
+                                  {option.campus}
                                 </label>
                               </div>
                             ))}
@@ -381,7 +559,7 @@ const PostsListFull = ({ posts, title }) => {
               </form>
 
               <div className="lg:col-span-3">
-                {posts.length !== 0 ? (
+                {postsList.length !== 0 ? (
                   <PostsList posts={postsList} />
                 ) : (
                   <div className="flex flex-col items-center m-3 pb-5 rounded-xl bg-yellow-50">

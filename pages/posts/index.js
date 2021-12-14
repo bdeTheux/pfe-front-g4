@@ -16,7 +16,7 @@ export const getServerSideProps = async () => {
 export default function posts({ posts }) {
   return (
     <>
-      <PostsListFull posts={posts} title="Les annonces" />
+      <PostsListFull title="Les annonces" camp="Tout" />
     </>
   );
 }
