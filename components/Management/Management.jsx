@@ -4,8 +4,12 @@ import CategoryPage from "../CategoryPage/CategoryPage";
 import { useRouter } from "next/router";
 import { Tab } from "@headlessui/react";
 import { useEffect, useState } from "react";
+import { AppContext } from "../../context/context";
+import { useContext } from "react";
 
 const Management = () => {
+  const { checkIfUserIsBan } = useContext(AppContext);
+  checkIfUserIsBan();
   const [users, setUsers] = useState([]);
   const [pendingPosts, setPendingPosts] = useState([]);
   const [categories, setCategories] = useState([]);
