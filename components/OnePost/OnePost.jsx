@@ -38,7 +38,11 @@ const OnePost = ({ postId }) => {
   const [locations, setLocations] = useState([]);
 
   useEffect(() => {
-    fetch(`/api/posts/${postId}`).then((res) => {
+    fetch(`/api/posts/${postId}`, {
+      method: "GET",
+      headers: { Authorization: localStorage.getItem("token") },
+    }).then((res) => {
+      console.log(res);
       res.json().then((temp2) => {
         fetch(`/api/users/${temp2.seller_id}`, {
           headers: {
@@ -54,19 +58,24 @@ const OnePost = ({ postId }) => {
               return temp2;
             })
             .then((temp3) => {
-              temp3.places.forEach((element) => {
-                fetch(`/api/addresses/${element}`, {
-                  headers: { "Content-Type": "application/json" },
-                })
-                  .then((res) => res.json())
-                  .then((loc) => {
-                    const toAdd = {
-                      lat: loc.lat,
-                      lng: loc.long,
-                    };
-                    setLocations((locations) => [...locations, toAdd]);
-                  });
-              });
+              //Add a condition if the post is closed
+              if (post.state === "Clôturé") {
+              } else {
+                console.log(post);
+                temp3.places.forEach((element) => {
+                  fetch(`/api/addresses/${element}`, {
+                    headers: { "Content-Type": "application/json" },
+                  })
+                    .then((res) => res.json())
+                    .then((loc) => {
+                      const toAdd = {
+                        lat: loc.lat,
+                        lng: loc.long,
+                      };
+                      setLocations((locations) => [...locations, toAdd]);
+                    });
+                });
+              }
             });
         });
       });
@@ -177,7 +186,7 @@ const OnePost = ({ postId }) => {
                     onClick={handleEnclose}
                     className=" items-end px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
                   >
-                    <LockClosedIcon className="ml-3 w-6 text-red-500"/>
+                    <LockClosedIcon className="ml-3 w-6 text-red-500" />
                     Cloturer
                   </button>
                 </div>
