@@ -1,11 +1,12 @@
 import Meta from "../../components/Meta/Meta";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ButtonMailTo from "../ButtonMailTo/ButtonMailTo";
 
 import { PencilIcon, TrashIcon } from "@heroicons/react/outline";
 import { PopUpUpdatePost } from "../PopUp/PopUpUpdatePost";
 import PopUpButton from "../PopUp/PopUpButton";
 import { useRouter } from "next/router";
+import { AppContext } from "../../context/context";
 
 import Map from "../Map/Map";
 
@@ -14,40 +15,30 @@ const OnePost = ({ postId }) => {
   const [user, setUser] = useState([]);
   const [token, setToken] = useState([]);
   const [show, setShow] = useState(false);
-  const [userConnected, setUserConnected] = useState([]);
   const [locations, setLocations] = useState([]);
-
+  //const [appContext, setAppContext] = useState([]);
+  const { userConnected } = useContext(AppContext);
+  console.log("user", userConnected);
   useEffect(() => {
-    fetch("https://pfe-back-g4-dev.herokuapp.com/users/whoami", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((temp) => {
-        setUserConnected(temp);
-      });
+    let actual_post;
     fetch(`/api/posts/${postId}`).then((res) => {
-      res.json().then((temp2) => {
-        fetch(`/api/users/${temp2.seller_id}`, {
+      res.json().then((data) => {
+        actual_post = data;
+        return fetch(`/api/users/${actual_post.seller_id}`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: localStorage.getItem("token"),
           },
-        }).then((res) => {
-          res
+        }).then((seller) => {
+          seller
             .json()
-            .then((temp) => {
-              setUser(temp);
-              setPost(temp2);
-              return temp2;
+            .then((sellerJson) => {
+              setUser(sellerJson);
+              setPost(actual_post);
+              return actual_post;
             })
-            .then((temp3) => {
-              temp3.places.forEach((element) => {
+            .then((actual_post) => {
+              actual_post.places.forEach((element) => {
                 fetch(`/api/addresses/${element}`, {
                   headers: { "Content-Type": "application/json" },
                 })
@@ -83,7 +74,10 @@ const OnePost = ({ postId }) => {
       },
     }).then((temp) => router.push("/"));
   };
-
+  console.log("post", post);
+  if (userConnected && userConnected.is_banned) {
+    return <BanPage />;
+  }
   return (
     <div>
       <Meta title={post.title} />
@@ -94,7 +88,7 @@ const OnePost = ({ postId }) => {
               <img
                 alt="Image du produit"
                 className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-                src={post.image}
+                src={post.images ? post.images[0] : "/images/bidon.jpg/"} //change with carousel
               />
               <div className="grid grid-cols-1 divide-y divide-green-500 w-max">
                 <div className="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
@@ -145,8 +139,7 @@ const OnePost = ({ postId }) => {
                     </div>
                   )}
                 </div>
-                {userConnected !== null &&
-                userConnected._id == post.seller_id ? (
+                {userConnected && userConnected._id == post.seller_id ? (
                   <div className="flex-row">
                     <button
                       onClick={handleDelete}

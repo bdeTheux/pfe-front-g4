@@ -20,17 +20,14 @@ const CategoryPage = ({ categories }) => {
       sub_categories: [],
     };
 
-    const res = await fetch(
-      `https://pfe-back-g4-dev.herokuapp.com/categories/`,
-      {
-        method: "POST",
-        body: JSON.stringify(newCategory),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      }
-    );
+    const res = await fetch(`/api/categories/`, {
+      method: "POST",
+      body: JSON.stringify(newCategory),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    });
     const data = await res.json();
   };
 

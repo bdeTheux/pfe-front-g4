@@ -9,7 +9,7 @@ const ConnectionRegistration = () => {
   const router = useRouter();
 
   useEffect(() => {
-    fetch("https://pfe-back-g4-dev.herokuapp.com/users/whoami", {
+    fetch("/api/users/whoami", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
