@@ -15,7 +15,8 @@ const Management = () => {
   const [categories, setCategories] = useState([]);
   const router = useRouter();
   useEffect(() => {
-    fetch("/api/users/", {
+    let connectedUser;
+    fetch("/api/users/whoami", {
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("token"),
@@ -24,9 +25,28 @@ const Management = () => {
       .then((res) => {
         return res.json();
       })
-      .then((temp) => {
-        setUsers(temp);
+      .then((cu) => {
+        console.log(cu);
+        connectedUser = cu;
+      })
+      .then(() => {
+        fetch("/api/users/", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        })
+          .then((res) => {
+            return res.json();
+          })
+          .then((temp) => {
+            let tempFilter = temp.filter(
+              (member) => member._id != connectedUser._id
+            );
+            setUsers(tempFilter);
+          });
       });
+
     fetch("/api/posts/pending", {
       headers: {
         "Content-Type": "application.json",
