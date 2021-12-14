@@ -4,16 +4,18 @@ import { useState, useEffect } from "react";
 import SelectCategories from "../Category/SelectCategories";
 import { UploadIcon } from "@heroicons/react/outline";
 
+
 const NewPost = ({ categories }) => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [postNature, setPostNature] = useState("");
   const [price, setPrice] = useState("");
-  const [images, setImages] = useState([]);
   const [campus, setCampus] = useState([]);
   const [token, setToken] = useState("");
   const [isGiven, setIsGiven] = useState(false)
+  let uploadInput;
+
   useEffect(() => {
     setToken(localStorage.getItem("token"));
   });
@@ -26,21 +28,11 @@ const NewPost = ({ categories }) => {
     formData.append('description', description)
     formData.append('post_nature', postNature)
     formData.append('price', price)
-    formData.append('files[]', images)
+    let ins = document.getElementById('files').files.length;
+    for (let x = 0; x < ins; x++) {
+      formData.append("files", document.getElementById('files').files[x]);
+    }
     formData.append('places', campus)
-    console.log(new FormData(updateForm))
-    
-    let newPostSubmit = {
-      title: title,
-      category_id: category,
-      description: description,
-      post_nature: postNature,
-      price: price,
-      places: campus,
-      "files[]" : images
-    };
-
-    console.log(newPostSubmit);
 
      axios({
       method: 'post',
@@ -67,11 +59,6 @@ const NewPost = ({ categories }) => {
     setCampus(campus);
   };
 
-  const handleImages = (e)=>{
-    images[images.length] = e.target.value;
-
-    setImages(images)
-  }
 
   const handlerCategory = (val) => {
     setCategory(val.target.value);
@@ -191,10 +178,10 @@ const NewPost = ({ categories }) => {
                 </div>
                 <label className="flex flex-grow w-1/12 pr-2 ">
                   <input
-                    value={images}
-                    onChange={handleImages}
-                    name="file"
+                      id="files"
+                    name="files"
                     type="file"
+                      ref={(ref) => { uploadInput = ref; }}
                     multiple
                     hidden
                     required
