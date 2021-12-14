@@ -62,25 +62,6 @@ const OnePost = ({ postId }) => {
   const [user, setUser] = useState([]);
   const [token, setToken] = useState([]);
   const [show, setShow] = useState(false);
-
-  const router = useRouter();
-
-  const handleClose = () => {
-    setShow(false);
-  };
-  const handleShow = () => {
-    setShow(true);
-  };
-
-  const handleDelete = () => {
-    const res = fetch(`/api/posts/${post._id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: localStorage.getItem("token"),
-      },
-    }).then((temp) => router.push("/"));
-  };
-
   const [userConnected, setUserConnected] = useState([]);
   const [locations, setLocations] = useState([]);
 
@@ -133,6 +114,24 @@ const OnePost = ({ postId }) => {
         setUserConnected(temp);
       });
   }, []);
+
+  const router = useRouter();
+
+  const handleClose = () => {
+    setShow(false);
+  };
+  const handleShow = () => {
+    setShow(true);
+  };
+
+  const handleDelete = () => {
+    const res = fetch(`/api/posts/${post._id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    }).then((temp) => router.push("/"));
+  };
 
   return (
     <div>
@@ -195,20 +194,24 @@ const OnePost = ({ postId }) => {
                     </div>
                   )}
                 </div>
-                <div className="flex-row">
-                  <button
-                    onClick={handleDelete}
-                    type="button"
-                    className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
-                  >
-                    <TrashIcon className="flex ml-3 w-6 text-red-500" />
-                    <span className="pl-2 mx-1">Delete</span>
-                  </button>
+                {userConnected._id == post.seller_id ? (
+                  <div className="flex-row">
+                    <button
+                      onClick={handleDelete}
+                      type="button"
+                      className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
+                    >
+                      <TrashIcon className="flex ml-3 w-6 text-red-500" />
+                      <span className="pl-2 mx-1">Delete</span>
+                    </button>
 
-                  <div>
-                    <PopUpButton post={post} className="flex ml-3 w-6 " />
+                    <div>
+                      <PopUpButton post={post} className="flex ml-3 w-6 " />
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <></>
+                )}
               </div>
             </div>
           </div>
