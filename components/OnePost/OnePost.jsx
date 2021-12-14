@@ -61,9 +61,7 @@ const OnePost = ({ postId }) => {
         setUserConnected(temp);
       });
   }, []);
-  if (userConnected.is_banned) {
-    return <BanPage />;
-  }
+
   return (
     <div>
       <Meta title={post.title} />

@@ -36,13 +36,6 @@ const Layout = ({ children }) => {
         </div>
       </div>
     );
-  } else if (user.is_banned) {
-    localStorage.setItem("token", "");
-    return (
-      <div>
-        <BanPage />
-      </div>
-    );
   }
   //if user is an admin
   else if (user.is_admin) {

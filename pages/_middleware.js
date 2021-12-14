@@ -1,7 +1,9 @@
 import BanPage from "../components/BanPage/BanPage";
+import { useState } from "react";
 
-export function middleware(req, evt) {
-  /*const userConnected = [];
+export const getInitialProps = () => {
+  const userConnected = useState([]);
+  let isBanned = false;
   fetch("https://pfe-back-g4-dev.herokuapp.com/users/whoami", {
     method: "GET",
     headers: {
@@ -15,7 +17,24 @@ export function middleware(req, evt) {
     })
     .then(() => {
       if (userConnected.is_banned) {
-        return <BanPage />;
+        isBanned = true;
+        return {
+          props: {
+            isBanned,
+          },
+        };
+      } else {
+        isBanned = false;
+        return {
+          props: {
+            isBanned,
+          },
+        };
       }
-    });*/
+    });
+};
+export function middleware({ isBanned }) {
+  if (isBanned) {
+    return <BanPage />;
+  }
 }
