@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import ButtonMailTo from "../ButtonMailTo/ButtonMailTo";
 import dynamic from "next/dynamic";
 
-import { PencilIcon, TrashIcon } from "@heroicons/react/outline";
+import { PencilIcon, TrashIcon, LockClosedIcon } from "@heroicons/react/outline";
 import { PopUpUpdatePost } from "../PopUp/PopUpUpdatePost";
 import PopUpButton from "../PopUp/PopUpButton";
 import { useRouter } from "next/router";
@@ -88,6 +88,14 @@ const OnePost = ({ postId }) => {
       });
   }, []);
 
+  const handleEnclose = () => {
+    const res = fetch(`/api/posts/${post._id}/sold`, {
+      method: "POST",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    }).then((temp) => router.push("/"));
+  };
   return (
     <div>
       <Meta title={post.title} />
@@ -151,7 +159,7 @@ const OnePost = ({ postId }) => {
                     </div>
                   )}
                 </div>
-                <div className="flex-row">
+                <div className="flex-row flex">
                   <button
                     onClick={handleDelete}
                     type="button"
@@ -164,6 +172,14 @@ const OnePost = ({ postId }) => {
                   <div>
                     <PopUpButton post={post} className="flex ml-3 w-6 " />
                   </div>
+                  <button
+                    type="button"
+                    onClick={handleEnclose}
+                    className=" items-end px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
+                  >
+                    <LockClosedIcon className="ml-3 w-6 text-red-500"/>
+                    Cloturer
+                  </button>
                 </div>
               </div>
             </div>
