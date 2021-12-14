@@ -11,30 +11,23 @@ import PostsList from "./PostsList";
 import Link from "next/link";
 
 const sortOptions = [
-  { name: "Plus Populaire", href: "#", current: true },
-  { name: "Nouveau", href: "#", current: false },
-  { name: "Prix croissant", href: "#", current: false },
-  { name: "Price décroissant", href: "#", current: false },
+  { id: 0, name: "Nouveau", href: "/posts", current: true },
+  { id: 1, name: "Prix croissant", href: "#ascendingPrice", current: false },
+  {
+    id: 2,
+    name: "Price décroissant",
+    href: "#descendingPrice",
+    current: false,
+  },
 ];
 const filters = [
   {
-    id: "category",
-    name: "Categorie",
+    id: "campus",
+    name: "Campus",
     options: [
-      { value: "TRUC", label: "TRUC", checked: false },
-      { value: "MACHIN", label: "MACHIN", checked: false },
-      { value: "TRUCC", label: "TRUCC", checked: true },
-    ],
-  },
-  {
-    id: "size",
-    name: "Taille",
-    options: [
-      { value: "S", label: "S", checked: false },
-      { value: "M", label: "M", checked: false },
-      { value: "L", label: "L", checked: false },
-      { value: "XL", label: "XL", checked: false },
-      { value: "XXL", label: "XXL", checked: false },
+      { id: 0, value: "Woluwe", label: "Woluwe", checked: false },
+      { id: 1, value: "LLN", label: "Louvain-La-Neuve", checked: false },
+      { id: 2, value: "Ixelles", label: "Ixelles", checked: false },
     ],
   },
 ];
@@ -44,6 +37,41 @@ function classNames(...classes) {
 }
 const PostsListFull = ({ posts, title }) => {
   const [categories, setCategories] = useState([]);
+  const [postsList, setPostsList] = useState(posts);
+  console.log("filtres", filters[0].options);
+
+  function sortPosts(posts, sortTypeId) {
+    if (sortTypeId === 1) {
+      const sorted = [...posts].sort((a, b) => a.price - b.price);
+      setPostsList(sorted);
+    } else if (sortTypeId === 2) {
+      const sorted = [...posts].sort((a, b) => b.price - a.price);
+      setPostsList(sorted);
+    } else {
+      setPostsList(posts);
+    }
+    sortOptions.forEach((element) => {
+      element.id === sortTypeId
+        ? (element.current = true)
+        : (element.current = false);
+    });
+  }
+
+  function filterCampus(posts, campusId) {
+    filters[0].options.forEach((campus) => {
+      if (campus.id === campusId) campus.checked = !campus.checked;
+      else campus.checked = false;
+    });
+    const campus = filters[0].options[campusId];
+    console.log("1111", filters[0].options[campusId]);
+    const filtered = [...posts].filter((post) => {post.places.includes(campus.label)})
+    console.log("222",filtered);
+
+    
+
+    setPostsList(filtered);
+  }
+
   useEffect(() => {
     fetch("/api/categories/", {
       headers: {
@@ -92,7 +120,9 @@ const PostsListFull = ({ posts, title }) => {
             >
               <div className="ml-auto relative max-w-xs w-full h-full bg-white shadow-xl py-4 pb-12 flex flex-col overflow-y-auto">
                 <div className="px-4 flex items-center justify-between">
-                  <h2 className="text-lg font-medium text-gray-900">Filtres</h2>
+                  <h2 className="text-lg font-extrabold text-gray-900">
+                    Filtres
+                  </h2>
                   <button
                     type="button"
                     className="-mr-2 w-10 h-10 bg-white p-2 rounded-md flex items-center justify-center text-gray-400"
@@ -105,30 +135,6 @@ const PostsListFull = ({ posts, title }) => {
 
                 {/* Filters */}
                 <form className="mt-4 border-t border-gray-200">
-                  <h3 className="sr-only">Categories</h3>
-                  <ul
-                    role="list"
-                    className="font-medium text-gray-900 px-2 py-3"
-                  >
-                    <li>
-                      <Link href="/posts">
-                        <a className="block px-2 py-3">Tout afficher</a>
-                      </Link>
-                    </li>
-                    {categories.map((category) => (
-                      <li>
-                        <Link
-                          href={{
-                            pathname: "/posts/[categoryName]",
-                            query: { categoryName: category.name },
-                          }}
-                        >
-                          <a className="block px-2 py-3">{category.name}</a>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-
                   {filters.map((section) => (
                     <Disclosure
                       as="div"
@@ -186,6 +192,29 @@ const PostsListFull = ({ posts, title }) => {
                       )}
                     </Disclosure>
                   ))}
+                  <h3 className="sr-only">Categories</h3>
+                  <ul
+                    role="list"
+                    className="font-medium text-gray-900 px-2 py-3"
+                  >
+                    <li>
+                      <Link href="/posts">
+                        <a className="block px-2 py-3">Tout afficher</a>
+                      </Link>
+                    </li>
+                    {categories.map((category) => (
+                      <li>
+                        <Link
+                          href={{
+                            pathname: "/posts/[categoryName]",
+                            query: { categoryName: category.name },
+                          }}
+                        >
+                          <a className="block px-2 py-3">{category.name}</a>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
                 </form>
               </div>
             </Transition.Child>
@@ -222,7 +251,10 @@ const PostsListFull = ({ posts, title }) => {
                   <Menu.Items className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ">
                     <div className="py-1 ">
                       {sortOptions.map((option) => (
-                        <Menu.Item key={option.name}>
+                        <Menu.Item
+                          key={option.name}
+                          onClick={() => sortPosts(postsList, option.id)}
+                        >
                           {({ active }) => (
                             <a
                               href={option.href}
@@ -262,35 +294,12 @@ const PostsListFull = ({ posts, title }) => {
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
               {/* Filters */}
               <form className="hidden lg:block">
-                <h3 className="sr-only">Categories</h3>
-                <ul
-                  role="list"
-                  className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200"
-                >
-                  <li>
-                    <Link href="/posts">
-                      <a className="font-bold">Tout afficher</a>
-                    </Link>
-                  </li>
-                  {categories.map((category) => (
-                    <li key={category.name}>
-                      <Link
-                        href={{
-                          pathname: "/posts/[categoryName]",
-                          query: { categoryName: category.name },
-                        }}
-                      >
-                        <a>{category.name}</a>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-
                 {filters.map((section) => (
                   <Disclosure
                     as="div"
                     key={section.id}
                     className="border-b border-gray-200 py-6"
+                    defaultOpen="true"
                   >
                     {({ open }) => (
                       <>
@@ -328,6 +337,9 @@ const PostsListFull = ({ posts, title }) => {
                                   type="checkbox"
                                   defaultChecked={option.checked}
                                   className="h-4 w-4 border-gray-300 rounded text-gray-600 focus:ring-gray-500"
+                                  onClick={() =>
+                                    filterCampus(postsList, option.id)
+                                  }
                                 />
                                 <label
                                   htmlFor={`filter-${section.id}-${optionIdx}`}
@@ -343,11 +355,34 @@ const PostsListFull = ({ posts, title }) => {
                     )}
                   </Disclosure>
                 ))}
+                <h3 className="sr-only">Categories</h3>
+                <ul
+                  role="list"
+                  className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200 mt-7"
+                >
+                  <li>
+                    <Link href="/posts">
+                      <a className="font-bold">Tout afficher</a>
+                    </Link>
+                  </li>
+                  {categories.map((category) => (
+                    <li key={category.name}>
+                      <Link
+                        href={{
+                          pathname: "/posts/[categoryName]",
+                          query: { categoryName: category.name },
+                        }}
+                      >
+                        <a>{category.name}</a>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </form>
 
               <div className="lg:col-span-3">
                 {posts.length !== 0 ? (
-                  <PostsList posts={posts} />
+                  <PostsList posts={postsList} />
                 ) : (
                   <div className="flex flex-col items-center m-3 pb-5 rounded-xl bg-yellow-50">
                     <div className="flex items-center text-gray-800 ">
