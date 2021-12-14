@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { Axios } from "axios";
 import e from "cors";
 import { useState, useEffect } from "react";
 import SelectCategories from "../Category/SelectCategories";
@@ -13,44 +13,46 @@ const NewPost = ({ categories }) => {
   const [images, setImages] = useState([]);
   const [campus, setCampus] = useState([]);
   const [token, setToken] = useState("");
-  const [isGiven, setIsGiven] = useState(false)
+  const [isGiven, setIsGiven] = useState(false);
+
   useEffect(() => {
     setToken(localStorage.getItem("token"));
   });
   let label = "Choisissez une catégorie";
 
-  const submitPost = () => {
+  const submitPost = async () => {
+   
+    console.log(images);
     const formData = new FormData();
-    formData.append('title',title);
-    formData.append('category_id', category)
-    formData.append('description', description)
-    formData.append('post_nature', postNature)
-    formData.append('price', price)
-    formData.append('files[]', images)
-    formData.append('places', campus)
-    console.log(new FormData(updateForm))
+    formData.append("title", title);
+    formData.append("category_id", category);
+    formData.append("description", description);
+    formData.append("post_nature", postNature);
+    formData.append("price", price);
+    /*images.forEach(image => {
+      formData.append("files", image, image.name);
+
+    });*/
+    formData.append("files[]", images);
+    console.log(images);
+
+    formData.append("places", campus);
+    console.log(new FormData(updateForm));
+    console.log(formData);
     
-    let newPostSubmit = {
-      title: title,
-      category_id: category,
-      description: description,
-      post_nature: postNature,
-      price: price,
-      places: campus,
-      "files[]" : images
-    };
-
-    console.log(newPostSubmit);
-
-     axios({
-      method: 'post',
-      url: '/api/posts/',
-      data: formData,
-      headers: {
-          'Content-Type': `multipart/form-data`,
+    try {
+      const res = await axios({
+        method: "post",
+        url: "/api/posts/",
+        data: formData,
+        headers: {
+          "Content-Type": `multipart/form-data`,
           Authorization: token,
-      },
-  });
+        },
+      });
+    } catch (error) {
+      console.log(error)
+    }
     /*fetch(`/api/posts/`, {
       method: "POST",
       headers: {
@@ -67,29 +69,27 @@ const NewPost = ({ categories }) => {
     setCampus(campus);
   };
 
-  const handleImages = (e)=>{
-    images[images.length] = e.target.value;
-
-    setImages(images)
-  }
+  const handleImages = (e) => {
+    //images[images.length] = e.target.value;
+    console.log("ici" + e.target.files)
+    setImages(e.target.files);
+  };
 
   const handlerCategory = (val) => {
     setCategory(val.target.value);
   };
 
   const handlePrice = (e) => {
-    if(e.target.value === "À vendre"){
-      setIsGiven(false)
-      console.log(isGiven)
-
-    }else{
-      setIsGiven(true)
-      setPrice(0)
-      console.log(isGiven)
+    if (e.target.value === "À vendre") {
+      setIsGiven(false);
+      console.log(isGiven);
+    } else {
+      setIsGiven(true);
+      setPrice(0);
+      console.log(isGiven);
     }
-    setPostNature(e.target.value)
-    
-  }
+    setPostNature(e.target.value);
+  };
   return (
     <div className="flex h-screen bg-gray-100">
       <div className="m-auto">
@@ -162,7 +162,7 @@ const NewPost = ({ categories }) => {
                     />
                   </div>
                 </div>
-                
+
                 <div className="flex-grow">
                   <label> Woluwe </label>
                   <input
@@ -191,7 +191,6 @@ const NewPost = ({ categories }) => {
                 </div>
                 <label className="flex flex-grow w-1/12 pr-2 ">
                   <input
-                    value={images}
                     onChange={handleImages}
                     name="file"
                     type="file"
@@ -199,7 +198,7 @@ const NewPost = ({ categories }) => {
                     hidden
                     required
                   />
-                  <UploadIcon className=""/>
+                  <UploadIcon className="" />
                 </label>
               </div>
 
