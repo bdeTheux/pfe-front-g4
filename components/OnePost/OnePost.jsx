@@ -1,12 +1,12 @@
 import Meta from "../../components/Meta/Meta";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ButtonMailTo from "../ButtonMailTo/ButtonMailTo";
-import dynamic from "next/dynamic";
 
 import { PencilIcon, TrashIcon } from "@heroicons/react/outline";
 import { PopUpUpdatePost } from "../PopUp/PopUpUpdatePost";
 import PopUpButton from "../PopUp/PopUpButton";
 import { useRouter } from "next/router";
+import { AppContext } from "../../context/context";
 
 import Map from "../Map/Map";
 
@@ -15,6 +15,47 @@ const OnePost = ({ postId }) => {
   const [user, setUser] = useState([]);
   const [token, setToken] = useState([]);
   const [show, setShow] = useState(false);
+  const [locations, setLocations] = useState([]);
+  //const [appContext, setAppContext] = useState([]);
+  const { userConnected } = useContext(AppContext);
+  console.log("user", userConnected);
+  useEffect(() => {
+    let actual_post;
+    fetch(`/api/posts/${postId}`).then((res) => {
+      res.json().then((data) => {
+        actual_post = data;
+        return fetch(`/api/users/${actual_post.seller_id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        }).then((seller) => {
+          seller
+            .json()
+            .then((sellerJson) => {
+              setUser(sellerJson);
+              setPost(actual_post);
+              return actual_post;
+            })
+            .then((actual_post) => {
+              actual_post.places.forEach((element) => {
+                fetch(`/api/addresses/${element}`, {
+                  headers: { "Content-Type": "application/json" },
+                })
+                  .then((res) => res.json())
+                  .then((loc) => {
+                    const toAdd = {
+                      lat: loc.lat,
+                      lng: loc.long,
+                    };
+                    setLocations((locations) => [...locations, toAdd]);
+                  });
+              });
+            });
+        });
+      });
+    });
+  }, []);
 
   const router = useRouter();
 
@@ -33,61 +74,10 @@ const OnePost = ({ postId }) => {
       },
     }).then((temp) => router.push("/"));
   };
-
-  const [userConnected, setUserConnected] = useState([]);
-  const [locations, setLocations] = useState([]);
-
-  useEffect(() => {
-    fetch(`/api/posts/${postId}`).then((res) => {
-      res.json().then((temp2) => {
-        fetch(`/api/users/${temp2.seller_id}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token"),
-          },
-        }).then((res) => {
-          res
-            .json()
-            .then((temp) => {
-              setUser(temp);
-              setPost(temp2);
-              return temp2;
-            })
-            .then((temp3) => {
-              temp3.places.forEach((element) => {
-                fetch(`/api/addresses/${element}`, {
-                  headers: { "Content-Type": "application/json" },
-                })
-                  .then((res) => res.json())
-                  .then((loc) => {
-                    const toAdd = {
-                      lat: loc.lat,
-                      lng: loc.long,
-                    };
-                    setLocations((locations) => [...locations, toAdd]);
-                  });
-              });
-            });
-        });
-      });
-    });
-
-    fetch("https://pfe-back-g4-dev.herokuapp.com/users/whoami", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((temp) => {
-        console.log(temp);
-        setUserConnected(temp);
-      });
-  }, []);
-
+  console.log("post", post);
+  if (userConnected && userConnected.is_banned) {
+    return <BanPage />;
+  }
   return (
     <div>
       <Meta title={post.title} />
@@ -98,7 +88,7 @@ const OnePost = ({ postId }) => {
               <img
                 alt="Image du produit"
                 className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-                src={post.image}
+                src={post.images ? post.images[0] : "/images/bidon.jpg/"} //change with carousel
               />
               <div className="grid grid-cols-1 divide-y divide-green-500 w-max">
                 <div className="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
@@ -131,6 +121,7 @@ const OnePost = ({ postId }) => {
                   {userConnected === null ? (
                     <p className="leading-relaxed">
                       Veuillez vous connectez pour accéder à ces informations
+                      (ou vous avez été banni)
                     </p>
                   ) : (
                     <div>
@@ -144,27 +135,28 @@ const OnePost = ({ postId }) => {
                       <div className="mb-1">
                         <ButtonMailTo mailto={user.email} title={post.title} />
                       </div>
-                      <div className="mb-5">
-                        <p>{("dans le code", console.log(locations))} </p>
-                      </div>
                       <Map locations={locations} />
                     </div>
                   )}
                 </div>
-                <div className="flex-row">
-                  <button
-                    onClick={handleDelete}
-                    type="button"
-                    className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
-                  >
-                    <TrashIcon className="flex ml-3 w-6 text-red-500" />
-                    <span className="pl-2 mx-1">Delete</span>
-                  </button>
+                {userConnected && userConnected._id == post.seller_id ? (
+                  <div className="flex-row">
+                    <button
+                      onClick={handleDelete}
+                      type="button"
+                      className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
+                    >
+                      <TrashIcon className="flex ml-3 w-6 text-red-500" />
+                      <span className="pl-2 mx-1">Delete</span>
+                    </button>
 
-                  <div>
-                    <PopUpButton post={post} className="flex ml-3 w-6 " />
+                    <div>
+                      <PopUpButton post={post} className="flex ml-3 w-6 " />
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <></>
+                )}
               </div>
             </div>
           </div>

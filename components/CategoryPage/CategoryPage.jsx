@@ -19,24 +19,17 @@ const CategoryPage = ({ categories }) => {
       parent: categoryParent,
       sub_categories: [],
     };
-    console.log("before fetch " + JSON.stringify(newCategory));
-    const res = await fetch(
-      `https://pfe-back-g4-dev.herokuapp.com/categories/`,
-      {
-        method: "POST",
-        body: JSON.stringify(newCategory),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      }
-    );
-    console.log(newCategory);
-    const data = await res.json();
-    console.log(data);
-  };
 
-  console.log(categoryName);
+    const res = await fetch(`/api/categories/`, {
+      method: "POST",
+      body: JSON.stringify(newCategory),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    });
+    const data = await res.json();
+  };
 
   return (
     <div className="flex m-auto bg-gray-100">

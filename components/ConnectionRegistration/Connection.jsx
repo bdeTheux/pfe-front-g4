@@ -19,20 +19,21 @@ const Connection = () => {
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
-    console.log("data", data);
-    if (data.description) {
+    if (data.code == 401) {
       localStorage.setItem("error", data.description);
     } else {
-      localStorage.setItem("error", "none");
+      localStorage.setItem("error", null);
     }
     if (res.status == 200) {
       localStorage.setItem("token", data.token);
-      router.push("/"); //management/management
-      console.log("error");
+      router.push("/");
       setTimeout(() => {
         router.reload();
       }, 500);
     } else {
+      setTimeout(() => {
+        router.reload();
+      }, 500);
       return {
         redirect: {
           destination: "/connectionRegistration",

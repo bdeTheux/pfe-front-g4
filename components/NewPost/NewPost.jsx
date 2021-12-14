@@ -43,14 +43,7 @@ const NewPost = ({categories}) => {
                 Authorization: token,
             },
         })
-        /*fetch(`/api/posts/`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: token,
-          },
-          body: new FormData(updateForm),
-        }).then((res) => console.log(res.json()));*/
+        
     };
 
     const handleCampus = (e) => {
