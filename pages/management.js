@@ -22,10 +22,5 @@ export default function management() {
       });
   }, []);
 
-  if (user === null) {
-    router.push("/connectionRegistration");
-    return <></>;
-  }
-
   return <Management />;
 }
