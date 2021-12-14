@@ -33,16 +33,16 @@ const NewPost = ({categories}) => {
             formData.append("files", document.getElementById('files').files[x]);
         }
         formData.append('places', campus)
-
+        console.log(process.env.customKey)
         axios({
             method: 'post',
-            url: '/api/posts/',
+            url: process.env.customKey + 'posts/', 
             data: formData,
             headers: {
                 'Content-Type': `multipart/form-data`,
                 Authorization: token,
             },
-        });
+        })
         /*fetch(`/api/posts/`, {
           method: "POST",
           headers: {
