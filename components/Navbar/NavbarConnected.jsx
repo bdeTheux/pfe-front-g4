@@ -1,6 +1,7 @@
 import { MenuIcon, SearchIcon } from "@heroicons/react/outline";
 import { UserCircleIcon } from "@heroicons/react/solid";
 import Link from "next/link";
+import Image from "next/image";
 
 const NavbarConnected = () => {
   return (
@@ -30,8 +31,14 @@ const NavbarConnected = () => {
           </Link>
           <Link href="/">
             <a className="text-gray-800 dark:text-gray-200">
-              <div className="flex items-center">
-                <p className="text-xl ml-2">vincimarket</p>
+              <div className="flex items-center md:ml-8 mr-12 md:mr-auto">
+                <Image
+                  src="/images/vincimarket_logo (1).svg"
+                  width="50"
+                  height="50"
+                  className="mr-4"
+                />
+                <p className="text-xl ml-2 hidden md:block">vincimarket</p>
               </div>
             </a>
           </Link>
@@ -87,7 +94,7 @@ const NavbarConnected = () => {
                 className="w-96 border-2 border-gray-300 bg-white h-12 px-5 lg:w-20 xl:w-36 xl:focus:w-44 lg:h-10 pr-16 rounded-lg text-sm focus:outline-none focus:ring-gray-400 focus:ring-1"
                 type="search"
                 name="search"
-                placeholder="Rechercher"
+                placeholder="Choisissez-nous pour faire une recherche ! ;)"
               />
               <button
                 type="submit"
@@ -97,9 +104,9 @@ const NavbarConnected = () => {
               </button>
             </form>
             <div className="inline-grid grid-cols-4">
-            <Link href="/newPost">
-              <a
-                className="
+              <Link href="/newPost">
+                <a
+                  className="
             flex
             items-center
             justify-center
@@ -115,13 +122,14 @@ const NavbarConnected = () => {
             col-span-3
             mr-2
           "
-              >
-                Publier une annonce
-              </a>
-            </Link>
-            <Link href="/profile">
-              <a
-                className="
+                >
+                  Publier une annonce
+                </a>
+              </Link>
+              
+              <Link href="/profile">
+                <a
+                  className="
             flex
             items-center
             justify-center
@@ -137,13 +145,12 @@ const NavbarConnected = () => {
             dark:hover:bg-gray-700
             focus:outline-none
           "
-              >
-                <UserCircleIcon className="h-10 w-10 text-gray-600 mr-2" />
-                Profile
-              </a>
-            </Link>
+                >
+                  <UserCircleIcon className="h-10 w-10 text-gray-600 mr-2" />
+                  Profile
+                </a>
+              </Link>
             </div>
-            
           </div>
         </div>
         <div
@@ -189,7 +196,7 @@ const NavbarConnected = () => {
                 className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm w-96 focus:outline-none focus:ring-gray-400 focus:ring-1"
                 type="search"
                 name="search"
-                placeholder="Rechercher"
+                placeholder="Choisissez-nous pour faire une recherche ! ;)"
               />
               <button
                 type="submit"
@@ -198,6 +205,28 @@ const NavbarConnected = () => {
                 <SearchIcon className="text-gray-600 h-4 w-4" />
               </button>
             </div>
+            <Link href="/newPost">
+              <a
+                className="
+            flex
+            items-center
+            justify-center
+            h-12
+            px-4
+            text-sm
+            font-semibold
+            text-center text-white
+            rounded-md
+            lg:h-10
+            bg-green-500
+            hover:bg-green-300
+            col-span-2
+            mr-2
+          "
+              >
+                Publier une annonce
+              </a>
+            </Link>
             <Link href="/profile">
               <a
                 className="
