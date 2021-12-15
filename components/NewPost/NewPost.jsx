@@ -194,7 +194,7 @@ const NewPost = ({ categories }) => {
                     multiple
                     hidden
                     required
-                    accept="image/*"
+                    accept="image/*|video/*"
                   />
                   <UploadIcon className="" />
                 </label>
