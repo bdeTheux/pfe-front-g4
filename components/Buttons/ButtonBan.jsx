@@ -21,7 +21,7 @@ const ButtonBan = ({ member, action, current_state }) => {
       <>
         <button
           onClick={() => handleBan(member._id)}
-          className="bg-green-500 hover:bg-green-700 font-bold py-2 px-4 border-green-700 rounded"
+          className="bg-green-500 hover:bg-green-700  py-2 px-4 rounded text-white w-full"
         >
           Débannir
         </button>
@@ -31,7 +31,8 @@ const ButtonBan = ({ member, action, current_state }) => {
     return (
       <button
         onClick={() => handleBan(member._id)}
-        className="bg-red-500 hover:bg-red-700 font-bold py-2 px-4 border-red-700 rounded"
+        href="http://localhost:3000/management/"
+        className="bg-red-500 hover:bg-red-700 py-2 px-4 rounded text-white w-full"
       >
         Bannir
       </button>

@@ -2,6 +2,8 @@ import ButtonApprouve from "../Buttons/ButtonApprouve";
 import ButtonRefuse from "../Buttons/ButtonRefuse";
 import { useState, useEffect } from "react";
 const OnePendingPost = ({ post, removePost}) => {
+import LocationBadges from "../LocationBadges/LocationBadges";
+const OnePendingPost = ({ post }) => {
   const [user, setUser] = useState("");
   useEffect(() => {
     fetch(`/api/users/${post.seller_id}`, {
@@ -15,36 +17,52 @@ const OnePendingPost = ({ post, removePost}) => {
   }, []);
   return (
     <>
-      <tr className="bg-green-100">
-        <td className="p-3">
-          <div className="flex align-items-center">
-            <div className="ml-3">
-              <div className="">{post.title}</div>
+      <tr>
+        <td className="px-6 py-4">
+          <div className="flex items-center">
+            <div className="ml-4">
+              <div className="text-sm font-medium text-gray-900 overflow-ellipsis">
+                {post.title}
+              </div>
             </div>
           </div>
         </td>
-        <td className="p-3">{post.description}</td>
-        <td className="p-3">
-          <img
-            alt="Image du produit"
-            className="w-full object-cover object-center rounded "
-            src={
-              post && post.images && post.images.length > 0
-                ? post.images[0]
-                : "/images/bidon.jpg/"
-            }
-          />
+        <td className="px-6 py-4 ">
+          <div className="text-sm text-gray-900">{post.description} </div>
         </td>
-        <td className="p-3">{post.category_id}</td>
-        <td className="p-3">{post.places.join(", ")}</td>
-        <td className="p-3">
-          {user.first_name} {user.last_name}
+        <td className="px-6 py-4">
+          <div className="text-sm text-gray-900">
+            <img
+              alt="Image du produit"
+              className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
+              src={
+                post && post.images && post.images.length > 0
+                  ? post.images[0]
+                  : "/images/bidon.jpg/"
+              }
+            />
+          </div>
         </td>
-        <td className="p-3">{post.post_nature}</td>
-        <td className="p-3">{post.price}€</td>
-        <td className="p-3">
-          <div className="grid grid-cols-2 gap-2">
-            <ButtonApprouve postId={post._id} action={removePost} />
+        <td className="px-6 py-4">
+          <div className="text-sm text-gray-900">{post.category_id} </div>
+        </td>
+        <td className="px-6 py-4">
+          <div className="text-sm text-gray-900"><LocationBadges locations={post.places} white="true"/> </div>
+        </td>
+        <td className="px-6 py-4">
+          <div className="text-sm text-gray-900">
+            {user.first_name} {user.last_name}{" "}
+          </div>
+        </td>
+        <td className="px-6 py-4">
+          <div className="text-sm text-gray-900">{post.post_nature}</div>
+        </td>
+        <td className="px-6 py-4">
+          <div className="text-sm text-gray-500">{post.price}€</div>
+        </td>
+        <td className="px-6 py-4 text-right text-sm font-medium">
+          <div className="grid grid-cols-2 gap-1">
+            <ButtonApprouve postId={post._id} action={removePost}/>
             <ButtonRefuse postId={post._id} action={removePost}/>
           </div>
         </td>

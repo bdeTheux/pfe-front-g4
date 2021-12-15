@@ -1,5 +1,6 @@
 import { KeyIcon, MenuIcon, SearchIcon } from "@heroicons/react/outline";
 import { UserCircleIcon } from "@heroicons/react/solid";
+import Image from "next/image";
 
 import Link from "next/link";
 
@@ -31,8 +32,14 @@ const NavbarAdmin = () => {
           </Link>
           <Link href="/">
             <a className="text-gray-800 dark:text-gray-200">
-              <div className="flex items-center">
-                <p className="text-xl ml-2">vincimarket</p>
+              <div className="flex items-center ml-5">
+                <Image
+                  src="/images/vincimarket_logo (1).svg"
+                  width="50"
+                  height="50"
+                  className="mr-4"
+                />
+                <p className="text-xl ml-2 hidden md:block">vincimarket</p>
               </div>
             </a>
           </Link>
@@ -88,7 +95,7 @@ const NavbarAdmin = () => {
                 className="w-96 border-2 border-gray-300 bg-white h-12 px-5 lg:w-20 xl:w-36 xl:focus:w-44 lg:h-10 pr-16 rounded-lg text-sm focus:outline-none focus:ring-gray-400 focus:ring-1"
                 type="search"
                 name="search"
-                placeholder="Rechercher"
+                placeholder="Choisissez-nous pour faire une recherche ! ;)"
               />
               <button
                 type="submit"
@@ -213,7 +220,7 @@ const NavbarAdmin = () => {
                 className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm w-96 focus:outline-none focus:ring-gray-400 focus:ring-1"
                 type="search"
                 name="search"
-                placeholder="Rechercher"
+                placeholder="Choisissez-nous pour faire une recherche ! ;)"
               />
               <button
                 type="submit"

@@ -1,9 +1,10 @@
 import { Tab } from "@headlessui/react";
 import Head from "next/head";
-import Profile from "../components/Profile/Profile";
-import ProfileHistory from "../components/ProfileHistory/ProfileHistory";
+import ProfileEdit from "../../components/Profile/ProfileEdit";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import ProfileHistory from "../../components/ProfileHistory/ProfileHistory";
+import { ArchiveIcon, IdentificationIcon } from "@heroicons/react/outline";
 
 const currentUserTest = {
   firstName: "Samy",
@@ -86,18 +87,16 @@ const history = [
   },
 ];
 
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function profile() {
-
+export default function edit() {
   const [user, setUser] = useState([]);
   const router = useRouter();
-  
+
   useEffect(() => {
-    fetch("https://pfe-back-g4-dev.herokuapp.com/users/whoami", {
+    fetch("/api/users/whoami", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -110,18 +109,17 @@ export default function profile() {
       .then((temp) => {
         setUser(temp);
       });
-      
-  },[]);
+  }, []);
 
-  if(user === null){
-    router.push('/connectionRegistration')
-    return <></>
+  if (user === null) {
+    router.push("/connectionRegistration");
+    return <></>;
   }
 
   return (
     <div className="mt-2 md:mt-28 md:px-10 mx-10 md:mx-20 lg:mx-80">
       <Head>
-        <title>Mon Profil - vincimarket</title>
+        <title>Editer Mon Profil - vincimarket</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Tab.Group>
@@ -129,33 +127,27 @@ export default function profile() {
           <Tab
             className={({ selected }) =>
               classNames(
-                "w-full py-2.5 text-sm leading-5 font-medium text-indigo-700 rounded-lg",
+                "w-full py-2.5 text-sm leading-5 font-medium text-indigo-700 rounded-lg flex justify-center",
                 "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-indigo-400 ring-white indigo-opacity-60",
                 selected
-                  ? "bg-white shadow"
+                  ? "bg-indigo-100 shadow"
                   : "text-indigo-500 hover:bg-white/[0.12] hover:text-indigo-400"
               )
             }
           >
+            <IdentificationIcon className="text-indigo-700 h-5 w-5 mr-2" />
             Informations personnelles
           </Tab>
           <Tab
-            className={({ selected }) =>
-              classNames(
-                "w-full py-2.5 text-sm leading-5 font-medium text-indigo-700 rounded-lg",
-                "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-indigo-400 ring-white indigo-opacity-60",
-                selected
-                  ? "bg-white shadow"
-                  : "text-indigo-500 hover:bg-white/[0.12] hover:text-indigo-400"
-              )
-            }
+            disabled
+            className="w-full py-2.5 text-sm leading-5 font-medium text-gray-400 rounded-lg focus:outline-none flex justify-center focus:ring-2 ring-offset-2 ring-offset-indigo-400 ring-white indigo-opacity-60 cursor-not-allowed"
           >
+            <ArchiveIcon className="text-gray-400 h-5 w-5 mr-2" />
             Historique
           </Tab>
         </Tab.List>
         <Tab.Panels className="mt-2">
-          <Profile user={user}/>
-          <ProfileHistory historyItems={history} />
+          <ProfileEdit user={user} />
         </Tab.Panels>
       </Tab.Group>
     </div>
