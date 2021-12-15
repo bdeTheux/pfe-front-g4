@@ -112,7 +112,7 @@ const NavbarConnected = () => {
             justify-center
             h-12
             px-4
-            text-sm
+            text-xs
             font-semibold
             text-center text-white
             rounded-md
@@ -213,7 +213,7 @@ const NavbarConnected = () => {
             justify-center
             h-12
             px-4
-            text-sm
+            text-xs
             font-semibold
             text-center text-white
             rounded-md

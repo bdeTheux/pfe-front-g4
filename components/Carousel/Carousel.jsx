@@ -16,12 +16,12 @@ const Carousel = ({ images }) => {
                 id="first"
                 defaultChecked
               />
-              <div className="w-80 md:w-96 bg-white aspect-w-16  aspect-h-9  rounded-lg shadow-lg transition-all duration-300 opacity-0 peer-checked:opacity-100 peer-checked:z-10 z-0">
+              <div className="flex md:w-96 bg-white aspect-w-16  aspect-h-9  rounded-lg shadow-lg transition-all duration-300 opacity-0 peer-checked:opacity-100 peer-checked:z-10 z-0">
                 <img
                   src={images[0]}
                   alt="Image du produit"
                   layout="fill"
-                  className=" w-full object-cover object-center rounded border border-gray-200"
+                  className=" w-full md:object-scale-down object-cover object-center rounded border border-gray-200"
                 />
 
                 <div className=" w-full flex justify-between z-20">
@@ -75,7 +75,7 @@ const Carousel = ({ images }) => {
                 <div className="w-80 md:w-96 bg-white  aspect-w-16 aspect-h-9  rounded-lg shadow-lg transition-all duration-300 opacity-0 peer-checked:opacity-100 peer-checked:z-10 z-0">
                   <img
                     alt="Image du produit"
-                    className=" w-full object-cover object-center rounded border border-gray-200"
+                    className=" w-full md:object-scale-down object-cover object-center rounded border border-gray-200"
                     src={image}
                   />
 

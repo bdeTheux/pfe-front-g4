@@ -81,7 +81,7 @@ const NewPost = ({ categories }) => {
   return (
     <div className="flex h-screen bg-gray-100">
       <div className="m-auto">
-        <div>
+        <div className="md:mt-20">
           <p id="newError"></p>
 
           <p className="text-4xl font-light pt-16">Annonce</p>
@@ -180,7 +180,10 @@ const NewPost = ({ categories }) => {
                     required
                   />
                 </div>
-                <label className="flex flex-grow w-1/12 pr-2 ">
+                <br />
+                <p className="font-mono text-sm">Images du produit / vidéo</p>
+
+                <label className="flex flex-grow w-1/12 pr-2 ml-1.5 ">
                   <input
                     id="files"
                     name="files"
@@ -227,10 +230,10 @@ const NewPost = ({ categories }) => {
             </form>
           </div>
         </div>
-        <p className="text-4xl text-center font-light pt-16">
+        <p className="text-3xl text-center font-light pt-6">
           Votre annonce sera soumise à un modérateur.
           <br />
-          Vous en serez notifié !
+          Vous en serez notifié ! (upcoming)
         </p>
       </div>
     </div>
