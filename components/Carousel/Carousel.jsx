@@ -65,7 +65,6 @@ const Carousel = ({ images }) => {
               </div>
             </div>
             {imagesSlice.map((image, index) => (
-                
               <div className="absolute" key={index}>
                 <input
                   className="sr-only peer"
