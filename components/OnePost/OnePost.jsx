@@ -21,7 +21,7 @@ const OnePost = ({ postId }) => {
   const [show, setShow] = useState(false);
   const [locations, setLocations] = useState([]);
   //const [appContext, setAppContext] = useState([]);
-  const [ userConnected, setUserConnected ] = useState([])
+  const [userConnected, setUserConnected] = useState([]);
   console.log("user", userConnected);
   useEffect(() => {
     let actual_post;
@@ -67,11 +67,13 @@ const OnePost = ({ postId }) => {
       });
     });
     fetch("/api/users/whoami", {
-      headers : {
-        "Content-Type" : "application/json",
-        Authorization : localStorage.getItem("token"),
-      }
-    }).then((res) => res.json()).then((uc) => setUserConnected(uc));
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((uc) => setUserConnected(uc));
   }, []);
 
   const router = useRouter();
@@ -84,7 +86,7 @@ const OnePost = ({ postId }) => {
   };
 
   const handleEnclose = () => {
-    const res = fetch(`/api/posts/${post._id}/sold`, {
+    const res = fetch(`/api/posts/${post._id}/sell`, {
       method: "POST",
       headers: {
         Authorization: localStorage.getItem("token"),
@@ -120,7 +122,7 @@ const OnePost = ({ postId }) => {
               <div className="grid grid-cols-1 divide-y divide-green-500 w-max">
                 <div className="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                   <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                    {post.category}
+                    {post.category_id}
                   </h2>
                   <h1 className="flex text-gray-900 text-3xl title-font font-medium mb-1">
                     {post.title}
@@ -132,7 +134,7 @@ const OnePost = ({ postId }) => {
                   {post.post_nature === "En vente" ? (
                     <div className="flex">
                       <span className="title-font font-medium text-2xl text-gray-900">
-                        ${post.price}€
+                        {post.price}€
                       </span>
                     </div>
                   ) : (
@@ -166,7 +168,7 @@ const OnePost = ({ postId }) => {
                     </div>
                   )}
                 </div>
-                {userConnected || userConnected !== null ? 
+                {userConnected || userConnected !== null ? (
                   userConnected._id == post.seller_id ||
                   userConnected.is_admin ? (
                     <div className="flex-row flex">
@@ -193,9 +195,8 @@ const OnePost = ({ postId }) => {
                   ) : (
                     <></>
                   )
-                : (
-                  <>
-                  </>
+                ) : (
+                  <></>
                 )}
               </div>
             </div>
