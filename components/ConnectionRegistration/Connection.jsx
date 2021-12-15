@@ -17,30 +17,23 @@ const Connection = () => {
       method: "POST",
       body: JSON.stringify(loginUser),
       headers: { "Content-Type": "application/json" },
+    }).then((res) => {
+      if (res.status != 200) {
+        res.json().then((el) => {
+          document.getElementById("errorConnection").className =
+            "lg:mt-24 mt-0 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative";
+          document.getElementById("errorConnection").innerText = el.description;
+        });
+      } else {
+        res.json().then((data) => {
+          localStorage.setItem("token", data.token);
+          router.push("/");
+        });
+        setTimeout(() => {
+          router.reload();
+        }, 500);
+      }
     });
-    const data = await res.json();
-    if (data.code == 401) {
-      localStorage.setItem("error", data.description);
-    } else {
-      localStorage.setItem("error", null);
-    }
-    if (res.status == 200) {
-      localStorage.setItem("token", data.token);
-      router.push("/");
-      setTimeout(() => {
-        router.reload();
-      }, 500);
-    } else {
-      setTimeout(() => {
-        router.reload();
-      }, 500);
-      return {
-        redirect: {
-          destination: "/connectionRegistration",
-          permanent: false,
-        },
-      };
-    }
   };
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
