@@ -2,7 +2,8 @@ import Member from "../Member/Member";
 import NoMember from "../Member/NoMember";
 import ButtonBan from "../Buttons/ButtonBan";
 
-const MembersList = ({ users, updateMemberList }) => {
+
+const MembersList = ({ users , updateMemberList}) => {
   return (
     <>
       <div className="flex flex-col">
@@ -43,7 +44,7 @@ const MembersList = ({ users, updateMemberList }) => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {users.map((user) => (
-                    <Member member={user} updateMemberList={updateMemberList} />
+                    <Member member={user} updateMemberList={updateMemberList} key={user._id}/>
                   ))}
                 </tbody>
               </table>
@@ -51,6 +52,8 @@ const MembersList = ({ users, updateMemberList }) => {
           </div>
         </div>
       </div>
+
+      
     </>
   );
 };

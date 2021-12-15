@@ -219,7 +219,7 @@ const PostsListFull = ({ title, camp }) => {
                       </Link>
                     </li>
                     {categories.map((category) => (
-                      <li>
+                      <li key={category.name}>
                         <Link
                           href={{
                             pathname: "/posts/[categoryName]",
