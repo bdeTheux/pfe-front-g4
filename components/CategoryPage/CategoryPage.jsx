@@ -27,15 +27,22 @@ const CategoryPage = ({ categories }) => {
         "Content-Type": "application/json",
         Authorization: token,
       },
+    }).then((res) => {
+      if (res.status != 200) {
+        res.json().then((el) => {
+          document.getElementById("errorCategory").className =
+            "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative";
+          document.getElementById("errorCategory").innerText = el.description;
+        });
+      }
     });
-    const data = await res.json();
   };
 
   return (
     <div className="flex m-auto bg-gray-100">
       <div className="m-auto">
         <div>
-          <p className="text-4xl font-light pt-16">Gestion</p>
+          <p id="errorCategory" className="text-4xl font-light pt-16"></p>
 
           <div className="mt-5 bg-white rounded-lg shadow">
             <div className="flex">
