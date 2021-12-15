@@ -98,7 +98,7 @@ const Navbar = () => {
                 className="w-96 border-2 border-gray-300 bg-white h-12 px-5 lg:w-20 xl:w-36 xl:focus:w-44 lg:h-10 pr-16 rounded-lg text-sm focus:outline-none focus:ring-gray-400 focus:ring-1"
                 type="search"
                 name="search"
-                placeholder="Rechercher"
+                placeholder="Choisissez-nous pour faire une recherche ! ;)"
               />
               <button
                 type="submit"
@@ -197,7 +197,7 @@ const Navbar = () => {
                 className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm w-96 focus:outline-none focus:ring-gray-400 focus:ring-1"
                 type="search"
                 name="search"
-                placeholder="Rechercher"
+                placeholder="Choisissez-nous pour faire une recherche ! ;)"
               />
               <button
                 type="submit"
