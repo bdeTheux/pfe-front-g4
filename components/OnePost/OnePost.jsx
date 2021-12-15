@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { AppContext } from "../../context/context";
 
 import Map from "../Map/Map";
+import Carousel from "../Carousel/Carousel";
 
 const OnePost = ({ postId }) => {
   const [post, setPost] = useState([]);
@@ -115,15 +116,7 @@ const OnePost = ({ postId }) => {
           <div className="container px-5 py-24 mx-auto">
             <div className="lg:w-4/5 mx-auto flex flex-wrap  ">
               <div className="flex flex-col">
-                <img
-                  alt="Image du produit"
-                  className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-                  src={
-                    post && post.images && post.images.length > 0
-                      ? post.images[0]
-                      : "/images/bidon.jpg/"
-                  } //change with carousel
-                />
+                <Carousel images={post && post.images ? post.images : []} />
                 {post && post.video ? (
                   <video
                     controls
@@ -194,7 +187,7 @@ const OnePost = ({ postId }) => {
                         className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
                       >
                         <TrashIcon className="flex ml-3 w-6 text-red-500" />
-                        <span className="pl-2 mx-1">Delete</span>
+                        <span className="pl-2 mx-1">Supprimer</span>
                       </button>
                       <div>
                         <PopUpButton post={post} className="flex ml-3 w-6 " />
@@ -205,7 +198,7 @@ const OnePost = ({ postId }) => {
                         className=" items-end px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
                       >
                         <LockClosedIcon className="ml-3 w-6 text-red-500" />
-                        Cloturer
+                        Clôturer
                       </button>
                     </div>
                   ) : (
