@@ -36,7 +36,7 @@ const ProfileEdit = ({ user }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [campus, setCampus] = useState("");
+  const [campus, setCampus] = useState(campuses[0]);
   const [password, setPassword] = useState("");
 
   const router = useRouter();
