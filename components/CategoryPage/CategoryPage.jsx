@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import LiCategory from "../Category/LiCategory";
 import SelectCategories from "../Category/SelectCategories";
 
-const CategoryPage = ({ categories }) => {
+const CategoryPage = ({ categories, updateCategories }) => {
   const [categoryName, setCategoryName] = useState("");
   const [categoryParent, setCategoryParent] = useState("");
   const [token, setToken] = useState("");
@@ -37,7 +37,9 @@ const CategoryPage = ({ categories }) => {
           document.getElementById("errorCategory").innerText = el.description;
         });
       } else {
-        router.reload();
+        updateCategories()
+        //setCategoryParent("")
+        //setCategoryName("")
       }
     });
   };

@@ -86,6 +86,19 @@ const Management = () => {
                 return user
         }))
     }
+    const updateCategories = () => {
+        fetch("/api/categories/", {
+            headers: {
+                "Content-Type": "application.json",
+            },
+        })
+            .then((res3) => {
+                return res3.json();
+            })
+            .then((temp3) => {
+                setCategories(temp3);
+            });
+    }
     return (
         <div className="flex h-screen ">
             <div className="md:mt-12 mx-auto w-full max-w-md px-2 py-16 sm:px-0">
@@ -155,7 +168,7 @@ const Management = () => {
                                 "focus:outline-none focus:ring-2 ring-offset-2 ring-white ring-opacity-60"
                             )}
                         >
-                            <CategoryPage categories={categories}/>
+                            <CategoryPage categories={categories} updateCategories={updateCategories}/>
                         </Tab.Panel>
                     </Tab.Panels>
                 </Tab.Group>
