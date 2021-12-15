@@ -5,7 +5,7 @@ const About = () => {
     <div className="">
       <div className="z-0">
         <Image
-          src="/images/about2.png"
+          src="/images/about.png"
           layout="fill"
           objectFit="cover"
           objectPosition="center"
