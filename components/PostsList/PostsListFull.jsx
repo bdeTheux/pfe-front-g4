@@ -150,7 +150,6 @@ const PostsListFull = ({ title, camp }) => {
                   </button>
                 </div>
 
-                {/* Filters */}
                 <form className="mt-4 border-t border-gray-200">
                   {filters.map((section) => (
                     <Disclosure
@@ -345,7 +344,6 @@ const PostsListFull = ({ title, camp }) => {
             </h2>
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
-              {/* Filters */}
               <form className="hidden lg:block">
                 {filters.map((section) => (
                   <Disclosure

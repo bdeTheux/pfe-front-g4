@@ -79,6 +79,9 @@ const ProfileEdit = ({ user }) => {
 
   const [selected, setSelected] = useState(campuses[0]);
 
+  console.log("selected", selected);
+  console.log("user.campus", user.campus);
+
   return (
     <>
       <Tab.Panel className="bg-white rounded-xl p-2 focus:outline-none ring-1 ring-offset-1 ring-offset-indigo-400 ring-white ring-opacity-60">
@@ -98,6 +101,7 @@ const ProfileEdit = ({ user }) => {
               className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm border-gray-300 rounded-md"
               defaultValue={user.first_name}
               onChange={(e) => {
+                console.log("firstname", e.target.value);
                 setFirstName(e.target.value);
               }}
             />
