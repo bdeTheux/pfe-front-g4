@@ -1,6 +1,10 @@
 import NoPendingPost from "../PendingPosts/NoPendingPost";
 import OnePendingPost from "./OnePendingPost";
-const PendingPosts = ({ posts }) => {
+const PendingPosts = ({ posts , setPendingPosts}) => {
+
+  const handleAction = (id) =>{
+    setPendingPosts(posts.filter(post => post._id !== id))
+  }
   return (
     <>
       <div className="flex flex-col">
@@ -74,7 +78,7 @@ const PendingPosts = ({ posts }) => {
                     <NoPendingPost />
                   ) : (
                     posts.map((post) => {
-                      return <OnePendingPost key={post._id} post={post} />;
+                      return <OnePendingPost key={post._id} post={post} removePost={handleAction} />;
                     })
                   )}
                 </tbody>

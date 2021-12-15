@@ -136,7 +136,7 @@ const Management = () => {
                 "focus:outline-none focus:ring-2 ring-offset-2  ring-white ring-opacity-60"
               )}
             >
-              <PendingPosts posts={pendingPosts} />
+              <PendingPosts posts={pendingPosts} setPendingPosts={setPendingPosts} />
             </Tab.Panel>
             <Tab.Panel
               className={classNames(
