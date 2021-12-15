@@ -121,7 +121,7 @@ const OnePost = ({ postId }) => {
                 {post && post.video ? (
                   <video
                     controls
-                    className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
+                    className="flex lg:w-1/2 w-full pt-60 object-cover object-center rounded border border-gray-200"
                   >
                     <source src={post.video}></source>
                   </video>

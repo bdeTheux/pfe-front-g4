@@ -6,7 +6,7 @@ const Carousel = ({ images }) => {
   console.log(imagesSlice, " imagessl");
 
   return (
-    <div>
+    <div className="flex ">
       <div>
         <div>
           <div id="loop" className="">
