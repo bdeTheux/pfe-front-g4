@@ -116,7 +116,7 @@ const OnePost = ({ postId }) => {
           <div className="container px-5 py-24 mx-auto">
             <div className="lg:w-4/5 mx-auto flex flex-row  ">
               <div className="flex flex-col lg:w-1/2 h-80">
-              <div className="flex w-80 h-1/6"></div>
+                <div className="flex w-80 h-1/6"></div>
                 <Carousel images={post && post.images ? post.images : []} />
                 {post && post.video ? (
                   <video
@@ -130,86 +130,91 @@ const OnePost = ({ postId }) => {
                 )}
               </div>
               <div className="flex lg:w-1/2">
-              <div className="grid grid-cols-1 divide-y divide-green-500 w-max ">
-                <div className="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                  <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                    {post.category_id}
-                  </h2>
-                  <h1 className="flex text-gray-900 text-3xl title-font font-medium mb-1">
-                    {post.title}
-                  </h1>
-                  <div className="flex mb-4">
-                    <span className="flex items-center"></span>
-                  </div>
-                  <p className="leading-relaxed">{post.post_nature}</p>
-                  {post.post_nature === "À vendre" ? (
-                    <div className="flex">
-                      <span className="title-font font-medium text-2xl text-gray-900">
-                        {post.price}€
-                      </span>
+                <div className="grid grid-cols-1 divide-y divide-green-500 w-max ">
+                  <div className="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+                    <h2 className="text-sm title-font text-gray-500 tracking-widest">
+                      {post.category_id}
+                    </h2>
+                    <h1 className="flex text-gray-900 text-3xl title-font font-medium mb-1">
+                      {post.title}
+                    </h1>
+                    <div className="flex mb-4">
+                      <span className="flex items-center"></span>
                     </div>
-                  ) : (
-                    ""
-                  )}
+                    <p className="leading-relaxed">{post.post_nature}</p>
+                    {post.post_nature === "À vendre" ? (
+                      <div className="flex">
+                        <span className="title-font font-medium text-2xl text-gray-900">
+                          {post.price}€
+                        </span>
+                      </div>
+                    ) : (
+                      ""
+                    )}
 
-                  <p className="mt-4 leading-relaxed">{post.description}</p>
-                </div>
-                <div className=" w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                  <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                    Informations sur le vendeur
-                  </h1>
-                  {userConnected === null ? (
-                    <p className="leading-relaxed">
-                      Veuillez vous connectez pour accéder à ces informations
-                      (ou vous avez été banni)
-                    </p>
-                  ) : (
-                    <div>
+                    <p className="mt-4 leading-relaxed">{post.description}</p>
+                  </div>
+                  <div className=" w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+                    <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
+                      Informations sur le vendeur
+                    </h1>
+                    {userConnected === null ? (
                       <p className="leading-relaxed">
-                        Nom : {user.first_name} {user.last_name}
+                        Veuillez vous connectez pour accéder à ces informations
+                        (ou vous avez été banni)
                       </p>
-                      <p className="leading-relaxed">Contact : {user.email}</p>
-                      <p className="leading-relaxed">
-                        Possibles lieux d'échange : {post.places}
-                      </p>
-                      <div className="mb-1">
-                        <ButtonMailTo mailto={user.email} title={post.title} />
-                      </div>
-                      <Map locations={locations} />
-                    </div>
-                  )}
-                </div>
-                {userConnected || userConnected !== null ? (
-                  userConnected._id == post.seller_id ||
-                  userConnected.is_admin ? (
-                    <div className="flex-row flex">
-                      <button
-                        onClick={handleDelete}
-                        type="button"
-                        className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
-                      >
-                        <TrashIcon className="flex ml-3 w-6 text-red-500" />
-                        <span className="pl-2 mx-1">Supprimer</span>
-                      </button>
+                    ) : (
                       <div>
-                        <PopUpButton post={post} className="flex ml-3 w-6 " />
+                        <p className="leading-relaxed">
+                          Nom : {user.first_name} {user.last_name}
+                        </p>
+                        <p className="leading-relaxed">
+                          Contact : {user.email}
+                        </p>
+                        <p className="leading-relaxed">
+                          Possibles lieux d'échange : {post.places}
+                        </p>
+                        <div className="mb-1">
+                          <ButtonMailTo
+                            mailto={user.email}
+                            title={post.title}
+                          />
+                        </div>
+                        <Map locations={locations} />
                       </div>
-                      <button
-                        type="button"
-                        onClick={handleEnclose}
-                        className=" items-end px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
-                      >
-                        <LockClosedIcon className="ml-3 w-6 text-red-500" />
-                        Clôturer
-                      </button>
-                    </div>
+                    )}
+                  </div>
+                  {userConnected || userConnected !== null ? (
+                    userConnected._id == post.seller_id ||
+                    userConnected.is_admin ? (
+                      <div className="flex-row flex">
+                        <button
+                          onClick={handleDelete}
+                          type="button"
+                          className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
+                        >
+                          <TrashIcon className="flex ml-3 w-6 text-red-500" />
+                          <span className="pl-2 mx-1">Supprimer</span>
+                        </button>
+                        <div>
+                          <PopUpButton post={post} className="flex ml-3 w-6 " />
+                        </div>
+                        <button
+                          type="button"
+                          onClick={handleEnclose}
+                          className=" items-end px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
+                        >
+                          <LockClosedIcon className="ml-3 w-6 text-red-500" />
+                          Clôturer
+                        </button>
+                      </div>
+                    ) : (
+                      <></>
+                    )
                   ) : (
                     <></>
-                  )
-                ) : (
-                  <></>
-                )}
-              </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -220,11 +225,3 @@ const OnePost = ({ postId }) => {
 };
 
 export default OnePost;
-
-
-/*
-              <div className="flex w-80 h-80"></div>
-
-
-
-              */
