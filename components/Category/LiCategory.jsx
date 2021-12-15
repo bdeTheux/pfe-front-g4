@@ -94,14 +94,3 @@ const LiCategory = ({ categories, category }) => {
 };
 
 export default LiCategory;
-
-/*
-
-
-          <p>Nom de la categorie parente</p><textarea name="categoryParent" defaultValue={category.parent}  onChange={(val) => setCategoryParent(val.target.value)} className=" text-black placeholder-gray-800 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"></textarea>
-
-          <SelectCategories categories={categories} setCategory={setCategoryParent} label={label}/>
-           console.log("categoryParent : " + categoryParent + " type :" + typeof categoryParent)
-    console.log("category parent : " + category.parent + " type : "+ typeof category.parent)
-
-*/

@@ -41,18 +41,8 @@ const PostsListFull = ({ title, camp }) => {
   const [categories, setCategories] = useState([]);
   const [postsList, setPostsList] = useState([]);
   const [campus, setCampus] = useState(camp);
-  /*
-  if(campus){
-    filters.options.forEach((e)=>{
-      e.campus === campus ? e.checked = true : e.checked = false
-    })
-  }*/
-  //const [order, setOrder] = useState(sortOptions)
-  const router = useRouter();
-  console.log("title", title);
 
-  console.log("campus", campus);
-  console.log("camp", camp)
+  const router = useRouter();
 
   function pathBuilder(camp, cat) {
     setCampus(camp);
@@ -66,10 +56,9 @@ const PostsListFull = ({ title, camp }) => {
     } else if (cat !== "Les annonces") {
       newPath += "/?category=" + cat;
     }
-    console.log("urlin", newPath);
+
     return newPath;
   }
-  
 
   function sortPosts(posts, sortTypeId) {
     if (sortTypeId === 1) {
@@ -99,7 +88,6 @@ const PostsListFull = ({ title, camp }) => {
       })
       .then((temp) => {
         setPostsList(temp);
-        console.log("temp", temp);
       });
     fetch("/api/categories/", {
       headers: {
@@ -115,7 +103,6 @@ const PostsListFull = ({ title, camp }) => {
     pathBuilder(campus, title);
     //pathBuilder("Ixelles", "Les annonces");
   }, []);
-  console.log("pl", postsList);
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   return (
@@ -163,7 +150,6 @@ const PostsListFull = ({ title, camp }) => {
                   </button>
                 </div>
 
-                {/* Filters */}
                 <form className="mt-4 border-t border-gray-200">
                   {filters.map((section) => (
                     <Disclosure
@@ -280,26 +266,26 @@ const PostsListFull = ({ title, camp }) => {
                 >
                   <Menu.Items className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ">
                     <div className="py-1 ">
-                        <Menu.Item
-                          key="0"
-                          onClick={() => sortPosts(postsList, 0)}
-                        >
-                          {({ active }) => (
-                            <a
-                              href={router.asPath}
-                              className={classNames(
-                                sortOptions[0].current
-                                  ? "font-medium text-gray-900"
-                                  : "text-gray-500",
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm"
-                              )}
-                            >
-                              Nouveau
-                            </a>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item
+                      <Menu.Item
+                        key="0"
+                        onClick={() => sortPosts(postsList, 0)}
+                      >
+                        {({ active }) => (
+                          <a
+                            href={router.asPath}
+                            className={classNames(
+                              sortOptions[0].current
+                                ? "font-medium text-gray-900"
+                                : "text-gray-500",
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm"
+                            )}
+                          >
+                            Nouveau
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item
                         key="1"
                         onClick={() => sortPosts(postsList, 1)}
                       >
@@ -319,25 +305,24 @@ const PostsListFull = ({ title, camp }) => {
                         )}
                       </Menu.Item>
                       <Menu.Item
-                      key="2"
-                      onClick={() => sortPosts(postsList, 2)}
-                    >
-                      {({ active }) => (
-                        <a
-                          href="#descending"
-                          className={classNames(
-                            sortOptions[2].current
-                              ? "font-medium text-gray-900"
-                              : "text-gray-500",
-                            active ? "bg-gray-100" : "",
-                            "block px-4 py-2 text-sm"
-                          )}
-                        >
-                          Prix décroissant
-                        </a>
-                      )}
-                    </Menu.Item>
-                      
+                        key="2"
+                        onClick={() => sortPosts(postsList, 2)}
+                      >
+                        {({ active }) => (
+                          <a
+                            href="#descending"
+                            className={classNames(
+                              sortOptions[2].current
+                                ? "font-medium text-gray-900"
+                                : "text-gray-500",
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm"
+                            )}
+                          >
+                            Prix décroissant
+                          </a>
+                        )}
+                      </Menu.Item>
                     </div>
                   </Menu.Items>
                 </Transition>
@@ -359,7 +344,6 @@ const PostsListFull = ({ title, camp }) => {
             </h2>
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
-              {/* Filters */}
               <form className="hidden lg:block">
                 {filters.map((section) => (
                   <Disclosure
@@ -429,7 +413,8 @@ const PostsListFull = ({ title, camp }) => {
                                     ) : (
                                       <>
                                         <Link
-                                          href={`/posts/${title}&${option.campus}`}>
+                                          href={`/posts/${title}&${option.campus}`}
+                                        >
                                           <input
                                             id={`filter-${section.id}-${optionIdx}`}
                                             name={`${section.id}[]`}
@@ -471,13 +456,13 @@ const PostsListFull = ({ title, camp }) => {
                                       </Link>
                                     ) : (
                                       <Link
-                                          href={{
-                                            pathname: "/posts/[categoryName]",
-                                            query: {
-                                              categoryName: title,
-                                            },
-                                          }}
-                                        >
+                                        href={{
+                                          pathname: "/posts/[categoryName]",
+                                          query: {
+                                            categoryName: title,
+                                          },
+                                        }}
+                                      >
                                         <input
                                           id={`filter-${section.id}-${optionIdx}`}
                                           name={`${section.id}[]`}
