@@ -47,7 +47,7 @@ const CategoryPage = ({ categories, updateCategories }) => {
   return (
     <div className="flex m-auto bg-gray-100">
       <div className="m-auto">
-        <div>
+        <div className="flex w-screen justify-center ">
           <p id="errorCategory" className="text-4xl font-light pt-16 ml-5"></p>
 
 

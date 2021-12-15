@@ -55,10 +55,10 @@ const LiCategory = ({ categories, category }) => {
   return (
     <div
       key={category}
-      className="flex text-black placeholder-gray-600  px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+      className=" text-black placeholder-gray-600  px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
     >
       <form method="POST">
-        <div className="flex-row">
+        <div className="">
           <input type="hidden" name="_method" value="put" />
           <p className="font-light text-gray-500">Nom de la categorie</p>
           <textarea
@@ -75,7 +75,7 @@ const LiCategory = ({ categories, category }) => {
           />
         </div>
 
-        <div className="flex-initial pl-3 mt-2">
+        <div className="flex flex-initial   w-full pl-3 mt-2">
           <button
             onClick={handleUpdate}
             type="button"
@@ -86,7 +86,7 @@ const LiCategory = ({ categories, category }) => {
         </div>
       </form>
 
-      <div className="flex-initial pl-3 mt-2">
+      <div className="flex flex-initial w-full pl-3 mt-2">
         <button
           onClick={handleDelete}
           className="p-0 w-12 h-12 bg-gray-700 rounded-full hover:bg-gray-800 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none"
