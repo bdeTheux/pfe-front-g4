@@ -64,13 +64,17 @@ const ProfileEdit = ({ user }) => {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("token"),
       },
+    }).then((res) => {
+      if (res.status != 200) {
+        res.json().then((el) => {
+          document.getElementById("errorEditProfil").className =
+            "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative";
+          document.getElementById("errorEditProfil").innerText = el.description;
+        });
+      } else {
+        router.push("/profile");
+      }
     });
-    const data = await res.json();
-    if (res.status !== 401) {
-      router.push("/profile");
-    } else {
-      alert("Le mot-de-passe entré est incorrect ! Veuillez réessayer svp");
-    }
   };
 
   const handleContainer = async () => {
@@ -84,6 +88,7 @@ const ProfileEdit = ({ user }) => {
 
   return (
     <>
+      <p id="errorEditProfil" className="text-4xl font-light pt-16 ml-5"></p>
       <Tab.Panel className="bg-white rounded-xl p-2 focus:outline-none ring-1 ring-offset-1 ring-offset-indigo-400 ring-white ring-opacity-60">
         <form method="POST">
           <div className="relative p-2 rounded-md">
