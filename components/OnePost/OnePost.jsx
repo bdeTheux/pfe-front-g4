@@ -117,7 +117,11 @@ const OnePost = ({ postId }) => {
               <img
                 alt="Image du produit"
                 className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-                src={post.images ? post.images[0] : "/images/bidon.jpg/"} //change with carousel
+                src={
+                  post && post.images && post.images.length > 0
+                    ? post.images[0]
+                    : "/images/bidon.jpg/"
+                } //change with carousel
               />
               <div className="grid grid-cols-1 divide-y divide-green-500 w-max">
                 <div className="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
