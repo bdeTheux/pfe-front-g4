@@ -21,7 +21,7 @@ const OnePost = ({ postId }) => {
   const [show, setShow] = useState(false);
   const [locations, setLocations] = useState([]);
   //const [appContext, setAppContext] = useState([]);
-  const [ userConnected, setUserConnected ] = useState([])
+  const [userConnected, setUserConnected] = useState([]);
   console.log("user", userConnected);
   useEffect(() => {
     let actual_post;
@@ -67,11 +67,13 @@ const OnePost = ({ postId }) => {
       });
     });
     fetch("/api/users/whoami", {
-      headers : {
-        "Content-Type" : "application/json",
-        Authorization : localStorage.getItem("token"),
-      }
-    }).then((res) => res.json()).then((uc) => setUserConnected(uc));
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((uc) => setUserConnected(uc));
   }, []);
 
   const router = useRouter();
@@ -84,7 +86,7 @@ const OnePost = ({ postId }) => {
   };
 
   const handleEnclose = () => {
-    const res = fetch(`/api/posts/${post._id}/sold`, {
+    const res = fetch(`/api/posts/${post._id}/sell`, {
       method: "POST",
       headers: {
         Authorization: localStorage.getItem("token"),
@@ -166,7 +168,7 @@ const OnePost = ({ postId }) => {
                     </div>
                   )}
                 </div>
-                {userConnected || userConnected !== null ? 
+                {userConnected || userConnected !== null ? (
                   userConnected._id == post.seller_id ||
                   userConnected.is_admin ? (
                     <div className="flex-row flex">
@@ -193,9 +195,8 @@ const OnePost = ({ postId }) => {
                   ) : (
                     <></>
                   )
-                : (
-                  <>
-                  </>
+                ) : (
+                  <></>
                 )}
               </div>
             </div>
