@@ -175,7 +175,7 @@ const OnePost = ({ postId }) => {
                       </p>
                       <p className="leading-relaxed">Contact : {user.email}</p>
                       <p className="leading-relaxed">
-                        Possibles lieux d'échange : {post.places}
+                        Possibles lieux d'échange : { post && post.places ? post.places.toString() : ""}
                       </p>
                       <div className="mb-1">
                         <ButtonMailTo mailto={user.email} title={post.title} />
