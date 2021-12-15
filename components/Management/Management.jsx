@@ -76,6 +76,20 @@ const Management = () => {
     return classes.filter(Boolean).join(" ");
   }
 
+  const reloadCategories = () =>{
+    fetch("/api/categories/", {
+      headers: {
+        "Content-Type": "application.json",
+      },
+    })
+        .then((response) => {
+          return response.json();
+        })
+        .then((results) => {
+          console.log(results)
+          setCategories(results);
+        });
+  }
   return (
     <div className="flex h-screen ">
       <div className="md:mt-12 mx-auto w-full max-w-md px-2 py-16 sm:px-0">
@@ -145,7 +159,7 @@ const Management = () => {
                 "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-green-400 ring-white ring-opacity-60"
               )}
             >
-              <CategoryPage categories={categories} />
+              <CategoryPage categories={categories} action={reloadCategories} />
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>
