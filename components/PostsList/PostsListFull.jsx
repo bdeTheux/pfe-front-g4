@@ -68,13 +68,7 @@ const PostsListFull = ({ title, camp }) => {
     console.log("urlin", newPath);
     return newPath;
   }
-  /*
-  function testPath(){
-    const route = router.asPath.split("/");
-    route[]
-    return 
-  }
-  */
+  
 
   function sortPosts(posts, sortTypeId) {
     if (sortTypeId === 1) {
@@ -92,22 +86,6 @@ const PostsListFull = ({ title, camp }) => {
         : (element.current = false);
     });
   }
-
-  /*
-  function filterCampus(posts, campusId) {
-    filters[0].options.forEach((campus) => {
-      if (campus.id === campusId) campus.checked = !campus.checked;
-      else campus.checked = false;
-    });
-    const campus = filters[0].options[campusId];
-    console.log("1111", filters[0].options[campusId]);
-    const filtered = [...posts].filter((post) => {post.places.includes(campus.campus)})
-    console.log("222",filtered);
-
-    
-
-    setPostsList(filtered);
-  }*/
 
   useEffect(() => {
     fetch(pathBuilder(campus, title), {

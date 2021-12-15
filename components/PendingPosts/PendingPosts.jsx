@@ -2,36 +2,88 @@ import NoPendingPost from "../PendingPosts/NoPendingPost";
 import OnePendingPost from "./OnePendingPost";
 const PendingPosts = ({ posts }) => {
   return (
-    <div className="flex items-center justify-center bg-white">
-      <div className="col-span-12">
-        <div className="overflow-auto lg:overflow-visible sm:rounded-lg">
-          <table className="border-separate space-y-6 text-sm table-auto">
-            <thead className="bg-green-700">
-              <tr>
-                <th className="p-3">Titre</th>
-                <th className="p-3 text-left">Description</th>
-                <th className="p-3 text-left">Photos</th>
-                <th className="p-3 text-left">Catégorie</th>
-                <th className="p-3 text-left">Lieux d'échanges</th>
-                <th className="p-3 text-left">Vendeur</th>
-                <th className="p-3 text-left">Nature de l'annonce</th>
-                <th className="p-3 text-left">Price</th>
-                <th className="p-3 text-left">Gérer les annonces</th>
-              </tr>
-            </thead>
-            <tbody>
-              {posts.length == 0 ? (
-                <NoPendingPost />
-              ) : (
-                posts.map((post) => {
-                  return <OnePendingPost key={post._id} post={post} />;
-                })
-              )}
-            </tbody>
-          </table>
+    <>
+      <div className="flex flex-col">
+        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <table className="min-w-full divide-y divide-gray-200 table-fixed ">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Titre
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Description
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Photos
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Catégorie
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Lieux d'échanges
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Vendeur
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Nature de l'annonce
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Prix
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Gérer les annonces
+                    </th>
+                    <th scope="col" className="relative px-6 py-3">
+                      <span className="sr-only">Edit</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {posts.length == 0 ? (
+                    <NoPendingPost />
+                  ) : (
+                    posts.map((post) => {
+                      return <OnePendingPost key={post._id} post={post} />;
+                    })
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

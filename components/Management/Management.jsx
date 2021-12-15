@@ -99,24 +99,24 @@ const Management = () => {
           <Tab.Panels className="mt-2">
             <Tab.Panel
               className={classNames(
-                "bg-white rounded-xl p-3",
-                "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-green-400 ring-white ring-opacity-60"
+                "bg-white rounded-xl p-3 flex justify-center",
+                "focus:outline-none focus:ring-2 ring-offset-2  ring-white ring-opacity-60"
               )}
             >
               <MembersList users={users} />
             </Tab.Panel>
             <Tab.Panel
               className={classNames(
-                "bg-white rounded-xl p-3",
-                "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-green-400 ring-white ring-opacity-60"
+                "bg-white rounded-xl p-3 flex justify-center",
+                "focus:outline-none focus:ring-2 ring-offset-2  ring-white ring-opacity-60"
               )}
             >
               <PendingPosts posts={pendingPosts} />
             </Tab.Panel>
             <Tab.Panel
               className={classNames(
-                "bg-white rounded-xl p-3",
-                "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-green-400 ring-white ring-opacity-60"
+                "bg-white rounded-xl p-3 flex justify-center",
+                "focus:outline-none focus:ring-2 ring-offset-2 ring-white ring-opacity-60"
               )}
             >
               <CategoryPage categories={categories} />

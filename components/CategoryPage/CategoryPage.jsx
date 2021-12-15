@@ -42,7 +42,7 @@ const CategoryPage = ({ categories }) => {
     <div className="flex m-auto bg-gray-100">
       <div className="m-auto">
         <div>
-          <p className="text-4xl font-light pt-16">Gestion</p>
+          <p className="text-4xl font-light pt-16 ml-5">Gestion</p>
 
           <div className="mt-5 bg-white rounded-lg shadow">
             <div className="flex">
@@ -62,7 +62,7 @@ const CategoryPage = ({ categories }) => {
                       type="text"
                       placeholder="Nom"
                       required
-                      className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+                      className=" text-black placeholder-gray-00 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
                     />
                   </div>
                   <div className="flex-grow w-1/4 pr-2">

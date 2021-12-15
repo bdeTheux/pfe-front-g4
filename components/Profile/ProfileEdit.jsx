@@ -42,16 +42,7 @@ function classNames(...classes) {
 
 const ProfileEdit = ({ user }) => {
   let [isOpen, setIsOpen] = useState(false);
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
   
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -60,27 +51,8 @@ const ProfileEdit = ({ user }) => {
 
   const router = useRouter();
 
+
   const onEdit = async () => {
-
-    const res = await fetch(`/api/users/${user._id}`, {
-      method: "PUT",
-      body: JSON.stringify(newInfos, user._id),
-      headers: { "Content-Type": "application/json" },
-    });
-    const data = await res.json();
-    if (res.status != 401) {
-      router.push("/");
-    } else {
-      alert("Error 401: request failed");
-    }
-  };
-  const handleUpdate = () => {
-    if (firstName === "") firstName = user.title;
-    if (lastName === "") lastName = user.category_id;
-    if (email === "") email = user.email;
-    if (campus === "") campus = user.campus;
-    if (password === "") password = user.password;
-
     const newInfos = {
       _id: user._id,
       first_name: firstName,
@@ -89,26 +61,54 @@ const ProfileEdit = ({ user }) => {
       campus: campus,
       password: password,
     };
-
-    fetch(`/api/users/edit`, {
+    const res = await fetch(`/api/users/edit`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
-      },
-      body: JSON.stringify(newInfos),
-    })
-      .then((res) => {
-        const data = res.json();
-        console.log(data);
-        return data;
-      })
-      .then((temp) => console.log(temp))
-      .then(() => {
-        setIsOpen(false);
-        router.push("/profile");
-      });
+      body: JSON.stringify(newInfos, user._id),
+      headers: { "Content-Type": "application/json" },
+      Authorization: localStorage.getItem("token"),
+    });
+    const data = await res.json();
+    console.log(data);
+    if (res.status !== 401) {
+      router.push("/");
+    } else {
+      console.log(res)
+    }
   };
+
+
+  const onVerify = async () => {
+    console.log("email", user.email)
+    const loginUser = {
+      email: user.email,
+      password: user.password,
+    };
+
+    const res = await fetch("/api/login/", {
+      method: "POST",
+      body: JSON.stringify(loginUser),
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await res.json();
+    console.log("data", data);
+    if (data.description) {
+      localStorage.setItem("error", data.description);
+    } else {
+      localStorage.setItem("error", "none");
+    }
+    if (res.status == 200) {
+      //localStorage.setItem("token", data.token);
+      router.push("/profile"); //management/management
+      console.log("error");
+      setTimeout(() => {
+        router.reload();
+      }, 500);
+    } 
+  };
+
+  const handleContainer = async () =>{
+    onVerify().then(() => onEdit());
+  }
 
   const [selected, setSelected] = useState(campuses[0]);
 
@@ -341,7 +341,7 @@ const ProfileEdit = ({ user }) => {
                     id="password"
                     autoComplete="current-password"
                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm border-gray-300 rounded-md"
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </form>
 
@@ -350,7 +350,7 @@ const ProfileEdit = ({ user }) => {
                     <ArrowNarrowLeftIcon className="text-white h-4 w-4 mr-2" />
                     Retour
                   </Button>
-                  <Button onClick={() => handleUpdate()} color="green">
+                  <Button onClick={() => handleContainer()} color="green">
                     Accepter
                     <CheckIcon className="text-white h-5 w-5 mt-0.5 ml-2" />
                   </Button>

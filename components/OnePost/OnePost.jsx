@@ -103,7 +103,7 @@ const OnePost = ({ postId }) => {
               <div className="grid grid-cols-1 divide-y divide-green-500 w-max">
                 <div className="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                   <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                    {post.category}
+                    {post.category_id}
                   </h2>
                   <h1 className="flex text-gray-900 text-3xl title-font font-medium mb-1">
                     {post.title}
@@ -115,7 +115,7 @@ const OnePost = ({ postId }) => {
                   {post.post_nature === "En vente" ? (
                     <div className="flex">
                       <span className="title-font font-medium text-2xl text-gray-900">
-                        ${post.price}€
+                        {post.price}€
                       </span>
                     </div>
                   ) : (
