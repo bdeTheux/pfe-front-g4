@@ -21,7 +21,7 @@ const OnePost = ({ postId }) => {
   const [show, setShow] = useState(false);
   const [locations, setLocations] = useState([]);
   //const [appContext, setAppContext] = useState([]);
-  const { userConnected } = useContext(AppContext);
+  const [ userConnected, setUserConnected ] = useState([])
   console.log("user", userConnected);
   useEffect(() => {
     let actual_post;
@@ -66,6 +66,12 @@ const OnePost = ({ postId }) => {
         });
       });
     });
+    fetch("/api/users/whoami", {
+      headers : {
+        "Content-Type" : "application/json",
+        Authorization : localStorage.getItem("token"),
+      }
+    }).then((res) => res.json()).then((uc) => setUserConnected(uc));
   }, []);
 
   const router = useRouter();
@@ -160,30 +166,36 @@ const OnePost = ({ postId }) => {
                     </div>
                   )}
                 </div>
-                {userConnected && (userConnected._id == post.seller_id) ? (
-                  <div className="flex-row flex">
-                    <button
-                      onClick={handleDelete}
-                      type="button"
-                      className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
-                    >
-                      <TrashIcon className="flex ml-3 w-6 text-red-500" />
-                      <span className="pl-2 mx-1">Delete</span>
-                    </button>
-                    <div>
-                      <PopUpButton post={post} className="flex ml-3 w-6 " />
+                {userConnected || userConnected !== null ? 
+                  userConnected._id == post.seller_id ||
+                  userConnected.is_admin ? (
+                    <div className="flex-row flex">
+                      <button
+                        onClick={handleDelete}
+                        type="button"
+                        className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
+                      >
+                        <TrashIcon className="flex ml-3 w-6 text-red-500" />
+                        <span className="pl-2 mx-1">Delete</span>
+                      </button>
+                      <div>
+                        <PopUpButton post={post} className="flex ml-3 w-6 " />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={handleEnclose}
+                        className=" items-end px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
+                      >
+                        <LockClosedIcon className="ml-3 w-6 text-red-500" />
+                        Cloturer
+                      </button>
                     </div>
-                    <button
-                      type="button"
-                      onClick={handleEnclose}
-                      className=" items-end px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
-                    >
-                      <LockClosedIcon className="ml-3 w-6 text-red-500" />
-                      Cloturer
-                    </button>
-                  </div>
-                ) : (
-                  <></>
+                  ) : (
+                    <></>
+                  )
+                : (
+                  <>
+                  </>
                 )}
               </div>
             </div>
