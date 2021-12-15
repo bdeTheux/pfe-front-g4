@@ -11,7 +11,7 @@ const Carousel = ({ images }) => {
       <div >
         <div >
           <div id="loop" className="">
-            <div className="">
+            <div className="absolute">
               <input
                 className="sr-only peer"
                 type="radio"
@@ -69,7 +69,7 @@ const Carousel = ({ images }) => {
             </div>
             {imagesSlice.map((image, index) => 
               
-                <div className="">
+                <div className="absolute">
                   <input
                     className="sr-only peer"
                     type="radio"

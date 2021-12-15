@@ -114,8 +114,9 @@ const OnePost = ({ postId }) => {
       <div>
         <section className="text-gray-700 body-font overflow-hidden bg-white">
           <div className="container px-5 py-24 mx-auto">
-            <div className="lg:w-4/5 mx-auto flex flex-wrap  ">
-              <div className="flex flex-col">
+            <div className="lg:w-4/5 mx-auto flex flex-row  ">
+              <div className="flex flex-col lg:w-1/2 h-80">
+              <div className="flex w-80 h-1/6"></div>
                 <Carousel images={post && post.images ? post.images : []} />
                 {post && post.video ? (
                   <video
@@ -128,7 +129,8 @@ const OnePost = ({ postId }) => {
                   <></>
                 )}
               </div>
-              <div className="grid grid-cols-1 divide-y divide-green-500 w-max">
+              <div className="flex lg:w-1/2">
+              <div className="grid grid-cols-1 divide-y divide-green-500 w-max ">
                 <div className="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                   <h2 className="text-sm title-font text-gray-500 tracking-widest">
                     {post.category_id}
@@ -208,6 +210,7 @@ const OnePost = ({ postId }) => {
                   <></>
                 )}
               </div>
+              </div>
             </div>
           </div>
         </section>
@@ -217,3 +220,11 @@ const OnePost = ({ postId }) => {
 };
 
 export default OnePost;
+
+
+/*
+              <div className="flex w-80 h-80"></div>
+
+
+
+              */
