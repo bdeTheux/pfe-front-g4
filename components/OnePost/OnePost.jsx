@@ -114,11 +114,27 @@ const OnePost = ({ postId }) => {
         <section className="text-gray-700 body-font overflow-hidden bg-white">
           <div className="container px-5 py-24 mx-auto">
             <div className="lg:w-4/5 mx-auto flex flex-wrap  ">
-              <img
-                alt="Image du produit"
-                className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-                src={post.images ? post.images[0] : "/images/bidon.jpg/"} //change with carousel
-              />
+              <div className="flex flex-col">
+                <img
+                  alt="Image du produit"
+                  className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
+                  src={
+                    post && post.images && post.images.length > 0
+                      ? post.images[0]
+                      : "/images/bidon.jpg/"
+                  } //change with carousel
+                />
+                {post && post.video ? (
+                  <video
+                    controls
+                    className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
+                  >
+                    <source src={post.video}></source>
+                  </video>
+                ) : (
+                  <></>
+                )}
+              </div>
               <div className="grid grid-cols-1 divide-y divide-green-500 w-max">
                 <div className="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                   <h2 className="text-sm title-font text-gray-500 tracking-widest">

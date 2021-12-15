@@ -20,7 +20,11 @@ const Post = ({ post }) => {
         <LocationBadges locations={post.address_id} />
         <div className="w-full aspect-w-5 aspect-h-5 bg-gray-200 rounded-3xl overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
           <img
-            src={post.images[0]}
+            src={
+              post && post.images && post.images.length > 0
+                ? post.images[0]
+                : "/images/bidon.jpg/"
+            }
             alt={post.title}
             className="w-full h-full object-center object-cover group-hover:opacity-75 transition duration-300 ease-in-out"
           />

@@ -28,7 +28,11 @@ const OnePendingPost = ({ post }) => {
           <img
             alt="Image du produit"
             className="w-full object-cover object-center rounded "
-            src={post.images[0]}
+            src={
+              post && post.images && post.images.length > 0
+                ? post.images[0]
+                : "/images/bidon.jpg/"
+            }
           />
         </td>
         <td className="p-3">{post.category_id}</td>
