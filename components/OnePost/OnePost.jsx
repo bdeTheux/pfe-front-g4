@@ -2,7 +2,11 @@ import Meta from "../../components/Meta/Meta";
 import { useState, useEffect, useContext } from "react";
 import ButtonMailTo from "../ButtonMailTo/ButtonMailTo";
 
-import { PencilIcon, TrashIcon } from "@heroicons/react/outline";
+import {
+  PencilIcon,
+  TrashIcon,
+  LockClosedIcon,
+} from "@heroicons/react/outline";
 import { PopUpUpdatePost } from "../PopUp/PopUpUpdatePost";
 import PopUpButton from "../PopUp/PopUpButton";
 import { useRouter } from "next/router";
@@ -17,11 +21,14 @@ const OnePost = ({ postId }) => {
   const [show, setShow] = useState(false);
   const [locations, setLocations] = useState([]);
   //const [appContext, setAppContext] = useState([]);
-  const { userConnected } = useContext(AppContext);
+  const [ userConnected, setUserConnected ] = useState([])
   console.log("user", userConnected);
   useEffect(() => {
     let actual_post;
-    fetch(`/api/posts/${postId}`).then((res) => {
+    fetch(`/api/posts/${postId}`, {
+      method: "GET",
+      headers: { Authorization: localStorage.getItem("token") },
+    }).then((res) => {
       res.json().then((data) => {
         actual_post = data;
         return fetch(`/api/users/${actual_post.seller_id}`, {
@@ -37,24 +44,34 @@ const OnePost = ({ postId }) => {
               setPost(actual_post);
               return actual_post;
             })
+
             .then((actual_post) => {
-              actual_post.places.forEach((element) => {
-                fetch(`/api/addresses/${element}`, {
-                  headers: { "Content-Type": "application/json" },
-                })
-                  .then((res) => res.json())
-                  .then((loc) => {
-                    const toAdd = {
-                      lat: loc.lat,
-                      lng: loc.long,
-                    };
-                    setLocations((locations) => [...locations, toAdd]);
-                  });
-              });
+              if (post.state === "Clôturé") {
+              } else {
+                actual_post.places.forEach((element) => {
+                  fetch(`/api/addresses/${element}`, {
+                    headers: { "Content-Type": "application/json" },
+                  })
+                    .then((res) => res.json())
+                    .then((loc) => {
+                      const toAdd = {
+                        lat: loc.lat,
+                        lng: loc.long,
+                      };
+                      setLocations((locations) => [...locations, toAdd]);
+                    });
+                });
+              }
             });
         });
       });
     });
+    fetch("/api/users/whoami", {
+      headers : {
+        "Content-Type" : "application/json",
+        Authorization : localStorage.getItem("token"),
+      }
+    }).then((res) => res.json()).then((uc) => setUserConnected(uc));
   }, []);
 
   const router = useRouter();
@@ -66,6 +83,15 @@ const OnePost = ({ postId }) => {
     setShow(true);
   };
 
+  const handleEnclose = () => {
+    const res = fetch(`/api/posts/${post._id}/sold`, {
+      method: "POST",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    }).then((temp) => router.push("/"));
+  };
+
   const handleDelete = () => {
     const res = fetch(`/api/posts/${post._id}`, {
       method: "DELETE",
@@ -74,6 +100,7 @@ const OnePost = ({ postId }) => {
       },
     }).then((temp) => router.push("/"));
   };
+
   console.log("post", post);
   if (userConnected && userConnected.is_banned) {
     return <BanPage />;
@@ -139,23 +166,36 @@ const OnePost = ({ postId }) => {
                     </div>
                   )}
                 </div>
-                {userConnected && userConnected._id == post.seller_id ? (
-                  <div className="flex-row">
-                    <button
-                      onClick={handleDelete}
-                      type="button"
-                      className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
-                    >
-                      <TrashIcon className="flex ml-3 w-6 text-red-500" />
-                      <span className="pl-2 mx-1">Delete</span>
-                    </button>
-
-                    <div>
-                      <PopUpButton post={post} className="flex ml-3 w-6 " />
+                {userConnected || userConnected !== null ? 
+                  userConnected._id == post.seller_id ||
+                  userConnected.is_admin ? (
+                    <div className="flex-row flex">
+                      <button
+                        onClick={handleDelete}
+                        type="button"
+                        className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
+                      >
+                        <TrashIcon className="flex ml-3 w-6 text-red-500" />
+                        <span className="pl-2 mx-1">Delete</span>
+                      </button>
+                      <div>
+                        <PopUpButton post={post} className="flex ml-3 w-6 " />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={handleEnclose}
+                        className=" items-end px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
+                      >
+                        <LockClosedIcon className="ml-3 w-6 text-red-500" />
+                        Cloturer
+                      </button>
                     </div>
-                  </div>
-                ) : (
-                  <></>
+                  ) : (
+                    <></>
+                  )
+                : (
+                  <>
+                  </>
                 )}
               </div>
             </div>
