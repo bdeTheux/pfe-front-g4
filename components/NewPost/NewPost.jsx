@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import SelectCategories from "../Category/SelectCategories";
 import { UploadIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
-import AlertVerif from "../Alert/AlertVerif";
 
 const NewPost = ({ categories }) => {
   const [title, setTitle] = useState("");
