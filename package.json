@@ -10,6 +10,7 @@
     "@heroicons/react": "^1.0.5",
     "@tailwindcss/aspect-ratio": "^0.3.0",
     "@tailwindcss/forms": "^0.3.4",
+    "axios": "^0.24.0",
     "cookie": "^0.4.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",

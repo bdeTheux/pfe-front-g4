@@ -26,7 +26,7 @@ const Registration = () => {
     if (data.description) {
       localStorage.setItem("error", data.description);
     } else {
-      localStorage.setItem("error", "none");
+      localStorage.setItem("error", null);
     }
     if (res.status == 201) {
       localStorage.setItem("token", data.token);
@@ -35,6 +35,9 @@ const Registration = () => {
         router.reload();
       }, 500);
     } else {
+      setTimeout(() => {
+        router.reload();
+      }, 500);
       return {
         redirect: {
           destination: "/connectionRegistration",

@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import LiCategory from "../Category/LiCategory";
 import SelectCategories from "../Category/SelectCategories";
@@ -6,6 +7,7 @@ const CategoryPage = ({ categories }) => {
   const [categoryName, setCategoryName] = useState("");
   const [categoryParent, setCategoryParent] = useState("");
   const [token, setToken] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
@@ -19,30 +21,33 @@ const CategoryPage = ({ categories }) => {
       parent: categoryParent,
       sub_categories: [],
     };
-    console.log("before fetch " + JSON.stringify(newCategory));
-    const res = await fetch(
-      `https://pfe-back-g4-dev.herokuapp.com/categories/`,
-      {
-        method: "POST",
-        body: JSON.stringify(newCategory),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      }
-    );
-    console.log(newCategory);
-    const data = await res.json();
-    console.log(data);
-  };
 
-  console.log(categoryName);
+    const res = await fetch(`/api/categories/`, {
+      method: "POST",
+      body: JSON.stringify(newCategory),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    }).then((res) => {
+      if (res.status != 200) {
+        res.json().then((el) => {
+          document.getElementById("errorCategory").className =
+            "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative";
+          document.getElementById("errorCategory").innerText = el.description;
+        });
+      } else {
+        router.reload();
+      }
+    });
+  };
 
   return (
     <div className="flex m-auto bg-gray-100">
       <div className="m-auto">
         <div>
-          <p className="text-4xl font-light pt-16 ml-5">Gestion</p>
+          <p id="errorCategory" className="text-4xl font-light pt-16 ml-5"></p>
+
 
           <div className="mt-5 bg-white rounded-lg shadow">
             <div className="flex">

@@ -9,7 +9,7 @@ const ConnectionRegistration = () => {
   const router = useRouter();
 
   useEffect(() => {
-    fetch("https://pfe-back-g4-dev.herokuapp.com/users/whoami", {
+    fetch("/api/users/whoami", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,9 @@ const ConnectionRegistration = () => {
   }
   return (
     <div>
-      <AlertVerif />
+      <div className="md:mt-24">
+        <AlertVerif />
+      </div>
       <div className="md:mt-24 grid grid-cols-1 md:grid-cols-2 divide-x">
         <div>
           <Registration />

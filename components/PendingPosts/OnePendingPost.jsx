@@ -34,8 +34,12 @@ const OnePendingPost = ({ post }) => {
             <img
               alt="Image du produit"
               className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-              src={post.image}
-            />{" "}
+              src={
+                post && post.images && post.images.length > 0
+                  ? post.images[0]
+                  : "/images/bidon.jpg/"
+              }
+            />
           </div>
         </td>
         <td className="px-6 py-4">

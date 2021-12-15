@@ -160,7 +160,9 @@ const PopUpUpdatePost = ({ token, post, setShow }) => {
                           <p className="text-sm text-gray-500">
                             Prix de l'annonce
                           </p>
-                          <textarea
+                          <input
+                            type="number"
+                            min="0"
                             onChange={(val) => setPrice(val.target.value)}
                             defaultValue={post.price}
                             className="text-black placeholder-gray-800 px-4 py-2.5 mx-3 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"

@@ -11,15 +11,15 @@ const postsTest = [
     image:
       "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80",
     price: 25,
-    places:[
+    places: [
       {
         campus: "Woluwe",
       },
       {
         campus: "Louvain-La-Neuve",
-      }
-    ]
-    },
+      },
+    ],
+  },
   /*
   {
     id: 2,
@@ -84,8 +84,6 @@ export const getServerSideProps = async () => {
   const res = await fetch("http://pfe-back-g4-dev.herokuapp.com/posts/");
 
   const posts = await res.json();
-  console.log("index 1", posts);
-  console.log("index 2", typeof posts);
   if (posts.length > 4) posts.length = 4;
   return {
     props: {

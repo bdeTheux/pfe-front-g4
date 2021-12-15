@@ -1,5 +1,9 @@
+import axios from "axios";
+import e from "cors";
 import { useState, useEffect } from "react";
 import SelectCategories from "../Category/SelectCategories";
+import { UploadIcon } from "@heroicons/react/outline";
+import { useRouter } from "next/router";
 
 const NewPost = ({ categories }) => {
   const [title, setTitle] = useState("");
@@ -7,49 +11,82 @@ const NewPost = ({ categories }) => {
   const [description, setDescription] = useState("");
   const [postNature, setPostNature] = useState("");
   const [price, setPrice] = useState("");
-  const [image, setImage] = useState("");
   const [campus, setCampus] = useState([]);
   const [token, setToken] = useState("");
+  const [isGiven, setIsGiven] = useState(false);
+  let uploadInput;
+  const router = useRouter();
+
   useEffect(() => {
     setToken(localStorage.getItem("token"));
   });
   let label = "Choisissez une catégorie";
 
   const submitPost = () => {
-    let newPostSubmit = {
-      title: title,
-      category_id: category,
-      description: description,
-      post_nature: postNature,
-      price: price,
-      places: campus,
-    };
-
-    console.log(newPostSubmit);
-
-    fetch(`/api/posts/`, {
-      method: "POST",
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("category_id", category);
+    formData.append("description", description);
+    formData.append("post_nature", postNature);
+    formData.append("price", price);
+    let ins = document.getElementById("files").files.length;
+    for (let x = 0; x < ins; x++) {
+      formData.append("files", document.getElementById("files").files[x]);
+    }
+    formData.append("places", campus);
+    console.log(process.env.customKey);
+    axios({
+      method: "post",
+      url: process.env.customKey + "posts/",
+      data: formData,
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": `multipart/form-data`,
         Authorization: token,
       },
-      body: JSON.stringify(newPostSubmit),
-    }).then((res) => console.log(res.json()));
+    })
+      .then(() => router.push("/"))
+      .catch(function (err) {
+        if (err.response) {
+          document.getElementById("newError").className =
+            "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative";
+          document.getElementById("newError").innerText =
+            err.response.data.description;
+        }
+      });
   };
 
   const handleCampus = (e) => {
-    campus[campus.length] = e.target.value;
+    let city = e.target.value;
+    setCampus((e) => {
+      if (campus.includes(city)) {
+        return campus.filter((e) => e != city);
+      }
 
-    setCampus(campus);
+      return [...campus, city];
+    });
   };
 
   const handlerCategory = (val) => {
     setCategory(val.target.value);
   };
+
+  const handlePrice = (e) => {
+    if (e.target.value === "À vendre") {
+      setIsGiven(false);
+      console.log(isGiven);
+    } else {
+      setIsGiven(true);
+      setPrice(0);
+      console.log(isGiven);
+    }
+    setPostNature(e.target.value);
+  };
   return (
     <div className="flex h-screen bg-gray-100">
       <div className="m-auto">
         <div>
+          <p id="newError"></p>
+
           <p className="text-4xl font-light pt-16">Annonce</p>
 
           <div className="mt-5 bg-white rounded-lg shadow">
@@ -60,7 +97,7 @@ const NewPost = ({ categories }) => {
                 </h1>
               </div>
             </div>
-            <form method="post" className="">
+            <form method="post" id="updateForm" className="">
               <div className="px-5 pb-5">
                 <input
                   onChange={(val) => setTitle(val.target.value)}
@@ -92,16 +129,17 @@ const NewPost = ({ categories }) => {
                       name="price"
                       type="number"
                       placeholder="0.0€"
-                      required
                       className=" text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400 "
+                      disabled={isGiven}
+                      min={0}
                     />
                   </div>
 
-                  <div className="flex-grow">
+                  <div className="flex-grow py-5">
                     <label> À vendre: </label>
                     <input
                       value={postNature}
-                      onChange={(val) => setPostNature(val.target.value)}
+                      onChange={handlePrice}
                       name="postNature"
                       type="radio"
                       value="À vendre"
@@ -110,7 +148,7 @@ const NewPost = ({ categories }) => {
                     <label> À donner: </label>
                     <input
                       value={postNature}
-                      onChange={(val) => setPostNature(val.target.value)}
+                      onChange={handlePrice}
                       name="postNature"
                       type="radio"
                       value="À donner"
@@ -118,39 +156,7 @@ const NewPost = ({ categories }) => {
                     />
                   </div>
                 </div>
-                <label className=" text-black placeholder-gray-600 w-full py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
-                  <input
-                    value={image}
-                    onChange={(val) => setImage(val.target.value)}
-                    name="file"
-                    type="file"
-                    multiple
-                    hidden
-                    required
-                  />
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    enableBackground="new 0 0 24 24"
-                    height="24px"
-                    viewBox="0 0 24 24"
-                    width="24px"
-                    fill="#000000"
-                  >
-                    <g>
-                      <rect fill="none" height="24" width="24"></rect>
-                    </g>
-                    <g>
-                      <g>
-                        <polygon
-                          opacity=".3"
-                          points="14.17,11 13,11 13,5 11,5 11,11 9.83,11 12,13.17"
-                        ></polygon>
-                        <rect height="2" width="14" x="5" y="18"></rect>
-                        <path d="M19,9h-4V3H9v6H5l7,7L19,9z M11,11V5h2v6h1.17L12,13.17L9.83,11H11z"></path>
-                      </g>
-                    </g>
-                  </svg>
-                </label>
+
                 <div className="flex-grow">
                   <label> Woluwe </label>
                   <input
@@ -177,6 +183,21 @@ const NewPost = ({ categories }) => {
                     required
                   />
                 </div>
+                <label className="flex flex-grow w-1/12 pr-2 ">
+                  <input
+                    id="files"
+                    name="files"
+                    type="file"
+                    ref={(ref) => {
+                      uploadInput = ref;
+                    }}
+                    multiple
+                    hidden
+                    required
+                    accept="image/*|video/*"
+                  />
+                  <UploadIcon className="" />
+                </label>
               </div>
 
               <hr className="mt-4" />
