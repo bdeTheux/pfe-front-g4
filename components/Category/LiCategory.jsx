@@ -1,12 +1,15 @@
 import { PencilIcon, TrashIcon } from "@heroicons/react/outline";
+import { redirect } from "next/dist/server/api-utils";
 import { useState, useEffect } from "react";
 import SelectCategories from "./SelectCategories";
+import { useRouter } from "next/router";
 
 const LiCategory = ({ categories, category }) => {
   const [token, setToken] = useState("");
   const [categoryName, setCategoryName] = useState("");
   const [categoryParent, setCategoryParent] = useState("");
   const label = "categorie parente";
+  const router = useRouter();
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
@@ -17,7 +20,7 @@ const LiCategory = ({ categories, category }) => {
       headers: {
         Authorization: token,
       },
-    });
+    }).then(() => router.push("/management"));
   };
   const handleUpdate = () => {
     if (categoryName === "") categoryName = category.name;
@@ -38,10 +41,12 @@ const LiCategory = ({ categories, category }) => {
         Authorization: token,
       },
       body: JSON.stringify(updatedCategory),
-    }).then((res) => {
-      const data = res.json();
-      return data;
-    });
+    })
+      .then((res) => {
+        const data = res.json();
+        return data;
+      })
+      .then(() => router.push("/management"));
   };
   var handleChange = function (event) {
     this.setState({ html: event.target.value });
