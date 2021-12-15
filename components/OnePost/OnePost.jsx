@@ -131,7 +131,7 @@ const OnePost = ({ postId }) => {
                     <span className="flex items-center"></span>
                   </div>
                   <p className="leading-relaxed">{post.post_nature}</p>
-                  {post.post_nature === "En vente" ? (
+                  {post.post_nature === "À vendre" ? (
                     <div className="flex">
                       <span className="title-font font-medium text-2xl text-gray-900">
                         {post.price}€
