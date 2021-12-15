@@ -1,9 +1,7 @@
 import Image from "next/image";
 
 const Carousel = ({ images }) => {
-  console.log(images);
   const imagesSlice = images.slice(1 - images.length);
-  console.log(imagesSlice, " imagessl");
 
   return (
     <div className="flex ">
@@ -67,7 +65,8 @@ const Carousel = ({ images }) => {
               </div>
             </div>
             {imagesSlice.map((image, index) => (
-              <div className="absolute">
+                
+              <div className="absolute" key={index}>
                 <input
                   className="sr-only peer"
                   type="radio"
