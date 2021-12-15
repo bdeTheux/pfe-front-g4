@@ -13,7 +13,6 @@ const NewPost = ({ categories }) => {
   const [price, setPrice] = useState("");
   const [campus, setCampus] = useState([]);
   const [token, setToken] = useState("");
-  let newError = "";
   const [isGiven, setIsGiven] = useState(false);
   let uploadInput;
   const router = useRouter();
@@ -48,11 +47,10 @@ const NewPost = ({ categories }) => {
       .then(() => router.push("/"))
       .catch(function (err) {
         if (err.response) {
-          console.log("je set");
-          console.log(err.response.data.description);
+          document.getElementById("newError").className =
+            "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative";
           document.getElementById("newError").innerText =
             err.response.data.description;
-          newError = err.response.data.description;
         }
       });
   };
@@ -88,6 +86,7 @@ const NewPost = ({ categories }) => {
       <div className="m-auto">
         <div>
           <p id="newError"></p>
+
           <p className="text-4xl font-light pt-16">Annonce</p>
 
           <div className="mt-5 bg-white rounded-lg shadow">
