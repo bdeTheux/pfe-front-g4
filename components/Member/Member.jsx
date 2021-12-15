@@ -1,10 +1,5 @@
 import ButtonBan from "../Buttons/ButtonBan";
-import {useState} from "react";
-const Member = ({ member }) => {
-  const [isBanned, setIsBanned] = useState(member.is_banned)
-  const swapBan = () => {
-    setIsBanned(!isBanned)
-  }
+const Member = ({ member, updateMemberList}) => {
   return (
     <tr>
       <td className="px-6 py-4 whitespace-nowrap">
@@ -24,11 +19,11 @@ const Member = ({ member }) => {
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="text-sm text-gray-500">
-          {isBanned ? "Banni" : "Non banni"}
+          {member.is_banned ? "Banni" : "Non banni"}
         </div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-        <ButtonBan member={member}  action={swapBan} current_state={isBanned}/>
+        <ButtonBan member={member}  updateMemberList={updateMemberList} />
       </td>
     </tr>
   );

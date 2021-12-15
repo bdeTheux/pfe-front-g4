@@ -38,10 +38,39 @@ const ProfileEdit = ({ user }) => {
   const [email, setEmail] = useState("");
   const [campus, setCampus] = useState(campuses[0]);
   const [password, setPassword] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [newPasswordCheck, setNewPasswordCheck] = useState("");
+
+  const changePasswords = (e) => {
+    e.preventDefault();
+    fetch(`/api/users/changepassword`, {
+      method: "POST",
+      body: JSON.stringify({
+        current_password: currentPassword,
+        new_password: newPassword,
+        new_password_check: newPasswordCheck,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+      .then((response) => {
+        if (response.status !== 200) {
+          console.log(response);
+        } else console.log(response);
+        //return response.json()
+      })
+      .then((json) => {
+        //router.reload()
+      });
+  };
 
   const router = useRouter();
 
   const onEdit = async () => {
+    //TODO usiliser les set**
     if (firstName === "") firstName = user.first_name;
     if (lastName === "") lastName = user.last_name;
     if (email === "") email = user.email;
@@ -208,7 +237,6 @@ const ProfileEdit = ({ user }) => {
                                   "cursor-default select-none relative py-2 pl-3 pr-9"
                                 )
                               }
-                              value={campus}
                             >
                               {({ selected, active }) => (
                                 <>
@@ -264,6 +292,55 @@ const ProfileEdit = ({ user }) => {
           </Button>
         </div>
       </Tab.Panel>
+
+      <form method="POST">
+        <label
+          htmlFor="current_password"
+          className="text-sm font-medium text-xs font-black text-gray-600 leading-5"
+        >
+          Mot-de-passe
+        </label>
+        <input
+          type="password"
+          name="current_password"
+          id="current_password"
+          autoComplete="current-password"
+          className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm border-gray-300 rounded-md"
+          onChange={(e) => setCurrentPassword(e.target.value)}
+        />
+        <label
+          htmlFor="new_password"
+          className="text-sm font-medium text-xs font-black text-gray-600 leading-5"
+        >
+          Nouveau mot-de-passe
+        </label>
+        <input
+          type="password"
+          name="new_password"
+          id="new_password"
+          autoComplete="current-password"
+          className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm border-gray-300 rounded-md"
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
+        <label
+          htmlFor="new_password_check"
+          className="text-sm font-medium text-xs font-black text-gray-600 leading-5"
+        >
+          Confirmation nouveau mot-de-passe
+        </label>
+        <input
+          type="password"
+          name="new_password_check"
+          id="new_password_check"
+          autoComplete="current-password"
+          className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm border-gray-300 rounded-md"
+          onChange={(e) => setNewPasswordCheck(e.target.value)}
+        />
+        <Button onClick={changePasswords} color={`green`}>
+          Confirmer
+          <CheckIcon className="text-white h-5 w-5 mt-0.5 ml-2" />
+        </Button>
+      </form>
 
       {/* ---------------------------------------------------------------------------------------------------------------- */}
 

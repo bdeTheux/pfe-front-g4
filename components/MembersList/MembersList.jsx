@@ -2,7 +2,12 @@ import Member from "../Member/Member";
 import NoMember from "../Member/NoMember";
 import ButtonBan from "../Buttons/ButtonBan";
 
+<<<<<<< HEAD
 const MembersList = ({ users }) => {
+=======
+
+const MembersList = ({ users , updateMemberList}) => {
+>>>>>>> master
   return (
     <>
       <div className="flex flex-col">
@@ -43,7 +48,11 @@ const MembersList = ({ users }) => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {users.map((user) => (
+<<<<<<< HEAD
                     <Member key={user._id} member={user} />
+=======
+                    <Member member={user} updateMemberList={updateMemberList}/>
+>>>>>>> master
                   ))}
                 </tbody>
               </table>
