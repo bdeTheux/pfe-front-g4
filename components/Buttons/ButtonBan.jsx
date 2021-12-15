@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
-const ButtonBan = ({ member, action, current_state }) => {
+const ButtonBan = ({ member, updateMemberList }) => {
   const [token, setToken] = useState("");
   useEffect(() => {
     setToken(localStorage.token);
@@ -14,9 +14,9 @@ const ButtonBan = ({ member, action, current_state }) => {
       headers: {
         Authorization: token,
       },
-    }).then(() => action());
+    }).then(() => updateMemberList(member._id));
   };
-  if (current_state) {
+  if (member.is_banned) {
     return (
       <>
         <button
