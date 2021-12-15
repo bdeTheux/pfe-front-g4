@@ -1,5 +1,5 @@
 import Link from "next/link";
-import {SpeakerphoneIcon} from "@heroicons/react/outline";
+import { SpeakerphoneIcon } from "@heroicons/react/outline";
 
 const WelcomeBanner = ({ post }) => {
   return (

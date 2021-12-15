@@ -12,8 +12,8 @@ const About = () => {
           className="z-0 h-screen"
         />
       </div>
-      <div className="flex flex-col justify-center relative mx-10 h-screen items-center z-50 text-xl text-white">
-        <h1 className="inline text-2xl font-semibold leading-none text-center">
+      <div className="flex flex-col justify-center relative  h-screen items-center text-xl text-white ounded-lg bg-black bg-opacity-40">
+        <h1 className="font-extrabold text-2xl text-center">
           À propos de nous
         </h1>
         <br></br>
@@ -35,26 +35,3 @@ const About = () => {
 };
 
 export default About;
-
-/*
-<div class="flex flex-col">
-      <div id="photo">
-        <Image src="/images/about.jpg" layout="fill"></Image>
-      </div>
-      <div id="aboutText">
-        <Image src="/images/about.jpg" layout="fill"></Image>
-      </div>
-    </div>
-
-
-
-<div className="flex flex-wrap">
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/2 mb-4 bg-gray-500">
-          <>{ je n'ai pas réussi à utiliser la balise Image de next ici}</>
-          <img src="/images/about.jpg" className="object-scale-down w-6/12" />
-        </div>
-        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/2 mb-4 bg-gray-500">
-          <p>dd</p>
-        </div>
-      </div>
-*/
