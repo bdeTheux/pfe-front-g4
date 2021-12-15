@@ -1,6 +1,7 @@
 import { MenuIcon, SearchIcon } from "@heroicons/react/outline";
 import { UserCircleIcon } from "@heroicons/react/solid";
 import Link from "next/link";
+import Image from "next/image";
 
 const NavbarConnected = () => {
   return (
@@ -30,8 +31,14 @@ const NavbarConnected = () => {
           </Link>
           <Link href="/">
             <a className="text-gray-800 dark:text-gray-200">
-              <div className="flex items-center">
-                <p className="text-xl ml-2">vincimarket</p>
+              <div className="flex items-center md:ml-8 mr-12 md:mr-auto">
+                <Image
+                  src="/images/vincimarket_logo (1).svg"
+                  width="50"
+                  height="50"
+                  className="mr-4"
+                />
+                <p className="text-xl ml-2 hidden md:block">vincimarket</p>
               </div>
             </a>
           </Link>

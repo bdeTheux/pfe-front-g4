@@ -1,5 +1,6 @@
 import { MenuIcon, SearchIcon } from "@heroicons/react/outline";
 import Link from "next/link";
+import Image from "next/image";
 
 const Navbar = () => {
   return (
@@ -29,8 +30,14 @@ const Navbar = () => {
           </Link>
           <Link href="/">
             <a className="text-gray-800 dark:text-gray-200">
-              <div className="flex items-center">
-                <p className="text-xl ml-2">vincimarket</p>
+              <div className="flex items-center ml-5">
+                <Image
+                  src="/images/vincimarket_logo (1).svg"
+                  width="50"
+                  height="50"
+                  className="mr-4"
+                />
+                <p className="text-xl ml-2 hidden md:block">vincimarket</p>
               </div>
             </a>
           </Link>
@@ -97,7 +104,7 @@ const Navbar = () => {
                 type="submit"
                 className="absolute right-0 top-0 mt-5 mr-4"
               >
-                <SearchIcon className="text-gray-600 h-5 w-5"/>
+                <SearchIcon className="text-gray-600 h-5 w-5" />
               </button>
             </form>
             <Link href="/newPost">
@@ -196,7 +203,7 @@ const Navbar = () => {
                 type="submit"
                 className="absolute right-0 top-0 mt-5 mr-4"
               >
-                <SearchIcon className="text-gray-600 h-4 w-4"/>
+                <SearchIcon className="text-gray-600 h-4 w-4" />
               </button>
             </div>
             <Link href="/newPost">

@@ -33,8 +33,13 @@ const NavbarAdmin = () => {
           <Link href="/">
             <a className="text-gray-800 dark:text-gray-200">
               <div className="flex items-center ml-5">
-                <Image src="/images/vincimarket_logo (1).svg" width="50" height="50" className="mr-4"/>
-                <p className="text-xl ml-2">vincimarket</p>
+                <Image
+                  src="/images/vincimarket_logo (1).svg"
+                  width="50"
+                  height="50"
+                  className="mr-4"
+                />
+                <p className="text-xl ml-2 hidden md:block">vincimarket</p>
               </div>
             </a>
           </Link>
