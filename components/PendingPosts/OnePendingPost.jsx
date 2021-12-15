@@ -1,7 +1,7 @@
 import ButtonApprouve from "../Buttons/ButtonApprouve";
 import ButtonRefuse from "../Buttons/ButtonRefuse";
 import { useState, useEffect } from "react";
-const OnePendingPost = ({ post }) => {
+const OnePendingPost = ({ post, removePost}) => {
   const [user, setUser] = useState("");
   useEffect(() => {
     fetch(`/api/users/${post.seller_id}`, {
@@ -44,8 +44,8 @@ const OnePendingPost = ({ post }) => {
         <td className="p-3">{post.price}€</td>
         <td className="p-3">
           <div className="grid grid-cols-2 gap-2">
-            <ButtonApprouve postId={post._id} />
-            <ButtonRefuse postId={post._id} />
+            <ButtonApprouve postId={post._id} action={removePost} />
+            <ButtonRefuse postId={post._id} action={removePost}/>
           </div>
         </td>
       </tr>
