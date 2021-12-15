@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import LiCategory from "../Category/LiCategory";
 import SelectCategories from "../Category/SelectCategories";
@@ -6,6 +7,7 @@ const CategoryPage = ({ categories }) => {
   const [categoryName, setCategoryName] = useState("");
   const [categoryParent, setCategoryParent] = useState("");
   const [token, setToken] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
@@ -34,6 +36,8 @@ const CategoryPage = ({ categories }) => {
             "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative";
           document.getElementById("errorCategory").innerText = el.description;
         });
+      } else {
+        router.reload();
       }
     });
   };
