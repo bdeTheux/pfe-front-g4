@@ -2,7 +2,9 @@ import Image from "next/image";
 
 
 const Carousel = ({ images }) => {
-  console.log(images[0]);
+  console.log(images);
+  const imagesSlice = images.slice(1-images.length)
+  console.log(imagesSlice , " imagessl")
 
   return (
     <div>
@@ -29,7 +31,7 @@ const Carousel = ({ images }) => {
 
                 <div className=" w-full flex justify-between z-20">
                   <label
-                    htmlFor={images[images.length - 1]}
+                    htmlFor={imagesSlice.length <= 0 ? "first" : imagesSlice.length-1}
                     className="inline-block self-center text-green-600 cursor-pointer -translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
                   >
                     <svg
@@ -46,7 +48,7 @@ const Carousel = ({ images }) => {
                     </svg>
                   </label>
                   <label
-                    htmlFor="1"
+                    htmlFor={imagesSlice.length <= 0 ? "first" :0}
                     className="inline-block self-center text-green-600 cursor-pointer translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
                   >
                     <svg
@@ -65,7 +67,7 @@ const Carousel = ({ images }) => {
                 </div>
               </div>
             </div>
-            {images.map((image, index) => 
+            {imagesSlice.map((image, index) => 
               
                 <div className="">
                   <input
@@ -84,7 +86,7 @@ const Carousel = ({ images }) => {
                     <div className=" w-full flex justify-between z-20">
                       <label
                         htmlFor={
-                          index - 1 < 0 ? images[images.length - 1] : index - 1
+                          index == 0 ? "first" : index-1
                         }
                         className="inline-block self-center text-green-600 cursor-pointer -translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
                       >
@@ -103,7 +105,7 @@ const Carousel = ({ images }) => {
                       </label>
                       <label
                         htmlFor={
-                          index + 1 > images.length - 1 ? images : index + 1
+                          index == imagesSlice.length-1 ? "first" : index+1
                         }
                         className="inline-block self-center text-green-600 cursor-pointer translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
                       >
