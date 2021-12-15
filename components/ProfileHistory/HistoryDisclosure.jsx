@@ -37,7 +37,7 @@ const HistoryDisclosure = ({ statusName, statusArray, children }) => {
             leaveTo="transform scale-95 opacity-0"
             >
               <Disclosure.Panel className="pt-6">
-                {statusArray.length !== 0 ? (
+                {(statusArray !== undefined || statusArray.length !== 0) ? (
                   <ul className="space-y-4">
                     {statusArray.map((post) => (
                       <li className="relative flex flex-row p-3 rounded-md hover:bg-coolGray-100 group">
@@ -56,7 +56,7 @@ const HistoryDisclosure = ({ statusName, statusArray, children }) => {
                           </h3>
 
                           <ul className="flex mt-1 space-x-1 text-xs font-normal leading-4 text-coolGray-500">
-                            <li>{post.price} euro</li>
+                            <li>{post.price}€</li>
                             <li>
                               <LocationBadges
                                 locations={post.places}
@@ -75,13 +75,13 @@ const HistoryDisclosure = ({ statusName, statusArray, children }) => {
                             }
                           />
                         </div>
-                        {post.post_nature === "En vente" ? (
+                        {post.post_nature === "À vendre" ? (
                           <div className="ml-5 px-2 h-full justify-evenly bg-indigo-500 text-white rounded-2xl text-sm font-extralight">
-                            En vente
+                            À vendre
                           </div>
                         ) : (
                           <div className="ml-5 px-2 h-full justify-evenly bg-yellow-500 text-white rounded-2xl text-sm font-extralight">
-                            A donner
+                            À donner
                           </div>
                         )}
                       </li>

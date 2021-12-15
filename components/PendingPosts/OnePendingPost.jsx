@@ -1,6 +1,7 @@
 import ButtonApprouve from "../Buttons/ButtonApprouve";
 import ButtonRefuse from "../Buttons/ButtonRefuse";
 import { useState, useEffect } from "react";
+import LocationBadges from "../LocationBadges/LocationBadges";
 const OnePendingPost = ({ post }) => {
   const [user, setUser] = useState("");
   useEffect(() => {
@@ -41,7 +42,7 @@ const OnePendingPost = ({ post }) => {
           <div className="text-sm text-gray-900">{post.category_id} </div>
         </td>
         <td className="px-6 py-4">
-          <div className="text-sm text-gray-900">{post.places.join(", ")} </div>
+          <div className="text-sm text-gray-900"><LocationBadges locations={post.places} white="true"/> </div>
         </td>
         <td className="px-6 py-4">
           <div className="text-sm text-gray-900">

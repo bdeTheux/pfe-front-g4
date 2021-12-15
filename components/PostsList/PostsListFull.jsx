@@ -49,9 +49,10 @@ const PostsListFull = ({ title, camp }) => {
   }*/
   //const [order, setOrder] = useState(sortOptions)
   const router = useRouter();
-  console.log("route", router.asPath);
+  console.log("title", title);
 
   console.log("campus", campus);
+  console.log("camp", camp)
 
   function pathBuilder(camp, cat) {
     setCampus(camp);
@@ -204,7 +205,7 @@ const PostsListFull = ({ title, camp }) => {
                                     name={`${section.id}[]`}
                                     defaultValue={option.value}
                                     type="checkbox"
-                                    defaultChecked={option.campus === campus}
+                                    defaultChecked={option.campus === camp}
                                     className="h-4 w-4 border-gray-300 rounded text-gray-600 focus:ring-gray-500"
                                   />
                                   <label

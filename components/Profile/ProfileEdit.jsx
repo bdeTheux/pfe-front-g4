@@ -21,17 +21,7 @@ const cancelChanges = (router) => {
   router.push("/profile");
 };
 
-const campuses = [
-  {
-    name: "Woluwe",
-  },
-  {
-    name: "Louvain-La-Neuve",
-  },
-  {
-    name: "Ixelles",
-  },
-];
+const campuses = ["Woluwe", "Louvain-La-Neuve", "Ixelles"];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -42,7 +32,7 @@ function classNames(...classes) {
 
 const ProfileEdit = ({ user }) => {
   let [isOpen, setIsOpen] = useState(false);
-  
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -51,8 +41,13 @@ const ProfileEdit = ({ user }) => {
 
   const router = useRouter();
 
-
   const onEdit = async () => {
+    if (firstName === "") firstName = user.first_name;
+    if (lastName === "") lastName = user.last_name;
+    if (email === "") email = user.email;
+    if (campus === "") campus = user.campus;
+    if (password === "") password = user.password;
+
     const newInfos = {
       _id: user._id,
       first_name: firstName,
@@ -61,27 +56,32 @@ const ProfileEdit = ({ user }) => {
       campus: campus,
       password: password,
     };
+    console.log(newInfos);
     const res = await fetch(`/api/users/edit`, {
       method: "PUT",
       body: JSON.stringify(newInfos, user._id),
-      headers: { "Content-Type": "application/json" },
-      Authorization: localStorage.getItem("token"),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
     });
     const data = await res.json();
     console.log(data);
     if (res.status !== 401) {
-      router.push("/");
+      router.push("/profile");
     } else {
-      console.log(res)
+      alert("Le mot-de-passe entré est incorrect ! Veuillez réessayer svp")
     }
   };
 
-
+  console.log("user", user);
+  //setPassword
+  /*
   const onVerify = async () => {
     console.log("email", user.email)
     const loginUser = {
       email: user.email,
-      password: user.password,
+      password: password,
     };
 
     const res = await fetch("/api/login/", {
@@ -97,18 +97,17 @@ const ProfileEdit = ({ user }) => {
       localStorage.setItem("error", "none");
     }
     if (res.status == 200) {
-      //localStorage.setItem("token", data.token);
-      router.push("/profile"); //management/management
+      localStorage.setItem("token", data.token);
+      //router.push("/profile"); //management/management
       console.log("error");
-      setTimeout(() => {
-        router.reload();
-      }, 500);
+      //setTimeout(() => {router.reload();}, 500);
     } 
   };
+  */
 
-  const handleContainer = async () =>{
+  const handleContainer = async () => {
     onVerify().then(() => onEdit());
-  }
+  };
 
   const [selected, setSelected] = useState(campuses[0]);
 
@@ -133,7 +132,10 @@ const ProfileEdit = ({ user }) => {
               autoComplete="given-name"
               className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm border-gray-300 rounded-md"
               defaultValue={user.first_name}
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={(e) => {
+                console.log("firstname", e.target.value);
+                setFirstName(e.target.value);
+              }}
             />
           </div>
           <div className="relative p-2 rounded-md">
@@ -173,7 +175,11 @@ const ProfileEdit = ({ user }) => {
           <div className="relative p-2 rounded-md">
             <Listbox
               value={selected}
-              onChange={(e) => setCampus(e.target.value)}
+              onChange={(e) => {
+                console.log("targeeeet", e);
+                setSelected(e);
+                setCampus(e);
+              }}
             >
               {({ open }) => (
                 <>
@@ -185,7 +191,9 @@ const ProfileEdit = ({ user }) => {
                       {user.campus}
                     </p>
                     <div className="grid grid-cols-3 space-x-2 ">
-                      <p className="text-xs text-gray-500 p-2 md:p-4 italic col-span-2 select-none">Sera remplacé par</p>
+                      <p className="text-xs text-gray-500 p-2 md:p-4 italic col-span-2 select-none">
+                        Sera remplacé par
+                      </p>
                       <ArrowNarrowRightIcon className="h-7 w-7 mt-2.5" />
                     </div>
 
@@ -196,7 +204,7 @@ const ProfileEdit = ({ user }) => {
                             {() => {
                               setSelected(user.campus);
                             }}
-                            {selected.name}
+                            {selected}
                           </span>
                         </span>
                         <span className="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
@@ -217,7 +225,8 @@ const ProfileEdit = ({ user }) => {
                         <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
                           {campuses.map((campus) => (
                             <Listbox.Option
-                              key={campus.name}
+                              value={campus}
+                              key={campus}
                               className={({ active }) =>
                                 classNames(
                                   active
@@ -239,7 +248,7 @@ const ProfileEdit = ({ user }) => {
                                         "ml-3 block truncate"
                                       )}
                                     >
-                                      {campus.name}
+                                      {campus}
                                     </span>
                                   </div>
 
@@ -289,7 +298,7 @@ const ProfileEdit = ({ user }) => {
         <Dialog
           as="div"
           className="fixed inset-0 z-10 overflow-y-auto"
-          onClose={()=>setIsOpen(false)}
+          onClose={() => setIsOpen(false)}
         >
           <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
           <div className="min-h-screen px-4 text-center">
@@ -346,11 +355,11 @@ const ProfileEdit = ({ user }) => {
                 </form>
 
                 <div className="mt-4 flex flex-row space-x-2">
-                  <Button onClick={()=>setIsOpen(false)} color="red">
+                  <Button onClick={() => setIsOpen(false)} color="red">
                     <ArrowNarrowLeftIcon className="text-white h-4 w-4 mr-2" />
                     Retour
                   </Button>
-                  <Button onClick={() => handleContainer()} color="green">
+                  <Button onClick={() => onEdit()} color="green">
                     Accepter
                     <CheckIcon className="text-white h-5 w-5 mt-0.5 ml-2" />
                   </Button>
