@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { CheckIcon } from "@heroicons/react/outline";
-const ButtonApprouve = ({ postId }) => {
+const ButtonApprouve = ({ postId, action }) => {
   const [token, setToken] = useState("");
   useEffect(() => {
     setToken(localStorage.token);
@@ -18,7 +18,7 @@ const ButtonApprouve = ({ postId }) => {
         "Content-Type": "application/json",
         Authorization: token,
       },
-    }).then(() => router.reload(window.location.pathname));
+    }).then(() => action(postId));
   };
   return (
     <>

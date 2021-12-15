@@ -1,9 +1,13 @@
 import { Tab } from "@headlessui/react";
+import { CheckCircleIcon, ClockIcon, HandIcon } from "@heroicons/react/outline";
 import Image from "next/image";
-
 import React from "react";
+import HistoryDisclosure from "./HistoryDisclosure";
 
 const ProfileHistory = ({ historyItems }) => {
+  const approved = historyItems["Approuvé"];
+  const closed = historyItems["Clôturé"];
+  const pending = historyItems[`En attente d'approbation`];
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -16,45 +20,18 @@ const ProfileHistory = ({ historyItems }) => {
         "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-indigo-400 ring-white ring-opacity-60"
       )}
     >
-      <ul>
-        {historyItems.map((post) => (
-          <li className="relative flex flex-row p-3 rounded-md hover:bg-coolGray-100 group">
-            <Image
-              src={post.image}
-              alt={post.title}
-              width="50rem"
-              height="50rem"
-              className="object-center object-cover group-hover:opacity-75 transition duration-300 ease-in-out rounded-full"
-            />
-            <div className="ml-5">
-              <h3 className="text-sm font-medium leading-5">{post.title}</h3>
-
-              <ul className="flex mt-1 space-x-1 text-xs font-normal leading-4 text-coolGray-500">
-                <li>{post.price} euro</li>
-                <li>&middot;</li>
-                <li>{post.campus}</li>
-              </ul>
-
-              <a
-                href="#"
-                className={() => classNames(
-                  "absolute inset-0 rounded-md",
-                  "focus:z-10 focus:outline-none focus:ring-2 ring-indigo-400"
-                )}
-              />
-            </div>
-            {post.vente ? (
-              <div className="ml-5 px-2 h-full justify-evenly bg-green-500 text-white rounded-2xl text-sm font-bold">
-                Vendu
-              </div>
-            ) : (
-              <div className="ml-5 px-2 h-full justify-evenly bg-yellow-600 text-white rounded-2xl text-sm font-bold">
-                Acheté
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
+      <HistoryDisclosure statusName="Approuvé" statusArray={approved}>
+        <CheckCircleIcon className="w-5 h-5 text-gray-700" />
+      </HistoryDisclosure>
+      <HistoryDisclosure statusName="Clôturé" statusArray={closed}>
+        <HandIcon className="w-5 h-5 text-gray-700" />
+      </HistoryDisclosure>
+      <HistoryDisclosure
+        statusName="En attente d'approbation"
+        statusArray={pending}
+      >
+        <ClockIcon className="w-5 h-5 text-gray-700" />
+      </HistoryDisclosure>
     </Tab.Panel>
   );
 };

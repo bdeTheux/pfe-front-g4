@@ -1,25 +1,31 @@
 import ButtonBan from "../Buttons/ButtonBan";
-const Member = ({ member }) => {
+const Member = ({ member, updateMemberList}) => {
   return (
-    <>
-      <tr className="bg-green-100">
-        <td className="p-3">
-          <div className="flex align-items-center">
-            <div className="ml-3">
-              <div className="">
-                {member.first_name} {member.last_name}
-              </div>
-              <div className="text-gray-500">{member.email}</div>
+    <tr>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="flex items-center">
+          <div className="ml-4">
+            <div className="text-sm font-medium text-gray-900">
+              {member.first_name + " " + member.last_name}
             </div>
+            <div className="text-sm text-gray-500">{member.email}</div>
           </div>
-        </td>
-        <td className="p-3">{member.is_admin ? "Oui" : "Non"}</td>
-        <td className="p-3">{member.is_banned ? "Banni" : "Non banni"}</td>
-        <td className="p-3">
-          <ButtonBan member={member} />
-        </td>
-      </tr>
-    </>
+        </div>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="text-sm text-gray-900">
+          {member.is_admin ? "Oui" : "Non"}
+        </div>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="text-sm text-gray-500">
+          {member.is_banned ? "Banni" : "Non banni"}
+        </div>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+        <ButtonBan member={member}  updateMemberList={updateMemberList} />
+      </td>
+    </tr>
   );
 };
 

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
-const ButtonBan = ({ member }) => {
+const ButtonBan = ({ member, updateMemberList }) => {
   const [token, setToken] = useState("");
   useEffect(() => {
     setToken(localStorage.token);
@@ -14,14 +14,14 @@ const ButtonBan = ({ member }) => {
       headers: {
         Authorization: token,
       },
-    }).then(() => router.reload(window.location.pathname));
+    }).then(() => updateMemberList(member._id));
   };
   if (member.is_banned) {
     return (
       <>
         <button
           onClick={() => handleBan(member._id)}
-          className="bg-green-500 hover:bg-green-700 font-bold py-2 px-4 border-green-700 rounded"
+          className="bg-green-500 hover:bg-green-700  py-2 px-4 rounded text-white w-full"
         >
           Débannir
         </button>
@@ -32,7 +32,7 @@ const ButtonBan = ({ member }) => {
       <button
         onClick={() => handleBan(member._id)}
         href="http://localhost:3000/management/"
-        className="bg-red-500 hover:bg-red-700 font-bold py-2 px-4 border-red-700 rounded"
+        className="bg-red-500 hover:bg-red-700 py-2 px-4 rounded text-white w-full"
       >
         Bannir
       </button>

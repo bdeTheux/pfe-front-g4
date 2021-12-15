@@ -13,7 +13,9 @@ const Management = () => {
   const [users, setUsers] = useState([]);
   const [pendingPosts, setPendingPosts] = useState([]);
   const [categories, setCategories] = useState([]);
+
   const router = useRouter();
+
   useEffect(() => {
     let connectedUser;
     fetch("/api/users/whoami", {
@@ -76,6 +78,16 @@ const Management = () => {
     return classes.filter(Boolean).join(" ");
   }
 
+  const updateMemberList = (member_id) => {
+    setUsers(
+      users.map((user) => {
+        if (user._id === member_id) {
+          user.is_banned = !user.is_banned;
+        }
+        return user;
+      })
+    );
+  };
   return (
     <div className="flex h-screen ">
       <div className="md:mt-12 mx-auto w-full max-w-md px-2 py-16 sm:px-0">
@@ -125,24 +137,27 @@ const Management = () => {
           <Tab.Panels className="mt-2">
             <Tab.Panel
               className={classNames(
-                "bg-white rounded-xl p-3",
-                "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-green-400 ring-white ring-opacity-60"
+                "bg-white rounded-xl p-3 flex justify-center",
+                "focus:outline-none focus:ring-2 ring-offset-2  ring-white ring-opacity-60"
               )}
             >
-              <MembersList users={users} />
+              <MembersList users={users} updateMemberList={updateMemberList} />
             </Tab.Panel>
             <Tab.Panel
               className={classNames(
-                "bg-white rounded-xl p-3",
-                "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-green-400 ring-white ring-opacity-60"
+                "bg-white rounded-xl p-3 flex justify-center",
+                "focus:outline-none focus:ring-2 ring-offset-2  ring-white ring-opacity-60"
               )}
             >
-              <PendingPosts posts={pendingPosts} />
+              <PendingPosts
+                posts={pendingPosts}
+                setPendingPosts={setPendingPosts}
+              />
             </Tab.Panel>
             <Tab.Panel
               className={classNames(
-                "bg-white rounded-xl p-3",
-                "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-green-400 ring-white ring-opacity-60"
+                "bg-white rounded-xl p-3 flex justify-center",
+                "focus:outline-none focus:ring-2 ring-offset-2 ring-white ring-opacity-60"
               )}
             >
               <CategoryPage categories={categories} />

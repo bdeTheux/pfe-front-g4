@@ -50,19 +50,19 @@ const LiCategory = ({ categories, category }) => {
   return (
     <div
       key={category}
-      className="flex text-black placeholder-gray-600 w-1/2 px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+      className="flex text-black placeholder-gray-600  px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
     >
       <form method="POST">
         <div className="flex-row">
           <input type="hidden" name="_method" value="put" />
-          <p>Nom de la categorie</p>
+          <p className="font-light text-gray-500">Nom de la categorie</p>
           <textarea
             name="categoryName"
             defaultValue={category.name}
             onChange={(val) => setCategoryName(val.target.value)}
-            className=" text-black placeholder-gray-800 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
+            className=" text-black placeholder-gray-800 w-full px-4 py-2.5 mt-1 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
           ></textarea>
-          <p>Categorie parente</p>
+          <p className="font-light text-gray-500">Categorie parente</p>
           <SelectCategories
             categories={categories}
             setCategory={setCategoryParent}
@@ -94,14 +94,3 @@ const LiCategory = ({ categories, category }) => {
 };
 
 export default LiCategory;
-
-/*
-
-
-          <p>Nom de la categorie parente</p><textarea name="categoryParent" defaultValue={category.parent}  onChange={(val) => setCategoryParent(val.target.value)} className=" text-black placeholder-gray-800 w-full px-4 py-2.5 mt-2 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"></textarea>
-
-          <SelectCategories categories={categories} setCategory={setCategoryParent} label={label}/>
-           console.log("categoryParent : " + categoryParent + " type :" + typeof categoryParent)
-    console.log("category parent : " + category.parent + " type : "+ typeof category.parent)
-
-*/

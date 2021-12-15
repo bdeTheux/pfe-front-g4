@@ -40,7 +40,7 @@ const Registration = () => {
       }, 500);
       return {
         redirect: {
-          destination: "/connectionRegistration/",
+          destination: "/connectionRegistration",
           permanent: false,
         },
       };

@@ -23,7 +23,6 @@ const OnePost = ({ postId }) => {
   const [locations, setLocations] = useState([]);
   //const [appContext, setAppContext] = useState([]);
   const [userConnected, setUserConnected] = useState([]);
-  console.log("user", userConnected);
   useEffect(() => {
     let actual_post;
     fetch(`/api/posts/${postId}`, {
@@ -104,7 +103,6 @@ const OnePost = ({ postId }) => {
     }).then((temp) => router.push("/"));
   };
 
-  console.log("post", post);
   if (userConnected && userConnected.is_banned) {
     return <BanPage />;
   }
@@ -172,7 +170,7 @@ const OnePost = ({ postId }) => {
                           Contact : {user.email}
                         </p>
                         <p className="leading-relaxed">
-                          Possibles lieux d'échange : {post.places}
+                          Possibles lieux d'échange : { post && post.places ? post.places.toString() : ""}
                         </p>
                         <div className="mb-1">
                           <ButtonMailTo
