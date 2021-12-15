@@ -60,7 +60,6 @@ const PopUpUpdatePost = ({ token, post, setShow }) => {
     })
       .then((res) => {
         const data = res.json();
-        console.log(data);
         return data;
       })
       .then((temp) => console.log(temp))

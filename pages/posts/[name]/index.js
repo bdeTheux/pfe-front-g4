@@ -19,13 +19,7 @@ const PostsCategory = ({ categoryName }) => {
     useEffect(() => {
       setCategory(tab[0]);
       setCampus(tab[1]);
-      console.log("catI", category);
-      console.log("campusI", campus);
-      console.log("tabI", tab);
     }, []);
-    console.log("catO", category);
-    console.log("campusO", campus);
-    console.log("tabO", tab);
     return (
       <>
         <PostsListFull title={category} camp={campus} />

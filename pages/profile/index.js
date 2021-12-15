@@ -6,18 +6,16 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { ArchiveIcon, IdentificationIcon } from "@heroicons/react/outline";
 
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function profile() {
-
   const [user, setUser] = useState([]);
   const [history, setHistory] = useState([{}]);
 
   const router = useRouter();
-  
+
   useEffect(() => {
     fetch("/api/users/whoami", {
       method: "GET",
@@ -31,30 +29,26 @@ export default function profile() {
       })
       .then((temp) => {
         setUser(temp);
-        console.log("user", temp)
       });
 
-      fetch("/api/posts/myposts", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
+    fetch("/api/posts/myposts", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        return res.json();
       })
-        .then((res) => {
-          return res.json();
-        })
-        .then((temp) => {
-          
-          setHistory(temp);
-          console.log("history", temp)
-        });
-      
-  },[]);
+      .then((temp) => {
+        setHistory(temp);
+      });
+  }, []);
 
-  if(user === null){
-    router.push('/connectionRegistration')
-    return <></>
+  if (user === null) {
+    router.push("/connectionRegistration");
+    return <></>;
   }
 
   return (
@@ -95,7 +89,7 @@ export default function profile() {
           </Tab>
         </Tab.List>
         <Tab.Panels className="mt-2">
-          <Profile user={user}/>
+          <Profile user={user} />
           <ProfileHistory historyItems={history} />
         </Tab.Panels>
       </Tab.Group>
