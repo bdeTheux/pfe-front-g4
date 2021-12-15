@@ -5,7 +5,6 @@ import React from "react";
 import HistoryDisclosure from "./HistoryDisclosure";
 
 const ProfileHistory = ({ historyItems }) => {
-  console.log("historyItems", historyItems["En attente d'approbation"]);
   const approved = historyItems["Approuvé"];
   const closed = historyItems["Clôturé"];
   const pending = historyItems[`En attente d'approbation`];
@@ -27,20 +26,12 @@ const ProfileHistory = ({ historyItems }) => {
       <HistoryDisclosure statusName="Clôturé" statusArray={closed}>
         <HandIcon className="w-5 h-5 text-gray-700" />
       </HistoryDisclosure>
-      <HistoryDisclosure statusName="En attente d'approbation" statusArray={pending}>
+      <HistoryDisclosure
+        statusName="En attente d'approbation"
+        statusArray={pending}
+      >
         <ClockIcon className="w-5 h-5 text-gray-700" />
       </HistoryDisclosure>
-
-      {historyItems
-        ? console.log("h", historyItems["Clôturé"])
-        : console.log("ko")}
-      {/*}
-      <ul>
-        {historyItems.map((post) => (
-          
-        ))}
-      </ul>
-            {*/}
     </Tab.Panel>
   );
 };

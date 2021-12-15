@@ -26,7 +26,6 @@ const Management = () => {
         return res.json();
       })
       .then((cu) => {
-        console.log(cu);
         connectedUser = cu;
       })
       .then(() => {

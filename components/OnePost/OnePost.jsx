@@ -22,7 +22,6 @@ const OnePost = ({ postId }) => {
   const [locations, setLocations] = useState([]);
   //const [appContext, setAppContext] = useState([]);
   const [userConnected, setUserConnected] = useState([]);
-  console.log("user", userConnected);
   useEffect(() => {
     let actual_post;
     fetch(`/api/posts/${postId}`, {
@@ -103,7 +102,6 @@ const OnePost = ({ postId }) => {
     }).then((temp) => router.push("/"));
   };
 
-  console.log("post", post);
   if (userConnected && userConnected.is_banned) {
     return <BanPage />;
   }

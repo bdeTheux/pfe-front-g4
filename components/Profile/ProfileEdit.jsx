@@ -56,7 +56,7 @@ const ProfileEdit = ({ user }) => {
       campus: campus,
       password: password,
     };
-    console.log(newInfos);
+
     const res = await fetch(`/api/users/edit`, {
       method: "PUT",
       body: JSON.stringify(newInfos, user._id),
@@ -66,53 +66,18 @@ const ProfileEdit = ({ user }) => {
       },
     });
     const data = await res.json();
-    console.log(data);
     if (res.status !== 401) {
       router.push("/profile");
     } else {
-      alert("Le mot-de-passe entré est incorrect ! Veuillez réessayer svp")
+      alert("Le mot-de-passe entré est incorrect ! Veuillez réessayer svp");
     }
   };
-
-  console.log("user", user);
-  //setPassword
-  /*
-  const onVerify = async () => {
-    console.log("email", user.email)
-    const loginUser = {
-      email: user.email,
-      password: password,
-    };
-
-    const res = await fetch("/api/login/", {
-      method: "POST",
-      body: JSON.stringify(loginUser),
-      headers: { "Content-Type": "application/json" },
-    });
-    const data = await res.json();
-    console.log("data", data);
-    if (data.description) {
-      localStorage.setItem("error", data.description);
-    } else {
-      localStorage.setItem("error", "none");
-    }
-    if (res.status == 200) {
-      localStorage.setItem("token", data.token);
-      //router.push("/profile"); //management/management
-      console.log("error");
-      //setTimeout(() => {router.reload();}, 500);
-    } 
-  };
-  */
 
   const handleContainer = async () => {
     onVerify().then(() => onEdit());
   };
 
   const [selected, setSelected] = useState(campuses[0]);
-
-  console.log("selected", selected);
-  console.log("user.campus", user.campus);
 
   return (
     <>
@@ -133,7 +98,6 @@ const ProfileEdit = ({ user }) => {
               className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm border-gray-300 rounded-md"
               defaultValue={user.first_name}
               onChange={(e) => {
-                console.log("firstname", e.target.value);
                 setFirstName(e.target.value);
               }}
             />

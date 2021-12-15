@@ -30,7 +30,6 @@ const newPost = ({ categories }) => {
       })
       .then((temp) => {
         setUser(temp);
-        console.log("user", temp);
       });
   }, []);
   if (user === null) {

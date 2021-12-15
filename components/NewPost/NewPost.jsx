@@ -34,7 +34,6 @@ const NewPost = ({ categories }) => {
       formData.append("files", document.getElementById("files").files[x]);
     }
     formData.append("places", campus);
-    console.log(process.env.customKey);
     axios({
       method: "post",
       url: process.env.customKey + "posts/",
@@ -73,11 +72,9 @@ const NewPost = ({ categories }) => {
   const handlePrice = (e) => {
     if (e.target.value === "À vendre") {
       setIsGiven(false);
-      console.log(isGiven);
     } else {
       setIsGiven(true);
       setPrice(0);
-      console.log(isGiven);
     }
     setPostNature(e.target.value);
   };

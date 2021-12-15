@@ -2,7 +2,6 @@ import Member from "../Member/Member";
 import NoMember from "../Member/NoMember";
 import ButtonBan from "../Buttons/ButtonBan";
 
-
 const MembersList = ({ users }) => {
   return (
     <>
@@ -44,7 +43,7 @@ const MembersList = ({ users }) => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {users.map((user) => (
-                    <Member member={user}/>
+                    <Member key={user._id} member={user} />
                   ))}
                 </tbody>
               </table>
@@ -52,8 +51,6 @@ const MembersList = ({ users }) => {
           </div>
         </div>
       </div>
-
-      
     </>
   );
 };
