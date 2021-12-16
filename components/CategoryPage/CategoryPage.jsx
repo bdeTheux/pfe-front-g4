@@ -13,7 +13,7 @@ const CategoryPage = ({ categories, updateCategories }) => {
     setToken(localStorage.getItem("token"));
   });
 
-  let label = "Choisissez une catégorie Parente";
+  let label = "Choisissez une catégorie parente";
 
   const submitCategory = async () => {
     let newCategory = {
