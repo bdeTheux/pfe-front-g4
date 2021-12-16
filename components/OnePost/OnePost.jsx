@@ -133,14 +133,14 @@ const OnePost = ({ postId }) => {
       <div>
         <section className="text-gray-700 body-font overflow-hidden bg-white">
           <div className="container px-5 py-24 mx-auto">
-            <div className="lg:w-4/5 mx-auto flex flex-row  ">
-              <div className="flex flex-col lg:w-1/2 h-80">
+            <div className="lg:w-4/5 mx-auto flex flex-col  ">
+              <div className="flex flex-col lg:w-1/2 h-auto mt-6">
                 <div className="flex w-80 h-1/6"></div>
                 <Carousel images={post && post.images ? post.images : []} />
                 {post && post.video ? (
                   <video
                     controls
-                    className="flex lg:w-1/2 w-full pt-60 object-cover object-center rounded border border-gray-200"
+                    className="flex lg:w-1/2 w-80 pt-60 object-cover object-center rounded border border-gray-200"
                   >
                     <source src={post.video}></source>
                   </video>
@@ -148,7 +148,7 @@ const OnePost = ({ postId }) => {
                   <></>
                 )}
               </div>
-              <div className="grid grid-cols-1 divide-y divide-green-500 w-max">
+              <div className="divide-y divide-green-500">
                 <div className="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                   <h2 className="text-sm title-font text-gray-500 tracking-widest">
                     {post.category_id}
