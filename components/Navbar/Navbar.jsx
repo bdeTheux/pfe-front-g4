@@ -1,7 +1,7 @@
 import { MenuIcon, SearchIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import Image from "next/image";
-
+import { Transition } from "@headlessui/react";
 const Navbar = () => {
   return (
     <header
