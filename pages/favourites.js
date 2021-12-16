@@ -18,7 +18,6 @@ export default function Favourites({ posts }) {
       })
       .then((temp) => {
         setFavourites(temp);
-        console.log("favourites", temp);
       });
   }, []);
   return (

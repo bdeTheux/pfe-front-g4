@@ -113,9 +113,6 @@ const ProfileEdit = ({ user }) => {
 
   const [selected, setSelected] = useState(campuses[0]);
 
-  console.log("selected", selected);
-  console.log("user.campus", user.campus);
-
   return (
     <>
       <p id="errorEditProfil" className="text-4xl font-light pt-16 ml-5"></p>
@@ -136,7 +133,6 @@ const ProfileEdit = ({ user }) => {
               className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm border-gray-300 rounded-md"
               defaultValue={user.first_name}
               onChange={(e) => {
-                console.log("firstname", e.target.value);
                 setFirstName(e.target.value);
               }}
             />
@@ -179,7 +175,6 @@ const ProfileEdit = ({ user }) => {
             <Listbox
               value={selected}
               onChange={(e) => {
-                console.log("targeeeet", e);
                 setSelected(e);
                 setCampus(e);
               }}

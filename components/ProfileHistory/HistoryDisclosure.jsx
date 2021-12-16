@@ -5,10 +5,13 @@ import Image from "next/image";
 import LocationBadges from "../LocationBadges/LocationBadges";
 
 const HistoryDisclosure = ({ statusName, statusArray, children }) => {
-  //console.log("MOI", statusArray[0].images);
   return (
     <>
-      <Disclosure defaultOpen="true" as="div" className="border-b border-gray-200 py-6">
+      <Disclosure
+        defaultOpen="true"
+        as="div"
+        className="border-b border-gray-200 py-6"
+      >
         {({ open }) => (
           <>
             <h3 className="-my-3 flow-root">
@@ -30,15 +33,15 @@ const HistoryDisclosure = ({ statusName, statusArray, children }) => {
             </h3>
             <Transition
               show={open}
-            enter="transition duration-200 ease-out"
-            enterFrom="transform scale-95 opacity-0"
-            enterTo="transform scale-100 opacity-100"
-            leave="transition duration-200 ease-out"
-            leaveFrom="transform scale-100 opacity-100"
-            leaveTo="transform scale-95 opacity-0"
+              enter="transition duration-200 ease-out"
+              enterFrom="transform scale-95 opacity-0"
+              enterTo="transform scale-100 opacity-100"
+              leave="transition duration-200 ease-out"
+              leaveFrom="transform scale-100 opacity-100"
+              leaveTo="transform scale-95 opacity-0"
             >
               <Disclosure.Panel className="pt-6">
-                {(statusArray !== undefined || statusArray.length !== 0) ? (
+                {statusArray !== undefined || statusArray.length !== 0 ? (
                   <ul className="space-y-4">
                     {statusArray.map((post) => (
                       <li className="relative flex flex-row p-3 rounded-md hover:bg-coolGray-100 group">
