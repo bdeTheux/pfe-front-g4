@@ -1,5 +1,6 @@
 import { KeyIcon, MenuIcon, SearchIcon } from "@heroicons/react/outline";
-import { HeartIcon, UserCircleIcon } from "@heroicons/react/solid";
+import { UserCircleIcon, HeartIcon } from "@heroicons/react/solid";
+import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import { useState } from "react";
 import { Transition } from "@headlessui/react";
@@ -44,7 +45,9 @@ const NavbarAdmin = () => {
                   height="65"
                   className="mr-4"
                 />
-                <p className="text-xl ml-3 hidden md:block font-mono tracking-widest text-yellow-600"><strong className="text-black">bee</strong>found</p>
+                <p className="text-xl ml-3 hidden md:block font-mono tracking-widest text-yellow-600">
+                  <strong className="text-black">bee</strong>found
+                </p>
               </div>
             </a>
           </Link>
