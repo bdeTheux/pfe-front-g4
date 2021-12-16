@@ -1,8 +1,7 @@
 import { MenuIcon, SearchIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import Image from "next/image";
-import {useState} from "react"
-
+import { Transition } from "@headlessui/react";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -40,41 +39,45 @@ const Navbar = () => {
                   height="65"
                   className="mr-4"
                 />
-                <p className="text-xl ml-3 hidden md:block font-mono tracking-widest text-yellow-600"><strong className="text-black">bee</strong>found</p>
+                <p className="text-xl ml-3 hidden md:block font-mono tracking-widest text-yellow-600">
+                  <strong className="text-black">bee</strong>found
+                </p>
               </div>
             </a>
           </Link>
 
           <div className="flex items-center space-x-2 lg:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-100 dark:active:bg-gray-800 active:outline-none">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-100 dark:active:bg-gray-800 active:outline-none"
+            >
               <MenuIcon className="w-6 h-6 text-gray-700 dark:text-gray-300" />
             </button>
           </div>
         </div>
-        <Transition 
-        show={isOpen}
-        enter="transition ease-in-out delay-150 duration-500 transform"
-        enterFrom="-translate-x-full"
-        enterTo="translate-x-0"
-        leave="transition ease-in-out delay-150 duration-500 transform"
-        leaveFrom="translate-x-0"
-        leaveTo="-translate-x-full"
+        <Transition
+          show={isOpen}
+          enter="transition ease-in-out delay-150 duration-500 transform"
+          enterFrom="-translate-x-full"
+          enterTo="translate-x-0"
+          leave="transition ease-in-out delay-150 duration-500 transform"
+          leaveFrom="translate-x-0"
+          leaveTo="-translate-x-full"
         >
-        
           <div className="flex flex-col space-y-4 lg:hidden">
-          <div
-            className="
+            <div
+              className="
           flex flex-col
           space-y-3
           lg:space-y-0 lg:flex-row lg:space-x-6
           xl:space-x-8
           lg:items-center
         "
-          >
-            <div className="relative hidden lg:block">
-              <div>
-                <button
-                  className="
+            >
+              <div className="relative hidden lg:block">
+                <div>
+                  <button
+                    className="
                 text-primary
                 font-semibold
                 flex
@@ -85,39 +88,39 @@ const Navbar = () => {
                 border-gray-200
                 hover:bg-gray-200
               "
-                >
-                  <span>Let's swipe?</span>
-                </button>
+                  >
+                    <span>Let's swipe?</span>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div
-            className="
+            <div
+              className="
           flex flex-col
           space-y-4
           lg:space-y-0 lg:flex-row lg:items-center lg:space-x-4
         "
-          >
-            <form
-              className="flex flex-wrap justify-between pt-2 relative mx-auto text-gray-600 md:flex-row "
-              action="/search"
             >
-              <input
-                className="w-96 border-2 border-gray-300 bg-white h-12 px-5 lg:w-20 xl:w-36 xl:focus:w-44 lg:h-10 pr-16 rounded-lg text-sm focus:outline-none focus:ring-gray-400 focus:ring-1"
-                type="search"
-                name="search"
-                placeholder="Choisissez-nous pour faire une recherche ! ;)"
-              />
-              <button
-                type="submit"
-                className="absolute right-0 top-0 mt-5 mr-4"
+              <form
+                className="flex flex-wrap justify-between pt-2 relative mx-auto text-gray-600 md:flex-row "
+                action="/search"
               >
-                <SearchIcon className="text-gray-600 h-5 w-5" />
-              </button>
-            </form>
-            <Link href="/newPost">
-              <a
-                className="
+                <input
+                  className="w-96 border-2 border-gray-300 bg-white h-12 px-5 lg:w-20 xl:w-36 xl:focus:w-44 lg:h-10 pr-16 rounded-lg text-sm focus:outline-none focus:ring-gray-400 focus:ring-1"
+                  type="search"
+                  name="search"
+                  placeholder="Choisissez-nous pour faire une recherche ! ;)"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-0 top-0 mt-5 mr-4"
+                >
+                  <SearchIcon className="text-gray-600 h-5 w-5" />
+                </button>
+              </form>
+              <Link href="/newPost">
+                <a
+                  className="
             flex
             items-center
             justify-center
@@ -131,13 +134,13 @@ const Navbar = () => {
             bg-green-500
             hover:bg-green-300
           "
-              >
-                Publier une annonce
-              </a>
-            </Link>
-            <Link href="/connectionRegistration">
-              <a
-                className="
+                >
+                  Publier une annonce
+                </a>
+              </Link>
+              <Link href="/connectionRegistration">
+                <a
+                  className="
             flex
             items-center
             justify-center
@@ -156,14 +159,14 @@ const Navbar = () => {
             dark:hover:bg-gray-700
             focus:outline-none
           "
-              >
-                Inscription/Connexion
-              </a>
-            </Link>
+                >
+                  Inscription/Connexion
+                </a>
+              </Link>
+            </div>
           </div>
-        </div>
         </Transition>
-        
+
         <div
           className="
         hidden
