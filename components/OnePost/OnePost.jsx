@@ -138,12 +138,14 @@ const OnePost = ({ postId }) => {
                 <div className="flex w-80 h-1/6"></div>
                 <Carousel images={post && post.images ? post.images : []} />
                 {post && post.video ? (
+                  <div  className="flex w-screen pt-60">
                   <video
                     controls
-                    className="flex lg:w-1/2 w-80 pt-60 object-cover object-center rounded border border-gray-200"
+                    className="flex lg:w-1/2 w-80 object-cover object-center rounded border border-gray-200"
                   >
                     <source src={post.video}></source>
                   </video>
+                  </div>
                 ) : (
                   <></>
                 )}
