@@ -29,7 +29,7 @@ const Carousel = ({ images }) => {
                     htmlFor={
                       imagesSlice.length <= 0 ? "first" : imagesSlice.length - 1
                     }
-                    className="inline-block self-center text-green-600 cursor-pointer -translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
+                    className="inline-block self-center text-yellow-600 cursor-pointer -translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +46,7 @@ const Carousel = ({ images }) => {
                   </label>
                   <label
                     htmlFor={imagesSlice.length <= 0 ? "first" : 0}
-                    className="inline-block self-center text-green-600 cursor-pointer translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
+                    className="inline-block self-center text-yellow-600 cursor-pointer translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +82,7 @@ const Carousel = ({ images }) => {
                   <div className=" w-full flex justify-between z-20">
                     <label
                       htmlFor={index == 0 ? "first" : index - 1}
-                      className="inline-block self-center text-green-600 cursor-pointer -translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
+                      className="inline-block self-center text-yellow-600 cursor-pointer -translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +101,7 @@ const Carousel = ({ images }) => {
                       htmlFor={
                         index == imagesSlice.length - 1 ? "first" : index + 1
                       }
-                      className="inline-block self-center text-green-600 cursor-pointer translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
+                      className="inline-block self-center text-yellow-600 cursor-pointer translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

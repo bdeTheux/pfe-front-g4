@@ -148,16 +148,16 @@ const OnePost = ({ postId }) => {
                   <></>
                 )}
               </div>
-              <div className="divide-y divide-green-500">
+              <div className="divide-y divide-yellow-600">
                 <div className="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                   <h2 className="text-sm title-font text-gray-500 tracking-widest">
                     {post.category_id}
                   </h2>
-                  <div className="grid grid-cols-4">
-                    <h1 className="flex text-gray-900 text-3xl title-font font-medium mb-1 col-span-3">
+                  <div className="flex">
+                    <h1 className="flex text-gray-900 text-3xl title-font font-medium mb-1 ">
                       {post.title}
                     </h1>
-                    <div className="col-span-1">
+                    <div className="">
                       {token !== "non" ? (
                         <FavouriteButton
                           post={post}
