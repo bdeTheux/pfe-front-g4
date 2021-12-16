@@ -224,7 +224,7 @@ const OnePost = ({ postId }) => {
               </div>
               <div className="flex flex-col lg:w-1/2 h-auto mt-6">
                 <div className="flex w-80 h-1/6"></div>
-                <Carousel images={post && post.images ? post.images : []} />
+                <Carousel images={post && post.images ? post.images.length == 0 ? ["/images/bidon.jpg"] : post.images : []} />
                 {post && post.video ? (
                   <div  className="flex w-screen pt-60">
                   <video

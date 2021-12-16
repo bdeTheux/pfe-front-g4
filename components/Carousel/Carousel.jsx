@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 const Carousel = ({ images }) => {
+
   const imagesSlice = images.slice(1 - images.length);
 
   return (
@@ -16,7 +17,7 @@ const Carousel = ({ images }) => {
                 id="first"
                 defaultChecked
               />
-              <div className="w-80 md:w-96 bg-white aspect-w-16  aspect-h-9  rounded-lg shadow-lg transition-all duration-300 opacity-0 peer-checked:opacity-100 peer-checked:z-10 z-0">
+              <div className="w-80 mb-4 md:w-96 bg-white aspect-w-16  aspect-h-9  rounded-lg shadow-lg transition-all duration-300 opacity-0 peer-checked:opacity-100 peer-checked:z-10 z-0">
                 <img
                   src={images[0]}
                   alt="Image du produit"
@@ -72,7 +73,7 @@ const Carousel = ({ images }) => {
                   name="carousel"
                   id={index}
                 />
-                <div className="w-80 md:w-96 bg-white  aspect-w-16 aspect-h-9  rounded-lg shadow-lg transition-all duration-300 opacity-0 peer-checked:opacity-100 peer-checked:z-10 z-0">
+                <div className="w-80 mb-4 md:w-96 bg-white  aspect-w-16 aspect-h-9  rounded-lg shadow-lg transition-all duration-300 opacity-0 peer-checked:opacity-100 peer-checked:z-10 z-0">
                   <img
                     alt="Image du produit"
                     className=" w-full md:object-scale-down object-contain object-center rounded border border-gray-200"
