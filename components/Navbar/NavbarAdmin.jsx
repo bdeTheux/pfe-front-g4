@@ -3,7 +3,6 @@ import { UserCircleIcon, HeartIcon } from "@heroicons/react/solid";
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import { useState } from "react";
-import { Transition } from "@headlessui/react";
 
 
 import Link from "next/link";
