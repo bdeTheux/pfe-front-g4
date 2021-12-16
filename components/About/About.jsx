@@ -2,8 +2,8 @@ import Image from "next/image";
 
 const About = () => {
   return (
-    <div className="">
-      <div className="z-0">
+    <div className="flex flex-row">
+      <div className="hidden md:block z-0">
         <Image
           src="/images/about.png"
           layout="fill"
@@ -12,13 +12,13 @@ const About = () => {
           className="z-0 h-screen"
         />
       </div>
-      <div className="flex flex-col justify-center relative  h-screen items-center text-xl text-white ounded-lg bg-black bg-opacity-40">
-        <h1 className="font-extrabold text-2xl text-center">
+      <div className="flex flex-col justify-center relative  h-screen items-center text-xl text-white ounded-lg bg-black bg-opacity-40 divide-y">
+        <h1 className="font-extrabold text-2xl md:text-3xl text-center">
           À propos de nous
         </h1>
         <br></br>
-        <p className="mx-60 text-center tracking-wide">
-          beefound est une plateforme à destination de tous les membres de la
+        <p className=" mx-20 md:mx-60 text-center tracking-wide p-3 text-md md:text-xl">
+          VinciMarket est une plateforme à destination de tous les membres de la
           Communauté Vinci qui souhaitent vendre, donner ou acheter des objets
           en attente d’une seconde vie. Ce projet s’inscrit dans une démarche de
           développement durable visant à promouvoir le réemploi et le recyclage.
