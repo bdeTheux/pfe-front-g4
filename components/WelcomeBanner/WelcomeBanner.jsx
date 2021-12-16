@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { SpeakerphoneIcon } from "@heroicons/react/outline";
 import CountCloture from "../../components/CountCloture/CountCloture";
 
 const WelcomeBanner = ({ post }) => {

@@ -41,7 +41,9 @@ const NavbarConnected = () => {
                   height="65"
                   className="mr-4"
                 />
-                <p className="text-xl ml-3 hidden md:block font-mono tracking-widest text-yellow-600"><strong className="text-black">bee</strong>found</p>
+                <p className="text-xl ml-3 hidden md:block font-mono tracking-widest text-yellow-600">
+                  <strong className="text-black">bee</strong>found
+                </p>
               </div>
             </a>
           </Link>
@@ -55,14 +57,14 @@ const NavbarConnected = () => {
             </button>
           </div>
         </div>
-        <Transition 
-        show={isOpen}
-        enter="transition ease-in-out delay-150 duration-500 transform"
-        enterFrom="-translate-x-full"
-        enterTo="translate-x-0"
-        leave="transition ease-in-out delay-150 duration-500 transform"
-        leaveFrom="translate-x-0"
-        leaveTo="-translate-x-full"
+        <Transition
+          show={isOpen}
+          enter="transition ease-in-out delay-150 duration-500 transform"
+          enterFrom="-translate-x-full"
+          enterTo="translate-x-0"
+          leave="transition ease-in-out delay-150 duration-500 transform"
+          leaveFrom="translate-x-0"
+          leaveTo="-translate-x-full"
         >
           <div className="flex flex-col space-y-4 lg:hidden transition-transform duration-300 ease-in-out">
             <div

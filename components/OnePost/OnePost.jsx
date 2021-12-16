@@ -86,10 +86,9 @@ const OnePost = ({ postId }) => {
               return temp;
             })
             .then((temp) => {
-              if (!temp || temp.length === 0 ) {
+              if (!temp || temp.length === 0) {
                 setIsFav(false);
               } else {
-                console.log("ici", currentUser);
                 if (currentUser.favorites.includes(postId)) {
                   setIsFav(true);
                 }
@@ -195,43 +194,53 @@ const OnePost = ({ postId }) => {
                     </div>
                   )}
                 </div>
-                {(userConnected && (userConnected._id === post.seller_id || userConnected.is_admin))? (
-                    <div className="flex-row flex">
-                      <button
-                        onClick={handleDelete}
-                        type="button"
-                        className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
-                      >
-                        <TrashIcon className="flex ml-3 w-6 text-red-500" />
-                        <span className="pl-2 mx-1">Supprimer</span>
-                      </button>
-                      <div>
-                        <PopUpButton post={post} className="flex ml-3 w-6 " />
-                      </div>
-                      <button
-                        type="button"
-                        onClick={handleEnclose}
-                        className=" items-end px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
-                      >
-                        <LockClosedIcon className="ml-3 w-6 text-red-500" />
-                        Clôturer
-                      </button>
+                {userConnected &&
+                (userConnected._id === post.seller_id ||
+                  userConnected.is_admin) ? (
+                  <div className="flex-row flex">
+                    <button
+                      onClick={handleDelete}
+                      type="button"
+                      className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
+                    >
+                      <TrashIcon className="flex ml-3 w-6 text-red-500" />
+                      <span className="pl-2 mx-1">Supprimer</span>
+                    </button>
+                    <div>
+                      <PopUpButton post={post} className="flex ml-3 w-6 " />
                     </div>
+                    <button
+                      type="button"
+                      onClick={handleEnclose}
+                      className=" items-end px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
+                    >
+                      <LockClosedIcon className="ml-3 w-6 text-red-500" />
+                      Clôturer
+                    </button>
+                  </div>
                 ) : (
                   <></>
                 )}
               </div>
               <div className="flex flex-col lg:w-1/2 h-auto mt-6">
                 <div className="flex w-80 h-1/6"></div>
-                <Carousel images={post && post.images ? post.images.length == 0 ? ["/images/bidon.jpg"] : post.images : []} />
+                <Carousel
+                  images={
+                    post && post.images
+                      ? post.images.length == 0
+                        ? ["/images/bidon.jpg"]
+                        : post.images
+                      : []
+                  }
+                />
                 {post && post.video ? (
-                  <div  className="flex w-screen pt-60">
-                  <video
-                    controls
-                    className="flex lg:w-1/2 w-80 object-cover object-center rounded border border-gray-200"
-                  >
-                    <source src={post.video}></source>
-                  </video>
+                  <div className="flex w-screen pt-60">
+                    <video
+                      controls
+                      className="flex lg:w-1/2 w-80 object-cover object-center rounded border border-gray-200"
+                    >
+                      <source src={post.video}></source>
+                    </video>
                   </div>
                 ) : (
                   <></>
