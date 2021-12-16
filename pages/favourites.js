@@ -27,14 +27,14 @@ export default function Favourites({ posts }) {
         <title>Favoris - vincimarket</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1 className="text-3xl font-extrabold md:mb-1.5">Vos favoris</h1>
+      <h1 className="text-3xl font-extrabold mt-4 md:mt-8">Vos favoris</h1>
 
       <div className="bg-white w-screen px-10">
         <div className="max-w-2xl mx-auto py-16 px-4  sm:px-6 lg:max-w-7xl lg:px-8 ">
           {favourites.length !== 0 ? (
             <PostsList posts={favourites} />
           ) : (
-            <div className="flex flex-col items-center m-3 pb-5 rounded-xl bg-yellow-50">
+            <div className="flex flex-col items-center  pb-5 rounded-xl bg-yellow-50 md:px-0 px-8">
               <div className="flex items-center text-gray-800 ">
                 <HeartIcon className="h-12 w-12 " />
                 <p className="text-xl font-extrabold p-5">

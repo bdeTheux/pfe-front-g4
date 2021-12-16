@@ -62,6 +62,71 @@ const OnePost = ({ postId }) => {
                         lng: loc.long,
                       };
                       setLocations((locations) => [...locations, toAdd]);
+                      return actual_post;
+                    })
+                    .then((ap) => {
+                      fetch(
+                        "http://pfe-back-g4-dev.herokuapp.com/posts/favourites",
+                        {
+                          headers: {
+                            "Content-Type": "application.json",
+                            Authorization: localStorage.getItem("token"),
+                          },
+                        }
+                      )
+                        .then((res) => {
+                          return res.json();
+                        })
+                        .then((temp) => {
+                          setFavourites(temp);
+                          console.log("temppp", temp);
+                          console.log("postId", ap._id);
+                          return temp;
+                        })
+                        .then((temp) => {
+                          console.log("favss", favourites);
+                          console.log("favssIn", temp);
+                          return temp;
+                        })
+                        .then((temp) => {
+                          if (
+                            !temp ||
+                            temp.length === 0 ||
+                            temp === undefined
+                          ) {
+                            console.log("nononon");
+                            setIsFav(false);
+                          } else {
+                            console.log("mon temp", temp);
+                            console.log("post", actual_post);
+                            
+                            if(temp.map((untemp) => untemp._id).includes(actual_post._id)){
+                              console.log("il le commande")
+                              setIsFav(true);
+                              
+                            }
+                            else{
+                              console.log("ile le contient pas");
+                              setIsFav(false);
+                            }
+                            console.log(isFav)
+                            
+                            /*temp.forEach((e) => {
+                              console.log("e_id",e._id);
+                              console.log("post_id",actual_post._id);
+
+                              console.log("foreach");
+                              if (e._id !== actual_post._id) {
+                                setIsFav(false);
+                                console.log("non");
+                              } else {
+                                
+                                console.log("oui", e._id);
+                                console.log("oui2", actual_post._id);
+                              }
+                            });*/   
+                          }
+                        });
                     });
                 });
               }
@@ -69,19 +134,7 @@ const OnePost = ({ postId }) => {
         });
       });
     });
-    fetch("http://pfe-back-g4-dev.herokuapp.com/posts/favourites", {
-      headers: {
-        "Content-Type": "application.json",
-        Authorization: localStorage.getItem("token"),
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((temp) => {
-        setFavourites(temp);
-        console.log("favourites", temp);
-      });
+
     fetch("/api/users/whoami", {
       headers: {
         "Content-Type": "application/json",
@@ -90,18 +143,6 @@ const OnePost = ({ postId }) => {
     })
       .then((res) => res.json())
       .then((uc) => setUserConnected(uc));
-
-    if (!favourites || favourites.length === 0 || favourites === undefined) {
-      setIsFav(false);
-    } else {
-      favourites.forEach((e) => {
-        if (e._id === post._id) {
-          setIsFav(true);
-        } else {
-          setIsFav(false);
-        }
-      });
-    }
   }, []);
 
   const router = useRouter();
@@ -165,7 +206,7 @@ const OnePost = ({ postId }) => {
                       {post.title}
                     </h1>
                     <div className="col-span-1">
-                      <FavouriteButton post={post} fav={isFav} />
+                      <FavouriteButton post={post} isFav={isFav} setIsFav={setIsFav} />
                     </div>
                   </div>
                   <div className="flex mb-4">

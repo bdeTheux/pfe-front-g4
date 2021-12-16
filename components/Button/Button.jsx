@@ -65,8 +65,8 @@ const Button = ({ onClick, color, children }) => {
           w-full
           transition
           duration-300 ease-in-out
-          bg-primary-500
-          hover:bg-primary-400`}
+          bg-yellow-500
+          hover:bg-yellow-400`}
       >
         {children}
       </button>

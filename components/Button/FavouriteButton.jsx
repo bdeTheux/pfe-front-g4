@@ -2,8 +2,9 @@ import { HeartIcon as HeartIconSolid } from "@heroicons/react/solid";
 import { HeartIcon as HeartIconOutline } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 
-const FavouriteButton = ({ post, fav }) => {
-  const [isFav, setIsFav] = useState(fav);
+const FavouriteButton = ({ post, isFav, setIsFav }) => {
+  
+  console.log("fav", isFav)
 
 
 

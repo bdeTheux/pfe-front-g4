@@ -51,7 +51,16 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-        {isOpen ? (
+        <Transition 
+        show={isOpen}
+        enter="transition ease-in-out delay-150 duration-500 transform"
+        enterFrom="-translate-x-full"
+        enterTo="translate-x-0"
+        leave="transition ease-in-out delay-150 duration-500 transform"
+        leaveFrom="translate-x-0"
+        leaveTo="-translate-x-full"
+        >
+        
           <div className="flex flex-col space-y-4 lg:hidden">
           <div
             className="
@@ -153,9 +162,7 @@ const Navbar = () => {
             </Link>
           </div>
         </div>
-        ):(
-          <></>
-        )}
+        </Transition>
         
         <div
           className="
