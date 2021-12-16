@@ -31,7 +31,7 @@ const OnePost = ({ postId }) => {
     let actual_post;
     let favs;
     let currentSeller;
-    let currentUser
+    let currentUser;
     let locat;
     //if(token === undefined) {}
     fetch(`/api/posts/${postId}/fulldetails`, {
@@ -49,7 +49,6 @@ const OnePost = ({ postId }) => {
         const newAddress = data.addresses.map((e) => {
           return { lat: e.lat, lng: e.long };
         });
-        console.log(newAddress);
         //setLocations(newAddress);
         locat = newAddress;
       })
@@ -69,228 +68,38 @@ const OnePost = ({ postId }) => {
           });
       })
       .then((ap) => {
-        fetch(
-          "/api/posts/favourites",
-          {
-            headers: {
-              "Content-Type": "application.json",
-              Authorization: localStorage.getItem("token"),
-            },
-          }
-        ).then((res) => {
-          return res.json();
-        }).then((temp) => {
-          //setFavourites(temp);
-          favs = temp;
-          return temp;
-        })
-        .then((temp) => {
-          if (
-            !temp ||
-            temp.length === 0 ||
-            temp === undefined
-          ) {
-            setIsFav(false);
-          } else {
-            console.log("ici",currentUser)
-            if(currentUser.favorites.includes(postId)){
-              setIsFav(true);
-            }
-          }
-          setFavourites(favs);
-          setLocations(locat);
-          setPost(actual_post);
-          setUserConnected(currentUser);
-          setUser(currentSeller)
-        });
-      });
-
-  }, []);
-  /*.then(()=> {fetch("/api/users/whoami", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
-      },
-    })
-      .then((res) => res.json())
-      .then((uc) => setUserConnected(uc));
-  }.then((ap) => {
-      fetch(
-        "http://pfe-back-g4-dev.herokuapp.com/posts/favourites",
-        {
+        fetch("/api/posts/favourites", {
           headers: {
             "Content-Type": "application.json",
             Authorization: localStorage.getItem("token"),
           },
-        }
-      )
-        .then((res) => {
-          return res.json();
         })
-        .then((temp) => {
-          setFavourites(temp);
-          console.log("temppp", temp);
-          console.log("postId", ap._id);
-          return temp;
-        })
-        .then((temp) => {
-          console.log("favss", favourites);
-          console.log("favssIn", temp);
-          return temp;
-        })
-        .then((temp) => {
-          if (
-            !temp ||
-            temp.length === 0 ||
-            temp === undefined
-          ) {
-            console.log("nononon");
-            setIsFav(false);
-          } else {
-            console.log("mon temp", temp);
-            console.log("post", actual_post);
-            
-            if(temp.map((untemp) => untemp._id).includes(actual_post._id)){
-              console.log("il le commande")
-              setIsFav(true);
-              
-            }
-            else{
-              console.log("ile le contient pas");
+          .then((res) => {
+            return res.json();
+          })
+          .then((temp) => {
+            //setFavourites(temp);
+            favs = temp;
+            return temp;
+          })
+          .then((temp) => {
+            if (!temp || temp.length === 0 || temp === undefined) {
               setIsFav(false);
+            } else {
+              if (currentUser.favorites.includes(postId)) {
+                setIsFav(true);
+              }
             }
-            console.log(isFav)
-            
-            /*temp.forEach((e) => {
-              console.log("e_id",e._id);
-              console.log("post_id",actual_post._id);
-
-              console.log("foreach");
-              if (e._id !== actual_post._id) {
-                setIsFav(false);
-                console.log("non");
-              } else {
-                
-                console.log("oui", e._id);
-                console.log("oui2", actual_post._id);
-              }
-            });   
-          }
-        });
-    });
-    /*
-    let actual_post;
-    fetch(`/api/posts/${postId}`, {
-      method: "GET",
-      headers: { Authorization: localStorage.getItem("token") },
-    }).then((res) => {
-      res.json().then((data) => {
-        actual_post = data;
-        return fetch(`/api/users/${actual_post.seller_id}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token"),
-          },
-        }).then((seller) => {
-          seller
-            .json()
-            .then((sellerJson) => {
-              setUser(sellerJson);
-              setPost(actual_post);
-              return actual_post;
-            })
-
-            .then((actual_post) => {
-              if (post.state === "Clôturé") {
-              } else {
-                actual_post.places.forEach((element) => {
-                  fetch(`/api/addresses/${element}`, {
-                    headers: { "Content-Type": "application/json" },
-                  })
-                    .then((res) => res.json())
-                    .then((loc) => {
-                      const toAdd = {
-                        lat: loc.lat,
-                        lng: loc.long,
-                      };
-                      setLocations((locations) => [...locations, toAdd]);
-                      return actual_post;
-                    })
-                    .then((ap) => {
-                      fetch(
-                        "http://pfe-back-g4-dev.herokuapp.com/posts/favourites",
-                        {
-                          headers: {
-                            "Content-Type": "application.json",
-                            Authorization: localStorage.getItem("token"),
-                          },
-                        }
-                      )
-                        .then((res) => {
-                          return res.json();
-                        })
-                        .then((temp) => {
-                          setFavourites(temp);
-                          console.log("temppp", temp);
-                          console.log("postId", ap._id);
-                          return temp;
-                        })
-                        .then((temp) => {
-                          console.log("favss", favourites);
-                          console.log("favssIn", temp);
-                          return temp;
-                        })
-                        .then((temp) => {
-                          if (
-                            !temp ||
-                            temp.length === 0 ||
-                            temp === undefined
-                          ) {
-                            console.log("nononon");
-                            setIsFav(false);
-                          } else {
-                            console.log("mon temp", temp);
-                            console.log("post", actual_post);
-                            
-                            if(temp.map((untemp) => untemp._id).includes(actual_post._id)){
-                              console.log("il le commande")
-                              setIsFav(true);
-                              
-                            }
-                            else{
-                              console.log("ile le contient pas");
-                              setIsFav(false);
-                            }
-                            console.log(isFav)
-                            
-                            /*temp.forEach((e) => {
-                              console.log("e_id",e._id);
-                              console.log("post_id",actual_post._id);
-
-                              console.log("foreach");
-                              if (e._id !== actual_post._id) {
-                                setIsFav(false);
-                                console.log("non");
-                              } else {
-                                
-                                console.log("oui", e._id);
-                                console.log("oui2", actual_post._id);
-                              }
-                            });   
-                          }
-                        });
-                    });
-                });
-              }
-            });
-        });
+            setFavourites(favs);
+            setLocations(locat);
+            setPost(actual_post);
+            setUserConnected(currentUser);
+            setUser(currentSeller);
+          });
       });
-      
-    });
-    */
+  }, []);
 
   const router = useRouter();
-
 
   const handleEnclose = () => {
     const res = fetch(`/api/posts/${post._id}/sell`, {

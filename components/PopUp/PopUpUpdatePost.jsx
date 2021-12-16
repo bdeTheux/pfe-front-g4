@@ -62,7 +62,6 @@ const PopUpUpdatePost = ({ token, post, setShow }) => {
         const data = res.json();
         return data;
       })
-      .then((temp) => console.log(temp))
       .then(() => {
         setShow(false);
         router.reload(window.location.pathname);

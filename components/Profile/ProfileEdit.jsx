@@ -55,16 +55,17 @@ const ProfileEdit = ({ user }) => {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("token"),
       },
-    })
-      .then((response) => {
-        if (response.status !== 200) {
-          console.log(response);
-        } else console.log(response);
-        //return response.json()
-      })
-      .then((json) => {
-        //router.reload()
-      });
+    }).then((res) => {
+      if (res.status != 200) {
+        res.json().then((el) => {
+          document.getElementById("errorEditProfil").className =
+            "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative";
+          document.getElementById("errorEditProfil").innerText = el.description;
+        });
+      } else {
+        router.push("/profile");
+      }
+    });
   };
 
   const router = useRouter();
