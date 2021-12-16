@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { BanIcon } from "@heroicons/react/outline";
-const ButtonRefuse = ({ postId }) => {
+const ButtonRefuse = ({ postId, action }) => {
   const [token, setToken] = useState("");
   useEffect(() => {
     setToken(localStorage.token);
@@ -22,7 +22,7 @@ const ButtonRefuse = ({ postId }) => {
       .then((res) => {
         return res.json();
       })
-      .then(() => router.reload(window.location.pathname));
+      .then(() => action(postId));
   };
   return (
     <>

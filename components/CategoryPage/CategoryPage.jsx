@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import LiCategory from "../Category/LiCategory";
 import SelectCategories from "../Category/SelectCategories";
 
-const CategoryPage = ({ categories }) => {
+const CategoryPage = ({ categories, updateCategories }) => {
   const [categoryName, setCategoryName] = useState("");
   const [categoryParent, setCategoryParent] = useState("");
   const [token, setToken] = useState("");
@@ -37,7 +37,9 @@ const CategoryPage = ({ categories }) => {
           document.getElementById("errorCategory").innerText = el.description;
         });
       } else {
-        router.reload();
+        updateCategories()
+        //setCategoryParent("")
+        //setCategoryName("")
       }
     });
   };
@@ -45,7 +47,7 @@ const CategoryPage = ({ categories }) => {
   return (
     <div className="flex m-auto bg-gray-100">
       <div className="m-auto">
-        <div>
+        <div className="flex w-screen justify-center ">
           <p id="errorCategory" className="text-4xl font-light pt-16 ml-5"></p>
 
 

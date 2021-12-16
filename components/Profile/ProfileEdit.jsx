@@ -36,12 +36,41 @@ const ProfileEdit = ({ user }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [campus, setCampus] = useState("");
+  const [campus, setCampus] = useState(campuses[0]);
   const [password, setPassword] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [newPasswordCheck, setNewPasswordCheck] = useState("");
+
+  const changePasswords = (e) => {
+    e.preventDefault();
+    fetch(`/api/users/changepassword`, {
+      method: "POST",
+      body: JSON.stringify({
+        current_password: currentPassword,
+        new_password: newPassword,
+        new_password_check: newPasswordCheck,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+      .then((response) => {
+        if (response.status !== 200) {
+          console.log(response);
+        } else console.log(response);
+        //return response.json()
+      })
+      .then((json) => {
+        //router.reload()
+      });
+  };
 
   const router = useRouter();
 
   const onEdit = async () => {
+    //TODO usiliser les set**
     if (firstName === "") firstName = user.first_name;
     if (lastName === "") lastName = user.last_name;
     if (email === "") email = user.email;
@@ -56,7 +85,7 @@ const ProfileEdit = ({ user }) => {
       campus: campus,
       password: password,
     };
-    console.log(newInfos);
+
     const res = await fetch(`/api/users/edit`, {
       method: "PUT",
       body: JSON.stringify(newInfos, user._id),
@@ -64,46 +93,18 @@ const ProfileEdit = ({ user }) => {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("token"),
       },
+    }).then((res) => {
+      if (res.status != 200) {
+        res.json().then((el) => {
+          document.getElementById("errorEditProfil").className =
+            "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative";
+          document.getElementById("errorEditProfil").innerText = el.description;
+        });
+      } else {
+        router.push("/profile");
+      }
     });
-    const data = await res.json();
-    console.log(data);
-    if (res.status !== 401) {
-      router.push("/profile");
-    } else {
-      alert("Le mot-de-passe entré est incorrect ! Veuillez réessayer svp")
-    }
   };
-
-  console.log("user", user);
-  //setPassword
-  /*
-  const onVerify = async () => {
-    console.log("email", user.email)
-    const loginUser = {
-      email: user.email,
-      password: password,
-    };
-
-    const res = await fetch("/api/login/", {
-      method: "POST",
-      body: JSON.stringify(loginUser),
-      headers: { "Content-Type": "application/json" },
-    });
-    const data = await res.json();
-    console.log("data", data);
-    if (data.description) {
-      localStorage.setItem("error", data.description);
-    } else {
-      localStorage.setItem("error", "none");
-    }
-    if (res.status == 200) {
-      localStorage.setItem("token", data.token);
-      //router.push("/profile"); //management/management
-      console.log("error");
-      //setTimeout(() => {router.reload();}, 500);
-    } 
-  };
-  */
 
   const handleContainer = async () => {
     onVerify().then(() => onEdit());
@@ -116,6 +117,7 @@ const ProfileEdit = ({ user }) => {
 
   return (
     <>
+      <p id="errorEditProfil" className="text-4xl font-light pt-16 ml-5"></p>
       <Tab.Panel className="bg-white rounded-xl p-2 focus:outline-none ring-1 ring-offset-1 ring-offset-indigo-400 ring-white ring-opacity-60">
         <form method="POST">
           <div className="relative p-2 rounded-md">
@@ -235,7 +237,6 @@ const ProfileEdit = ({ user }) => {
                                   "cursor-default select-none relative py-2 pl-3 pr-9"
                                 )
                               }
-                              value={campus}
                             >
                               {({ selected, active }) => (
                                 <>
@@ -291,6 +292,55 @@ const ProfileEdit = ({ user }) => {
           </Button>
         </div>
       </Tab.Panel>
+
+      <form method="POST">
+        <label
+          htmlFor="current_password"
+          className="text-sm font-medium text-xs font-black text-gray-600 leading-5"
+        >
+          Mot-de-passe
+        </label>
+        <input
+          type="password"
+          name="current_password"
+          id="current_password"
+          autoComplete="current-password"
+          className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm border-gray-300 rounded-md"
+          onChange={(e) => setCurrentPassword(e.target.value)}
+        />
+        <label
+          htmlFor="new_password"
+          className="text-sm font-medium text-xs font-black text-gray-600 leading-5"
+        >
+          Nouveau mot-de-passe
+        </label>
+        <input
+          type="password"
+          name="new_password"
+          id="new_password"
+          autoComplete="current-password"
+          className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm border-gray-300 rounded-md"
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
+        <label
+          htmlFor="new_password_check"
+          className="text-sm font-medium text-xs font-black text-gray-600 leading-5"
+        >
+          Confirmation nouveau mot-de-passe
+        </label>
+        <input
+          type="password"
+          name="new_password_check"
+          id="new_password_check"
+          autoComplete="current-password"
+          className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm border-gray-300 rounded-md"
+          onChange={(e) => setNewPasswordCheck(e.target.value)}
+        />
+        <Button onClick={changePasswords} color={`green`}>
+          Confirmer
+          <CheckIcon className="text-white h-5 w-5 mt-0.5 ml-2" />
+        </Button>
+      </form>
 
       {/* ---------------------------------------------------------------------------------------------------------------- */}
 

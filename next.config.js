@@ -9,7 +9,9 @@ module.exports = {
     customKey: PREFIX, //"https://pfe-back-g4-dev.herokuapp.com/",
   },
   images: {
+
     domains: ["res.cloudinary.com"],
+
   },
   async rewrites() {
     return [

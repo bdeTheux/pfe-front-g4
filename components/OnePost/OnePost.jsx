@@ -15,6 +15,7 @@ import { AppContext } from "../../context/context";
 
 import Map from "../Map/Map";
 import FavouriteButton from "../Button/FavouriteButton";
+import Carousel from "../Carousel/Carousel";
 
 const OnePost = ({ postId }) => {
   const [post, setPost] = useState([]);
@@ -25,7 +26,6 @@ const OnePost = ({ postId }) => {
   const [locations, setLocations] = useState([]);
   //const [appContext, setAppContext] = useState([]);
   const [userConnected, setUserConnected] = useState([]);
-  console.log("user", userConnected);
   useEffect(() => {
     let actual_post;
     fetch(`/api/posts/${postId}`, {
@@ -131,7 +131,6 @@ const OnePost = ({ postId }) => {
     }).then((temp) => router.push("/"));
   };
 
-  console.log("post", post);
   if (userConnected && userConnected.is_banned) {
     return <BanPage />;
   }
@@ -141,21 +140,14 @@ const OnePost = ({ postId }) => {
       <div>
         <section className="text-gray-700 body-font overflow-hidden bg-white">
           <div className="container px-5 py-24 mx-auto">
-            <div className="lg:w-4/5 mx-auto flex flex-wrap  ">
-              <div className="flex flex-col">
-                <img
-                  alt="Image du produit"
-                  className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-                  src={
-                    post && post.images && post.images.length > 0
-                      ? post.images[0]
-                      : "/images/bidon.jpg/"
-                  } //change with carousel
-                />
+            <div className="lg:w-4/5 mx-auto flex flex-row  ">
+              <div className="flex flex-col lg:w-1/2 h-80">
+                <div className="flex w-80 h-1/6"></div>
+                <Carousel images={post && post.images ? post.images : []} />
                 {post && post.video ? (
                   <video
                     controls
-                    className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
+                    className="flex lg:w-1/2 w-full pt-60 object-cover object-center rounded border border-gray-200"
                   >
                     <source src={post.video}></source>
                   </video>
@@ -189,7 +181,6 @@ const OnePost = ({ postId }) => {
                   ) : (
                     ""
                   )}
-
                   <p className="mt-4 leading-relaxed">{post.description}</p>
                 </div>
                 <div className=" w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
@@ -208,7 +199,8 @@ const OnePost = ({ postId }) => {
                       </p>
                       <p className="leading-relaxed">Contact : {user.email}</p>
                       <p className="leading-relaxed">
-                        Possibles lieux d'échange : {post.places}
+                        Possibles lieux d'échange :{" "}
+                        {post && post.places ? post.places.toString() : ""}
                       </p>
                       <div className="mb-1">
                         <ButtonMailTo mailto={user.email} title={post.title} />
@@ -227,7 +219,7 @@ const OnePost = ({ postId }) => {
                         className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
                       >
                         <TrashIcon className="flex ml-3 w-6 text-red-500" />
-                        <span className="pl-2 mx-1">Delete</span>
+                        <span className="pl-2 mx-1">Supprimer</span>
                       </button>
                       <div>
                         <PopUpButton post={post} className="flex ml-3 w-6 " />
@@ -238,7 +230,7 @@ const OnePost = ({ postId }) => {
                         className=" items-end px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
                       >
                         <LockClosedIcon className="ml-3 w-6 text-red-500" />
-                        Cloturer
+                        Clôturer
                       </button>
                     </div>
                   ) : (

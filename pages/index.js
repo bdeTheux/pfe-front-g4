@@ -20,64 +20,6 @@ const postsTest = [
       },
     ],
   },
-  /*
-  {
-    id: 2,
-    title: "Bomber Jacket",
-    image:
-      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=736&q=80",
-    price: 35,
-    campus: "Woluwe",
-  },
-  {
-    id: 3,
-    title: "Chaussure Nike",
-    image:
-      "https://images.unsplash.com/photo-1615424902876-df124220b0b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80",
-    price: 15,
-    campus: "Louvain-La-Neuve",
-  },
-  {
-    id: 4,
-    title: "Denim dress",
-    image:
-      "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    price: 10,
-    campus: "Ixelles",
-  },
-  {
-    id: 5,
-    title: "Pull",
-    image:
-      "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80",
-    price: 25,
-    campus: "Woluwe",
-  },
-  {
-    id: 6,
-    title: "Bomber Jacket",
-    image:
-      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=736&q=80",
-    price: 35,
-    campus: "Woluwe",
-  },
-  {
-    id: 7,
-    title: "Chaussure Nike",
-    image:
-      "https://images.unsplash.com/photo-1615424902876-df124220b0b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80",
-    price: 15,
-    campus: "Louvain-La-Neuve",
-  },
-  {
-    id: 8,
-    title: "Denim dress",
-    image:
-      "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    price: 10,
-    campus: "Ixelles",
-  },
-  */
 ];
 
 export const getServerSideProps = async () => {

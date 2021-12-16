@@ -1,5 +1,5 @@
 import ButtonBan from "../Buttons/ButtonBan";
-const Member = ({ member }) => {
+const Member = ({ member, updateMemberList}) => {
   return (
     <tr>
       <td className="px-6 py-4 whitespace-nowrap">
@@ -23,7 +23,7 @@ const Member = ({ member }) => {
         </div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-        <ButtonBan member={member} />
+        <ButtonBan member={member}  updateMemberList={updateMemberList} />
       </td>
     </tr>
   );
