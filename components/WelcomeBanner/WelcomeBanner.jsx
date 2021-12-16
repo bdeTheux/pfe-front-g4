@@ -8,10 +8,7 @@ const WelcomeBanner = ({ post }) => {
       <div className="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between flex-wrap">
           <span className="flex p-2 bg-yellow-600 rounded-lg hidden md:block">
-            <SpeakerphoneIcon
-              className="h-6 w-6 text-white"
-              aria-hidden="true"
-            />
+            <CountCloture />
           </span>
           <p className="text-center  italic ml-3 font-thin truncate md:inline select-none">
             « Nous avons tous des trésors enfouis au fond de notre grenier ou de
