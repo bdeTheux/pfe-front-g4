@@ -86,7 +86,7 @@ const OnePost = ({ postId }) => {
               return temp;
             })
             .then((temp) => {
-              if (!temp || temp.length === 0) {
+              if (!temp || temp.length === 0 ) {
                 setIsFav(false);
               } else {
                 console.log("ici", currentUser);
