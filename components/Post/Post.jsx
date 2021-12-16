@@ -26,9 +26,7 @@ const Post = ({ post }) => {
         <p className="mt-1 text-lg text-sm md:text-medium font-light text-gray-900">
           {post.price}€
         </p>
-        <div>
-          
-        </div>
+        <div></div>
       </a>
     </Link>
   );

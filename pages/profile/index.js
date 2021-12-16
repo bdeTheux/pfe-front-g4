@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { ArchiveIcon, IdentificationIcon } from "@heroicons/react/outline";
 
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }

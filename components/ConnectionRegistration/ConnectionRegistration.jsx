@@ -33,9 +33,6 @@ const ConnectionRegistration = () => {
     );
   }
   return (
-    /*<div className="md:mt-24">
-        <AlertVerif />
-      </div>*/
     <div>
       <Head>
         <title>Se connecter - beefound</title>

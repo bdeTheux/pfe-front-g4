@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 const Carousel = ({ images }) => {
-
   const imagesSlice = images.slice(1 - images.length);
 
   return (
@@ -128,6 +127,3 @@ const Carousel = ({ images }) => {
   );
 };
 export default Carousel;
-
-/**       <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
- */
