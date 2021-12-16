@@ -19,13 +19,23 @@ const LiCategory = ({ categories, category }) => {
       headers: {
         Authorization: token,
       },
-    }).then(() => router.push("/management"));
+    }).then((res) => {
+      if (res.status != 200) {
+        res.json().then((el) => {
+          document.getElementById("errorCategory").className =
+            "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative";
+          document.getElementById("errorCategory").innerText = el.description;
+        });
+      } else {
+        router.push("/management");
+      }
+    });
   };
   const handleUpdate = () => {
-    if (categoryName === "") categoryName = category.name;
+    if (categoryName === "") setCategoryName(category.name);
 
     if (categoryParent === "") {
-      categoryParent = category.parent;
+      setCategoryParent(category.parent);
     }
     const updatedCategory = {
       name: categoryName,
@@ -33,19 +43,24 @@ const LiCategory = ({ categories, category }) => {
       sub_categories: category.sub_categories,
     };
 
-    fetch(`/api/categories/${category.name}`, {
+    const resUpdate = fetch(`/api/categories/${category.name}`, {
       method: "Put",
       headers: {
         "Content-Type": "application/json",
         Authorization: token,
       },
       body: JSON.stringify(updatedCategory),
-    })
-      .then((res) => {
-        const data = res.json();
-        return data;
-      })
-      .then(() => router.push("/management"));
+    }).then((resUpdate) => {
+      if (resUpdate.status != 200) {
+        resUpdate.json().then((el) => {
+          document.getElementById("errorCategory").className =
+            "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative";
+          document.getElementById("errorCategory").innerText = el.description;
+        });
+      } else {
+        router.push("/management");
+      }
+    });
   };
   var handleChange = function (event) {
     this.setState({ html: event.target.value });

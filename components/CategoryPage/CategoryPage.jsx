@@ -37,7 +37,7 @@ const CategoryPage = ({ categories, updateCategories }) => {
           document.getElementById("errorCategory").innerText = el.description;
         });
       } else {
-        updateCategories()
+        updateCategories();
         //setCategoryParent("")
         //setCategoryName("")
       }
@@ -48,12 +48,13 @@ const CategoryPage = ({ categories, updateCategories }) => {
     <div className="flex m-auto bg-gray-100">
       <div className="m-auto">
         <div className="flex w-screen justify-center ">
-          <p id="errorCategory" className="text-4xl font-light pt-16 ml-5"></p>
-
-
           <div className="mt-5 bg-white rounded-lg shadow">
             <div className="flex">
               <div className="flex-1 py-5 pl-5 overflow-hidden">
+                <p
+                  id="errorCategory"
+                  className="text-4xl font-light pt-16 ml-5"
+                ></p>
                 <h1 className="inline text-2xl font-semibold leading-none">
                   Ajouter
                 </h1>
