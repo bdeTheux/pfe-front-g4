@@ -1,5 +1,4 @@
 import { Fragment, useState, useEffect } from "react";
-import CountCloture from "../../components/CountCloture/CountCloture";
 import PostsListFull from "../../components/PostsList/PostsListFull";
 
 export const getServerSideProps = async () => {
