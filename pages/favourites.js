@@ -7,7 +7,7 @@ export default function Favourites({ posts }) {
   const [favourites, setFavourites] = useState([]);
 
   useEffect(() => {
-    fetch("http://pfe-back-g4-dev.herokuapp.com/posts/favourites", {
+    fetch("https://pfe-back-g4-dev.herokuapp.com/posts/favourites", {
       headers: {
         "Content-Type": "application.json",
         Authorization: localStorage.getItem("token"),
@@ -18,13 +18,12 @@ export default function Favourites({ posts }) {
       })
       .then((temp) => {
         setFavourites(temp);
-        console.log("favourites", temp);
       });
   }, []);
   return (
     <div className="flex flex-col items-center justify-center md:mt-20 py-2 md:py-6">
       <Head>
-        <title>Favoris - vincimarket</title>
+        <title>Favoris - beefound</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1 className="text-3xl font-extrabold mt-4 md:mt-8">Vos favoris</h1>

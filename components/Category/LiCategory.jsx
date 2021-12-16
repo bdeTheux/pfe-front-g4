@@ -80,7 +80,7 @@ const LiCategory = ({ categories, category, action }) => {
             defaultValue={category.name}
             onChange={(val) => setCategoryName(val.target.value)}
             className=" text-black placeholder-gray-800 w-full px-4 py-2.5 mt-1 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-            />
+          />
           <p className="font-light text-gray-500">Categorie parente</p>
           <SelectCategories
             categories={categories}

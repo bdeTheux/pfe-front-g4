@@ -12,7 +12,7 @@ const Meta = ({ title, keywords }) => {
 };
 
 Meta.defaultProps = {
-  title: "VinciMarket",
+  title: "beefound",
   keywords: "seconde main, market, vetements, achat en ligne",
 };
 

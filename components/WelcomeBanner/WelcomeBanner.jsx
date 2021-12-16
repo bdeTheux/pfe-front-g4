@@ -20,7 +20,7 @@ const WelcomeBanner = ({ post }) => {
           </p>
           <div className="order-3 mt-2 flex-shrink-0 w-full md:order-2 md:mt-0 md:w-auto">
             <Link href="/about">
-              <a className="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-yellow-500 bg-white hover:bg-indigo-50">
+              <a className="flex items-center justify-center px-4 py-2 border border-transparent rounded-xl shadow-sm text-sm font-medium text-yellow-500 bg-white hover:bg-indigo-50">
                 En savoir plus
               </a>
             </Link>

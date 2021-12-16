@@ -25,6 +25,7 @@ const OnePost = ({ postId }) => {
   const [show, setShow] = useState(false);
   const [locations, setLocations] = useState([]);
   const [userConnected, setUserConnected] = useState([]);
+  const [token, setToken] = useState("non");
 
   useEffect(() => {
     let token = localStorage.getItem("token");
@@ -68,34 +69,38 @@ const OnePost = ({ postId }) => {
           });
       })
       .then((ap) => {
-        fetch("/api/posts/favourites", {
-          headers: {
-            "Content-Type": "application.json",
-            Authorization: localStorage.getItem("token"),
-          },
-        })
-          .then((res) => {
-            return res.json();
+        if (localStorage.getItem("token")) {
+          setToken(localStorage.getItem("token"));
+          fetch("/api/posts/favourites", {
+            headers: {
+              "Content-Type": "application.json",
+              Authorization: localStorage.getItem("token"),
+            },
           })
-          .then((temp) => {
-            //setFavourites(temp);
-            favs = temp;
-            return temp;
-          })
-          .then((temp) => {
-            if (!temp || temp.length === 0 || temp === undefined) {
-              setIsFav(false);
-            } else {
-              if (currentUser.favorites.includes(postId)) {
-                setIsFav(true);
+            .then((res) => {
+              return res.json();
+            })
+            .then((temp) => {
+              //setFavourites(temp);
+              favs = temp;
+              return temp;
+            })
+            .then((temp) => {
+              if (!temp || temp.length === 0 || temp === undefined) {
+                setIsFav(false);
+              } else {
+                console.log("ici", currentUser);
+                if (currentUser.favorites.includes(postId)) {
+                  setIsFav(true);
+                }
               }
-            }
-            setFavourites(favs);
-            setLocations(locat);
-            setPost(actual_post);
-            setUserConnected(currentUser);
-            setUser(currentSeller);
-          });
+              setFavourites(favs);
+              setLocations(locat);
+              setPost(actual_post);
+              setUserConnected(currentUser);
+              setUser(currentSeller);
+            });
+        }
       });
   }, []);
 
@@ -153,11 +158,15 @@ const OnePost = ({ postId }) => {
                       {post.title}
                     </h1>
                     <div className="col-span-1">
-                      <FavouriteButton
-                        post={post}
-                        isFav={isFav}
-                        setIsFav={setIsFav}
-                      />
+                      {token !== "non" ? (
+                        <FavouriteButton
+                          post={post}
+                          isFav={isFav}
+                          setIsFav={setIsFav}
+                        />
+                      ) : (
+                        <></>
+                      )}
                     </div>
                   </div>
                   <div className="flex mb-4">

@@ -1,7 +1,7 @@
 import PostsListFull from "../../components/PostsList/PostsListFull";
 
 export const getServerSideProps = async () => {
-  const res = await fetch("http://pfe-back-g4-dev.herokuapp.com/posts/");
+  const res = await fetch("https://pfe-back-g4-dev.herokuapp.com/posts/");
 
   const posts = await res.json();
   return {
