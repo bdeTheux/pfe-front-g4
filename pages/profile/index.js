@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { ArchiveIcon, IdentificationIcon } from "@heroicons/react/outline";
 
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -54,7 +55,7 @@ export default function profile() {
   return (
     <div className="mt-2 md:mt-28 md:px-10 mx-10 md:mx-20 lg:mx-80">
       <Head>
-        <title>Mon Profil - vincimarket</title>
+        <title>Mon Profil - beefound</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Tab.Group>
