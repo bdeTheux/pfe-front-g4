@@ -2,6 +2,8 @@ import Connection from "./Connection";
 import Registration from "./Registration";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
+
 import AlertVerif from "../Alert/AlertVerif";
 
 const ConnectionRegistration = () => {
@@ -35,6 +37,10 @@ const ConnectionRegistration = () => {
         <AlertVerif />
       </div>*/
     <div>
+      <Head>
+        <title>Se connecter - beefound</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <p id="errorConnection" className=""></p>
       <div className="md:mt-24 grid grid-cols-1 md:grid-cols-2 divide-x">
         <div>

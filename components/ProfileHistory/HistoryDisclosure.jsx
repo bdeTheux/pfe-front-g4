@@ -5,6 +5,7 @@ import Image from "next/image";
 import LocationBadges from "../LocationBadges/LocationBadges";
 
 const HistoryDisclosure = ({ statusName, statusArray, children }) => {
+  //console.log("MOI", statusArray[0].images);
   return (
     <>
       <Disclosure defaultOpen="true" as="div" className="border-b border-gray-200 py-6">
