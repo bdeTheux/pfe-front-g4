@@ -1,9 +1,8 @@
 import { MenuIcon, SearchIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import Image from "next/image";
-import {useState} from "react";
+import { useState } from "react";
 import { Transition } from "@headlessui/react";
-
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

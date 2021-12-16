@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import SelectCategories from "./SelectCategories";
 import { useRouter } from "next/router";
 
-const LiCategory = ({ categories, category }) => {
+const LiCategory = ({ categories, category, action }) => {
   const [token, setToken] = useState("");
-  const [categoryName, setCategoryName] = useState("");
-  const [categoryParent, setCategoryParent] = useState("");
+  const [categoryName, setCategoryName] = useState(category.name);
+  const [categoryParent, setCategoryParent] = useState(category.parent);
   const label = "categorie parente";
   const router = useRouter();
 
@@ -19,13 +19,23 @@ const LiCategory = ({ categories, category }) => {
       headers: {
         Authorization: token,
       },
-    }).then(() => router.push("/management"));
+    }).then((res) => {
+      if (res.status != 200) {
+        res.json().then((el) => {
+          document.getElementById("errorCategory").className =
+            "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative";
+          document.getElementById("errorCategory").innerText = el.description;
+        });
+      } else {
+        action();
+      }
+    });
   };
   const handleUpdate = () => {
-    if (categoryName === "") categoryName = category.name;
+    if (categoryName === "") setCategoryName(category.name);
 
     if (categoryParent === "") {
-      categoryParent = category.parent;
+      setCategoryParent(category.parent);
     }
     const updatedCategory = {
       name: categoryName,
@@ -33,19 +43,24 @@ const LiCategory = ({ categories, category }) => {
       sub_categories: category.sub_categories,
     };
 
-    fetch(`/api/categories/${category.name}`, {
+    const resUpdate = fetch(`/api/categories/${category.name}`, {
       method: "Put",
       headers: {
         "Content-Type": "application/json",
         Authorization: token,
       },
       body: JSON.stringify(updatedCategory),
-    })
-      .then((res) => {
-        const data = res.json();
-        return data;
-      })
-      .then(() => router.push("/management"));
+    }).then((resUpdate) => {
+      if (resUpdate.status != 200) {
+        resUpdate.json().then((el) => {
+          document.getElementById("errorCategory").className =
+            "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative";
+          document.getElementById("errorCategory").innerText = el.description;
+        });
+      } else {
+        action();
+      }
+    });
   };
   var handleChange = function (event) {
     this.setState({ html: event.target.value });
@@ -65,7 +80,7 @@ const LiCategory = ({ categories, category }) => {
             defaultValue={category.name}
             onChange={(val) => setCategoryName(val.target.value)}
             className=" text-black placeholder-gray-800 w-full px-4 py-2.5 mt-1 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-          ></textarea>
+            />
           <p className="font-light text-gray-500">Categorie parente</p>
           <SelectCategories
             categories={categories}
