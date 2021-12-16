@@ -6,6 +6,7 @@ import Button from "../Button/Button";
 import { useRouter } from "next/router";
 import { AppContext } from "../../context/context";
 import {useContext} from "react";
+
 const logout = (router) => {
   localStorage.setItem("token", "");
   router.push("/");

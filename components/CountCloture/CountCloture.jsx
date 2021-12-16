@@ -5,7 +5,7 @@ const CountCloture = () => {
     .then((res) => res.json())
     .then((count) => setCountCloture(count));
   return (
-    <p className="text-white italic font-light">Jusqu'ici, <strong className="font-extrabold not-italic text-xl text-yellow-600 bg-white px-2 rounded-full">{countCloture}</strong> objets ont eu droit à une seconde vie !</p>
+    <p className="text-white italic font-light select-none">Jusqu'ici, <strong className="font-extrabold not-italic text-xl text-yellow-600 bg-white px-2 rounded-full">{countCloture}</strong> objets ont eu droit à une seconde vie !<span role="img" aria-label="bee"> 🐝</span></p>
   );
 };
 

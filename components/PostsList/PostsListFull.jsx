@@ -49,7 +49,7 @@ const PostsListFull = ({ title, camp }) => {
     let newPath = "/api/posts";
     if (camp !== "Tout" && camp !== null && camp !== undefined) {
       if (cat !== "Les annonces") {
-        newPath += "/?campus=" + camp + "&category=" + cat;
+        newPath += "/?campus=" + camp;
       } else {
         newPath += "/?campus=" + camp;
       }
@@ -101,7 +101,6 @@ const PostsListFull = ({ title, camp }) => {
         setCategories(temp);
       });
     pathBuilder(campus, title);
-    //pathBuilder("Ixelles", "Les annonces");
   }, []);
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
@@ -413,7 +412,7 @@ const PostsListFull = ({ title, camp }) => {
                                     ) : (
                                       <>
                                         <Link
-                                          href={`/posts/${title}&${option.campus}`}
+                                          href={`/posts/${option.campus}`}
                                         >
                                           <input
                                             id={`filter-${section.id}-${optionIdx}`}

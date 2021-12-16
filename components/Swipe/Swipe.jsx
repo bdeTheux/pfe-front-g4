@@ -1,16 +1,33 @@
 import { Transition, Dialog } from "@headlessui/react";
-import {
-  ArrowCircleLeftIcon,
-  ArrowCircleRightIcon,
-} from "@heroicons/react/outline";
 import { BanIcon, CheckIcon } from "@heroicons/react/solid";
 import React, { useState, useEffect, Fragment } from "react";
 import TinderCard from "react-tinder-card";
+import { useRouter } from "next/router";
 
 const Swipe = () => {
   const [posts, setPosts] = useState([]);
   const [lastDirection, setLastDirection] = useState();
   const [isOpen, setIsOpen] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    fetch("/api/users/whoami", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((temp) => {
+        if (!temp) {
+          localStorage.setItem("token", "");
+          router.push("/connectionRegistration");
+        }
+      });
+  }, []);
 
   const swiped = async (direction, postId) => {
     setLastDirection(direction);
