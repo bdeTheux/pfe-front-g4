@@ -18,11 +18,11 @@ const About = () => {
         </h1>
         <br></br>
         <p className="mx-60 text-center tracking-wide">
-          VinciMarket est une plateforme à destination de tous les membres de la
+          beefound est une plateforme à destination de tous les membres de la
           Communauté Vinci qui souhaitent vendre, donner ou acheter des objets
           en attente d’une seconde vie. Ce projet s’inscrit dans une démarche de
           développement durable visant à promouvoir le réemploi et le recyclage.
-          VinciMarket favorise donc la récupération, le recyclage, la
+          beefound favorise donc la récupération, le recyclage, la
           revalorisation d’objets et de produits mais également les liens
           sociaux via des échanges et contacts entre les membres d’une même
           communauté. Vous pouvez, vous aussi, intégrer la plateforme et mettre
