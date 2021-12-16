@@ -176,8 +176,7 @@ const OnePost = ({ postId }) => {
                   </h1>
                   {userConnected === null ? (
                     <p className="leading-relaxed">
-                      Veuillez vous connectez pour accéder à ces informations
-                      (ou vous avez été banni)
+                      Veuillez vous connecter pour accéder à ces informations.
                     </p>
                   ) : (
                     <div>
