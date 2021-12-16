@@ -6,3 +6,5 @@ const CountCloture = () => {
     .then((count) => setCountCloture(count));
   return <></>;
 };
+
+export default CountCloture;
