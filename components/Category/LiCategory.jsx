@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import SelectCategories from "./SelectCategories";
 import { useRouter } from "next/router";
 
-const LiCategory = ({ categories, category }) => {
+const LiCategory = ({ categories, category, action }) => {
   const [token, setToken] = useState("");
-  const [categoryName, setCategoryName] = useState("");
-  const [categoryParent, setCategoryParent] = useState("");
+  const [categoryName, setCategoryName] = useState(category.name);
+  const [categoryParent, setCategoryParent] = useState(category.parent);
   const label = "categorie parente";
   const router = useRouter();
 
@@ -27,7 +27,7 @@ const LiCategory = ({ categories, category }) => {
           document.getElementById("errorCategory").innerText = el.description;
         });
       } else {
-        router.push("/management");
+        action();
       }
     });
   };
@@ -58,7 +58,7 @@ const LiCategory = ({ categories, category }) => {
           document.getElementById("errorCategory").innerText = el.description;
         });
       } else {
-        router.push("/management");
+        action();
       }
     });
   };
@@ -80,7 +80,7 @@ const LiCategory = ({ categories, category }) => {
             defaultValue={category.name}
             onChange={(val) => setCategoryName(val.target.value)}
             className=" text-black placeholder-gray-800 w-full px-4 py-2.5 mt-1 text-base   transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-300  focus:border-blueGray-500 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"
-          ></textarea>
+            />
           <p className="font-light text-gray-500">Categorie parente</p>
           <SelectCategories
             categories={categories}

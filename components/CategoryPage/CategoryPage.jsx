@@ -125,6 +125,7 @@ const CategoryPage = ({ categories, updateCategories }) => {
                         categories={categories}
                         category={element}
                         key={element.name}
+                        action={updateCategories}
                       />
                     );
                   })}
