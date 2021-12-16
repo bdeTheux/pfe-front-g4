@@ -22,7 +22,6 @@ const NewPost = ({ categories }) => {
     setToken(localStorage.getItem("token"));
   });
   let label = "Choisissez une catégorie";
-  console.log(isSpin);
   const submitPost = () => {
     setIsSpin(true);
     const formData = new FormData();

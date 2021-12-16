@@ -55,16 +55,17 @@ const ProfileEdit = ({ user }) => {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("token"),
       },
-    })
-      .then((response) => {
-        if (response.status !== 200) {
-          console.log(response);
-        } else console.log(response);
-        //return response.json()
-      })
-      .then((json) => {
-        //router.reload()
-      });
+    }).then((res) => {
+      if (res.status != 200) {
+        res.json().then((el) => {
+          document.getElementById("errorEditProfil").className =
+            "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative";
+          document.getElementById("errorEditProfil").innerText = el.description;
+        });
+      } else {
+        router.push("/profile");
+      }
+    });
   };
 
   const router = useRouter();
@@ -112,9 +113,6 @@ const ProfileEdit = ({ user }) => {
 
   const [selected, setSelected] = useState(campuses[0]);
 
-  console.log("selected", selected);
-  console.log("user.campus", user.campus);
-
   return (
     <>
       <p id="errorEditProfil" className="text-4xl font-light pt-16 ml-5"></p>
@@ -135,7 +133,6 @@ const ProfileEdit = ({ user }) => {
               className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm border-gray-300 rounded-md"
               defaultValue={user.first_name}
               onChange={(e) => {
-                console.log("firstname", e.target.value);
                 setFirstName(e.target.value);
               }}
             />
@@ -178,7 +175,6 @@ const ProfileEdit = ({ user }) => {
             <Listbox
               value={selected}
               onChange={(e) => {
-                console.log("targeeeet", e);
                 setSelected(e);
                 setCampus(e);
               }}

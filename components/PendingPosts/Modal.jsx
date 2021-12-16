@@ -68,7 +68,7 @@ export default function Modal({ images, video }) {
                 </Dialog.Title>
                 <div className="align-middle">
                   {images.map((image) => (
-                    <img src={image}></img>
+                    <img key={image} src={image}></img>
                   ))}
                   {video ? (
                     <video controls>

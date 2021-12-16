@@ -3,11 +3,6 @@ import { HeartIcon as HeartIconOutline } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 
 const FavouriteButton = ({ post, isFav, setIsFav }) => {
-  
-  console.log("fav", isFav)
-
-
-
   const favourite = async () => {
     const res = await fetch(`/api/users/changefavorite/${post._id}`, {
       method: "POST",
@@ -18,9 +13,8 @@ const FavouriteButton = ({ post, isFav, setIsFav }) => {
       },
     });
     const data = await res.json();
-    console.log(data);
     if (res.status !== 401) {
-      setIsFav(!isFav)
+      setIsFav(!isFav);
     } else {
       alert("Favoris échoué");
     }

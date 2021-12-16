@@ -50,7 +50,6 @@ const OnePost = ({ postId }) => {
         const newAddress = data.addresses.map((e) => {
           return { lat: e.lat, lng: e.long };
         });
-        console.log(newAddress);
         //setLocations(newAddress);
         locat = newAddress;
       })
