@@ -28,24 +28,28 @@ const Management = () => {
         return res.json();
       })
       .then((cu) => {
-        connectedUser = cu;
-      })
-      .then(() => {
-        fetch("/api/users/", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token"),
-          },
-        })
-          .then((res) => {
-            return res.json();
+        if (!cu) {
+          localStorage.setItem("token", "");
+          router.push("/connectionRegistration");
+        } else {
+          connectedUser = cu;
+
+          fetch("/api/users/", {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: localStorage.getItem("token"),
+            },
           })
-          .then((temp) => {
-            let tempFilter = temp.filter(
-              (member) => member._id != connectedUser._id
-            );
-            setUsers(tempFilter);
-          });
+            .then((res) => {
+              return res.json();
+            })
+            .then((temp) => {
+              let tempFilter = temp.filter(
+                (member) => member._id != connectedUser._id
+              );
+              setUsers(tempFilter);
+            });
+        }
       });
 
     fetch("/api/posts/pending", {

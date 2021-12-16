@@ -11,6 +11,7 @@ const CountCloture = () => {
         {countCloture}
       </strong>
       objets ont eu droit à une seconde vie !
+      <span role="img" aria-label="bee"> 🐝</span>
     </p>
   );
 };

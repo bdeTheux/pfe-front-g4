@@ -1,14 +1,10 @@
 import Connection from "./Connection";
 import Registration from "./Registration";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import Head from "next/head";
-
-import AlertVerif from "../Alert/AlertVerif";
 
 const ConnectionRegistration = () => {
   const [user, setUser] = useState([]);
-  const router = useRouter();
 
   useEffect(() => {
     fetch("/api/users/whoami", {
