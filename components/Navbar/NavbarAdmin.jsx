@@ -4,6 +4,7 @@ import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import { useState } from "react";
 
+
 import Link from "next/link";
 
 const NavbarAdmin = () => {
@@ -237,7 +238,7 @@ const NavbarAdmin = () => {
         "
           >
             <Link href="/discover">
-              <a className="text-primary border border-gray-200 font-semibold px-4 rounded-md py-2 hover:bg-gray-200">
+              <a className="text-primary border border-gray-200 font-semibold px-4 rounded-lg md:py-2 py-5 hover:bg-gray-200">
                 Let's swipe?
               </a>
             </Link>
