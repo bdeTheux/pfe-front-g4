@@ -1,5 +1,4 @@
 import { PencilIcon, TrashIcon } from "@heroicons/react/outline";
-import { redirect } from "next/dist/server/api-utils";
 import { useState, useEffect } from "react";
 import SelectCategories from "./SelectCategories";
 import { useRouter } from "next/router";
