@@ -7,17 +7,20 @@ import {
   TrashIcon,
   LockClosedIcon,
 } from "@heroicons/react/outline";
+
 import { PopUpUpdatePost } from "../PopUp/PopUpUpdatePost";
 import PopUpButton from "../PopUp/PopUpButton";
 import { useRouter } from "next/router";
 import { AppContext } from "../../context/context";
 
 import Map from "../Map/Map";
+import FavouriteButton from "../Button/FavouriteButton";
 
 const OnePost = ({ postId }) => {
   const [post, setPost] = useState([]);
   const [user, setUser] = useState([]);
-  const [token, setToken] = useState([]);
+  const [favourites, setFavourites] = useState([]);
+  const [isFav, setIsFav] = useState(false);
   const [show, setShow] = useState(false);
   const [locations, setLocations] = useState([]);
   //const [appContext, setAppContext] = useState([]);
@@ -66,6 +69,19 @@ const OnePost = ({ postId }) => {
         });
       });
     });
+    fetch("http://pfe-back-g4-dev.herokuapp.com/posts/favourites", {
+      headers: {
+        "Content-Type": "application.json",
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((temp) => {
+        setFavourites(temp);
+        console.log("favourites", temp);
+      });
     fetch("/api/users/whoami", {
       headers: {
         "Content-Type": "application/json",
@@ -74,6 +90,18 @@ const OnePost = ({ postId }) => {
     })
       .then((res) => res.json())
       .then((uc) => setUserConnected(uc));
+
+    if (!favourites || favourites.length === 0 || favourites === undefined) {
+      setIsFav(false);
+    } else {
+      favourites.forEach((e) => {
+        if (e._id === post._id) {
+          setIsFav(true);
+        } else {
+          setIsFav(false);
+        }
+      });
+    }
   }, []);
 
   const router = useRouter();
@@ -140,9 +168,14 @@ const OnePost = ({ postId }) => {
                   <h2 className="text-sm title-font text-gray-500 tracking-widest">
                     {post.category_id}
                   </h2>
-                  <h1 className="flex text-gray-900 text-3xl title-font font-medium mb-1">
-                    {post.title}
-                  </h1>
+                  <div className="grid grid-cols-4">
+                    <h1 className="flex text-gray-900 text-3xl title-font font-medium mb-1 col-span-3">
+                      {post.title}
+                    </h1>
+                    <div className="col-span-1">
+                      <FavouriteButton post={post} fav={isFav} />
+                    </div>
+                  </div>
                   <div className="flex mb-4">
                     <span className="flex items-center"></span>
                   </div>

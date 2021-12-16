@@ -41,13 +41,7 @@ const PostsListFull = ({ title, camp }) => {
   const [categories, setCategories] = useState([]);
   const [postsList, setPostsList] = useState([]);
   const [campus, setCampus] = useState(camp);
-  /*
-  if(campus){
-    filters.options.forEach((e)=>{
-      e.campus === campus ? e.checked = true : e.checked = false
-    })
-  }*/
-  //const [order, setOrder] = useState(sortOptions)
+
   const router = useRouter();
   console.log("title", title);
 

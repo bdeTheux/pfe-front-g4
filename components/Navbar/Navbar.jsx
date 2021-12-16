@@ -1,8 +1,11 @@
 import { MenuIcon, SearchIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import Image from "next/image";
+import {useState} from "react"
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <header
       className="
@@ -23,32 +26,33 @@ const Navbar = () => {
     "
       >
         <div className="flex justify-between">
-          <Link href="/">
+          <Link href="/connectionRegistration">
             <a className="text-primary border border-gray-200 font-semibold lg:hidden px-4 rounded-md py-2 hover:bg-gray-200">
               Let's swipe?
             </a>
           </Link>
           <Link href="/">
             <a className="text-gray-800 dark:text-gray-200">
-              <div className="flex items-center ml-5">
+              <div className="flex items-center md:ml-8 mr-12 md:mr-auto">
                 <Image
                   src="/images/vincimarket_logo (1).svg"
-                  width="50"
-                  height="50"
+                  width="65"
+                  height="65"
                   className="mr-4"
                 />
-                <p className="text-xl ml-2 hidden md:block">vincimarket</p>
+                <p className="text-xl ml-3 hidden md:block font-mono tracking-widest text-yellow-600"><strong className="text-black">bee</strong>found</p>
               </div>
             </a>
           </Link>
 
           <div className="flex items-center space-x-2 lg:hidden">
-            <button className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none">
+            <button onClick={() => setIsOpen(!isOpen)} className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-100 dark:active:bg-gray-800 active:outline-none">
               <MenuIcon className="w-6 h-6 text-gray-700 dark:text-gray-300" />
             </button>
           </div>
         </div>
-        <div className="flex flex-col space-y-4 lg:hidden">
+        {isOpen ? (
+          <div className="flex flex-col space-y-4 lg:hidden">
           <div
             className="
           flex flex-col
@@ -58,11 +62,6 @@ const Navbar = () => {
           lg:items-center
         "
           >
-            <Link href="/">
-              <a className="text-gray-500 dark:text-gray-200 hover:text-gray-800">
-                Something
-              </a>
-            </Link>
             <div className="relative hidden lg:block">
               <div>
                 <button
@@ -154,6 +153,10 @@ const Navbar = () => {
             </Link>
           </div>
         </div>
+        ):(
+          <></>
+        )}
+        
         <div
           className="
         hidden
@@ -174,14 +177,9 @@ const Navbar = () => {
           lg:items-center
         "
           >
-            <Link href="/">
+            <Link href="/connectionRegistration">
               <a className="text-primary border border-gray-200 font-semibold px-4 rounded-md py-2 hover:bg-gray-200">
                 Let's swipe?
-              </a>
-            </Link>
-            <Link href="/">
-              <a className="text-gray-500 dark:text-gray-200 hover:text-gray-800">
-                Something
               </a>
             </Link>
           </div>
