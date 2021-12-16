@@ -1,12 +1,9 @@
 import Member from "../Member/Member";
-import NoMember from "../Member/NoMember";
-import ButtonBan from "../Buttons/ButtonBan";
 
-
-const MembersList = ({ users , updateMemberList}) => {
+const MembersList = ({ users, updateMemberList }) => {
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex flex-col w-screen">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -44,7 +41,11 @@ const MembersList = ({ users , updateMemberList}) => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {users.map((user) => (
-                    <Member member={user} updateMemberList={updateMemberList} key={user._id}/>
+                    <Member
+                      member={user}
+                      updateMemberList={updateMemberList}
+                      key={user._id}
+                    />
                   ))}
                 </tbody>
               </table>
@@ -52,8 +53,6 @@ const MembersList = ({ users , updateMemberList}) => {
           </div>
         </div>
       </div>
-
-      
     </>
   );
 };
