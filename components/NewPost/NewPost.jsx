@@ -22,9 +22,9 @@ const NewPost = ({ categories }) => {
     setToken(localStorage.getItem("token"));
   });
   let label = "Choisissez une catégorie";
-  console.log(isSpin)
+  console.log(isSpin);
   const submitPost = () => {
-    setIsSpin(true)
+    setIsSpin(true);
     const formData = new FormData();
     formData.append("title", title);
     formData.append("category_id", category);
@@ -48,7 +48,7 @@ const NewPost = ({ categories }) => {
       .then(() => router.push("/"))
       .catch(function (err) {
         if (err.response) {
-          setIsSpin(false)
+          setIsSpin(false);
           document.getElementById("newError").className =
             "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative";
           document.getElementById("newError").innerText =
@@ -85,8 +85,6 @@ const NewPost = ({ categories }) => {
     <div className="flex h-screen bg-gray-100">
       <div className="m-auto">
         <div className="md:mt-20">
-          
-
           <p className="text-4xl font-light pt-16">Annonce</p>
           <p id="newError"></p>
 
@@ -215,27 +213,28 @@ const NewPost = ({ categories }) => {
                     hidden={isSpin}
                     disabled={isSpin}
                   >
-                    <RefreshIcon hidden={!isSpin} className="animate-spin h-10"/>
+                    <RefreshIcon
+                      hidden={!isSpin}
+                      className="animate-spin h-10"
+                    />
                     <div>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="24px"
-                      viewBox="0 0 24 24"
-                      width="24px"
-                      fill="#FFFFFF"
-                      hidden={isSpin}
-                    >
-                      <path d="M0 0h24v24H0V0z" fill="none"></path>
-                      <path
-                        d="M5 5v14h14V7.83L16.17 5H5zm7 13c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-8H6V6h9v4z"
-                        opacity=".3"
-                      ></path>
-                      <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm2 16H5V5h11.17L19 7.83V19zm-7-7c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zM6 6h9v4H6z"></path>
-                    </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24px"
+                        viewBox="0 0 24 24"
+                        width="24px"
+                        fill="#FFFFFF"
+                        hidden={isSpin}
+                      >
+                        <path d="M0 0h24v24H0V0z" fill="none"></path>
+                        <path
+                          d="M5 5v14h14V7.83L16.17 5H5zm7 13c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-8H6V6h9v4z"
+                          opacity=".3"
+                        ></path>
+                        <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm2 16H5V5h11.17L19 7.83V19zm-7-7c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zM6 6h9v4H6z"></path>
+                      </svg>
                     </div>
-                      
 
-                    
                     <span className="pl-2 mx-1">Créer</span>
                   </button>
                 </div>
