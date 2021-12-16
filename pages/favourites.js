@@ -23,7 +23,7 @@ export default function Favourites({ posts }) {
   return (
     <div className="flex flex-col items-center justify-center md:mt-20 py-2 md:py-6">
       <Head>
-        <title>Favoris - vincimarket</title>
+        <title>Favoris - beefound</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1 className="text-3xl font-extrabold mt-4 md:mt-8">Vos favoris</h1>
