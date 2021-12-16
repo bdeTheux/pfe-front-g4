@@ -1,10 +1,9 @@
 import NoPendingPost from "../PendingPosts/NoPendingPost";
 import OnePendingPost from "./OnePendingPost";
-const PendingPosts = ({ posts , setPendingPosts}) => {
-
-  const handleAction = (id) =>{
-    setPendingPosts(posts.filter(post => post._id !== id))
-  }
+const PendingPosts = ({ posts, setPendingPosts }) => {
+  const handleAction = (id) => {
+    setPendingPosts(posts.filter((post) => post._id !== id));
+  };
   return (
     <>
       <div className="flex flex-col  w-screen ">
@@ -74,13 +73,15 @@ const PendingPosts = ({ posts , setPendingPosts}) => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {posts.length == 0 ? (
-                    <NoPendingPost />
-                  ) : (
-                    posts.map((post) => {
-                      return <OnePendingPost key={post._id} post={post} removePost={handleAction} />;
-                    })
-                  )}
+                  {posts.map((post) => {
+                    return (
+                      <OnePendingPost
+                        key={post._id}
+                        post={post}
+                        removePost={handleAction}
+                      />
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
