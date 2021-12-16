@@ -7,7 +7,7 @@ export default function Favourites({ posts }) {
   const [favourites, setFavourites] = useState([]);
 
   useEffect(() => {
-    fetch("http://pfe-back-g4-dev.herokuapp.com/posts/favourites", {
+    fetch("https://pfe-back-g4-dev.herokuapp.com/posts/favourites", {
       headers: {
         "Content-Type": "application.json",
         Authorization: localStorage.getItem("token"),
