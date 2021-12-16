@@ -43,7 +43,7 @@ const HistoryDisclosure = ({ statusName, statusArray, children }) => {
                       <li className="relative flex flex-row p-3 rounded-md hover:bg-coolGray-100 group">
                         <div>
                           <Image
-                            src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=705&q=80"
+                            src={post.images[0]}
                             alt={post.title}
                             width="50rem"
                             height="50rem"

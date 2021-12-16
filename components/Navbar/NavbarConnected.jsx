@@ -1,9 +1,12 @@
 import { MenuIcon, SearchIcon } from "@heroicons/react/outline";
-import { UserCircleIcon } from "@heroicons/react/solid";
+import { HeartIcon, UserCircleIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
+import { Transition } from "@headlessui/react";
 
 const NavbarConnected = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <header
       className="
@@ -24,8 +27,8 @@ const NavbarConnected = () => {
     "
       >
         <div className="flex justify-between">
-          <Link href="/">
-            <a className="text-primary border border-gray-200 font-semibold lg:hidden px-4 rounded-md py-2 hover:bg-gray-200">
+          <Link href="/discover">
+            <a className="text-primary border border-gray-200 font-semibold lg:hidden px-4 rounded-lg py-5 md:py-2 hover:bg-gray-200">
               Let's swipe?
             </a>
           </Link>
@@ -34,35 +37,47 @@ const NavbarConnected = () => {
               <div className="flex items-center md:ml-8 mr-12 md:mr-auto">
                 <Image
                   src="/images/vincimarket_logo (1).svg"
-                  width="50"
-                  height="50"
+                  width="65"
+                  height="65"
                   className="mr-4"
                 />
-                <p className="text-xl ml-2 hidden md:block">vincimarket</p>
+                <p className="text-xl ml-3 hidden md:block font-mono tracking-widest text-yellow-600"><strong className="text-black">bee</strong>found</p>
               </div>
             </a>
           </Link>
 
           <div className="flex items-center space-x-2 lg:hidden">
-            <button className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-100 dark:active:bg-gray-800 focus:outline-none transition ease-in-out duration-150"
+            >
               <MenuIcon className="w-6 h-6 text-gray-700 dark:text-gray-300" />
             </button>
           </div>
         </div>
-        <div className="flex flex-col space-y-4 lg:hidden">
-          <div
-            className="
+        <Transition 
+        show={isOpen}
+        enter="transition ease-in-out delay-150 duration-500 transform"
+        enterFrom="-translate-x-full"
+        enterTo="translate-x-0"
+        leave="transition ease-in-out delay-150 duration-500 transform"
+        leaveFrom="translate-x-0"
+        leaveTo="-translate-x-full"
+        >
+          <div className="flex flex-col space-y-4 lg:hidden transition-transform duration-300 ease-in-out">
+            <div
+              className="
           flex flex-col
           space-y-3
           lg:space-y-0 lg:flex-row lg:space-x-6
           xl:space-x-8
           lg:items-center
         "
-          >
-            <div className="relative hidden lg:block">
-              <div>
-                <button
-                  className="
+            >
+              <div className="relative hidden lg:block">
+                <div>
+                  <button
+                    className="
                 text-primary
                 font-semibold
                 flex
@@ -73,40 +88,40 @@ const NavbarConnected = () => {
                 border-gray-200
                 hover:bg-gray-200
               "
-                >
-                  <span>Let's swipe?</span>
-                </button>
+                  >
+                    <span>Let's swipe?</span>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div
-            className="
+            <div
+              className="
           flex flex-col
           space-y-4
           lg:space-y-0 lg:flex-row lg:items-center lg:space-x-4
         "
-          >
-            <form
-              className="flex flex-wrap justify-between pt-2 relative mx-auto text-gray-600 md:flex-row "
-              action="/search"
             >
-              <input
-                className="w-96 border-2 border-gray-300 bg-white h-12 px-5 lg:w-20 xl:w-36 xl:focus:w-44 lg:h-10 pr-16 rounded-lg text-sm focus:outline-none focus:ring-gray-400 focus:ring-1"
-                type="search"
-                name="search"
-                placeholder="Choisissez-nous pour faire une recherche ! ;)"
-              />
-              <button
-                type="submit"
-                className="absolute right-0 top-0 mt-5 mr-4"
+              <form
+                className="flex flex-wrap justify-between pt-2 relative mx-auto text-gray-600 md:flex-row "
+                action="/search"
               >
-                <SearchIcon className="text-gray-600 h-5 w-5" />
-              </button>
-            </form>
-            <div className="inline-grid grid-cols-4">
-              <Link href="/newPost">
-                <a
-                  className="
+                <input
+                  className="w-96 border-2 border-gray-300 bg-white h-12 px-5 lg:w-20 xl:w-36 xl:focus:w-44 lg:h-10 pr-16 rounded-lg text-sm focus:outline-none focus:ring-gray-400 focus:ring-1"
+                  type="search"
+                  name="search"
+                  placeholder="Choisissez-nous pour faire une recherche ! ;)"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-0 top-0 mt-5 mr-4"
+                >
+                  <SearchIcon className="text-gray-600 h-5 w-5" />
+                </button>
+              </form>
+              <div className="inline-grid grid-cols-5">
+                <Link href="/newPost">
+                  <a
+                    className="
             flex
             items-center
             justify-center
@@ -122,14 +137,34 @@ const NavbarConnected = () => {
             col-span-3
             mr-2
           "
-                >
-                  Publier une annonce
-                </a>
-              </Link>
-              
-              <Link href="/profile">
-                <a
-                  className="
+                  >
+                    Publier une annonce
+                  </a>
+                </Link>
+                <Link href="/favourites">
+                  <a
+                    className="flex
+            items-center
+            justify-center
+            h-12
+            px-4
+            text-sm text-center text-gray-600
+            transition-colors
+            duration-200
+            transform
+            rounded-lg
+            lg:h-10
+            group
+            hover:bg-red-50
+            dark:hover:bg-gray-700
+            focus:outline-none"
+                  >
+                    <HeartIcon className="h-8 w-8 text-gray-600 mr-2 group-hover:text-red-600" />
+                  </a>
+                </Link>
+                <Link href="/profile">
+                  <a
+                    className="
             flex
             items-center
             justify-center
@@ -145,14 +180,15 @@ const NavbarConnected = () => {
             dark:hover:bg-gray-700
             focus:outline-none
           "
-                >
-                  <UserCircleIcon className="h-10 w-10 text-gray-600 mr-2" />
-                  Profile
-                </a>
-              </Link>
+                  >
+                    <UserCircleIcon className="h-10 w-10 text-gray-600 mr-2" />
+                  </a>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
+        </Transition>
+
         <div
           className="
         hidden
@@ -173,14 +209,9 @@ const NavbarConnected = () => {
           lg:items-center
         "
           >
-            <Link href="/">
-              <a className="text-primary border border-gray-200 font-semibold px-4 rounded-md py-2 hover:bg-gray-200">
+            <Link href="/discover">
+              <a className="text-primary border border-gray-200 font-semibold px-4 rounded-lg md:py-2 py-5 hover:bg-gray-200">
                 Let's swipe?
-              </a>
-            </Link>
-            <Link href="/">
-              <a className="text-gray-500 dark:text-gray-200 hover:text-gray-800">
-                Something
               </a>
             </Link>
           </div>
@@ -225,6 +256,27 @@ const NavbarConnected = () => {
           "
               >
                 Publier une annonce
+              </a>
+            </Link>
+            <Link href="/favourites">
+              <a
+                className="flex
+            items-center
+            justify-center
+            h-12
+            px-4
+            text-sm text-center text-gray-600
+            transition-colors
+            duration-200
+            transform
+            rounded-lg
+            lg:h-10
+            group
+            hover:bg-red-50
+            dark:hover:bg-gray-700
+            focus:outline-none"
+              >
+                <HeartIcon className="h-8 w-8 text-gray-600 mr-2 group-hover:text-red-600" />
               </a>
             </Link>
             <Link href="/profile">

@@ -7,18 +7,21 @@ import {
   TrashIcon,
   LockClosedIcon,
 } from "@heroicons/react/outline";
+
 import { PopUpUpdatePost } from "../PopUp/PopUpUpdatePost";
 import PopUpButton from "../PopUp/PopUpButton";
 import { useRouter } from "next/router";
 import { AppContext } from "../../context/context";
 
 import Map from "../Map/Map";
+import FavouriteButton from "../Button/FavouriteButton";
 import Carousel from "../Carousel/Carousel";
 
 const OnePost = ({ postId }) => {
   const [post, setPost] = useState([]);
   const [user, setUser] = useState([]);
-  const [token, setToken] = useState([]);
+  const [favourites, setFavourites] = useState([]);
+  const [isFav, setIsFav] = useState(false);
   const [show, setShow] = useState(false);
   const [locations, setLocations] = useState([]);
   //const [appContext, setAppContext] = useState([]);
@@ -59,6 +62,71 @@ const OnePost = ({ postId }) => {
                         lng: loc.long,
                       };
                       setLocations((locations) => [...locations, toAdd]);
+                      return actual_post;
+                    })
+                    .then((ap) => {
+                      fetch(
+                        "http://pfe-back-g4-dev.herokuapp.com/posts/favourites",
+                        {
+                          headers: {
+                            "Content-Type": "application.json",
+                            Authorization: localStorage.getItem("token"),
+                          },
+                        }
+                      )
+                        .then((res) => {
+                          return res.json();
+                        })
+                        .then((temp) => {
+                          setFavourites(temp);
+                          console.log("temppp", temp);
+                          console.log("postId", ap._id);
+                          return temp;
+                        })
+                        .then((temp) => {
+                          console.log("favss", favourites);
+                          console.log("favssIn", temp);
+                          return temp;
+                        })
+                        .then((temp) => {
+                          if (
+                            !temp ||
+                            temp.length === 0 ||
+                            temp === undefined
+                          ) {
+                            console.log("nononon");
+                            setIsFav(false);
+                          } else {
+                            console.log("mon temp", temp);
+                            console.log("post", actual_post);
+                            
+                            if(temp.map((untemp) => untemp._id).includes(actual_post._id)){
+                              console.log("il le commande")
+                              setIsFav(true);
+                              
+                            }
+                            else{
+                              console.log("ile le contient pas");
+                              setIsFav(false);
+                            }
+                            console.log(isFav)
+                            
+                            /*temp.forEach((e) => {
+                              console.log("e_id",e._id);
+                              console.log("post_id",actual_post._id);
+
+                              console.log("foreach");
+                              if (e._id !== actual_post._id) {
+                                setIsFav(false);
+                                console.log("non");
+                              } else {
+                                
+                                console.log("oui", e._id);
+                                console.log("oui2", actual_post._id);
+                              }
+                            });*/   
+                          }
+                        });
                     });
                 });
               }
@@ -66,6 +134,7 @@ const OnePost = ({ postId }) => {
         });
       });
     });
+
     fetch("/api/users/whoami", {
       headers: {
         "Content-Type": "application/json",
@@ -127,93 +196,90 @@ const OnePost = ({ postId }) => {
                   <></>
                 )}
               </div>
-              <div className="flex lg:w-1/2">
-                <div className="grid grid-cols-1 divide-y divide-green-500 w-max ">
-                  <div className="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                    <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                      {post.category_id}
-                    </h2>
-                    <h1 className="flex text-gray-900 text-3xl title-font font-medium mb-1">
+              <div className="grid grid-cols-1 divide-y divide-green-500 w-max">
+                <div className="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+                  <h2 className="text-sm title-font text-gray-500 tracking-widest">
+                    {post.category_id}
+                  </h2>
+                  <div className="grid grid-cols-4">
+                    <h1 className="flex text-gray-900 text-3xl title-font font-medium mb-1 col-span-3">
                       {post.title}
                     </h1>
-                    <div className="flex mb-4">
-                      <span className="flex items-center"></span>
+                    <div className="col-span-1">
+                      <FavouriteButton post={post} isFav={isFav} setIsFav={setIsFav} />
                     </div>
-                    <p className="leading-relaxed">{post.post_nature}</p>
-                    {post.post_nature === "À vendre" ? (
-                      <div className="flex">
-                        <span className="title-font font-medium text-2xl text-gray-900">
-                          {post.price}€
-                        </span>
-                      </div>
-                    ) : (
-                      ""
-                    )}
-
-                    <p className="mt-4 leading-relaxed">{post.description}</p>
                   </div>
-                  <div className=" w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                    <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                      Informations sur le vendeur
-                    </h1>
-                    {userConnected === null ? (
-                      <p className="leading-relaxed">
-                        Veuillez vous connectez pour accéder à ces informations
-                        (ou vous avez été banni)
-                      </p>
-                    ) : (
-                      <div>
-                        <p className="leading-relaxed">
-                          Nom : {user.first_name} {user.last_name}
-                        </p>
-                        <p className="leading-relaxed">
-                          Contact : {user.email}
-                        </p>
-                        <p className="leading-relaxed">
-                          Possibles lieux d'échange :{" "}
-                          {post && post.places ? post.places.toString() : ""}
-                        </p>
-                        <div className="mb-1">
-                          <ButtonMailTo
-                            mailto={user.email}
-                            title={post.title}
-                          />
-                        </div>
-                        <Map locations={locations} />
-                      </div>
-                    )}
+                  <div className="flex mb-4">
+                    <span className="flex items-center"></span>
                   </div>
-                  {userConnected || userConnected !== null ? (
-                    userConnected._id == post.seller_id ||
-                    userConnected.is_admin ? (
-                      <div className="flex-row flex">
-                        <button
-                          onClick={handleDelete}
-                          type="button"
-                          className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
-                        >
-                          <TrashIcon className="flex ml-3 w-6 text-red-500" />
-                          <span className="pl-2 mx-1">Supprimer</span>
-                        </button>
-                        <div>
-                          <PopUpButton post={post} className="flex ml-3 w-6 " />
-                        </div>
-                        <button
-                          type="button"
-                          onClick={handleEnclose}
-                          className=" items-end px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
-                        >
-                          <LockClosedIcon className="ml-3 w-6 text-red-500" />
-                          Clôturer
-                        </button>
-                      </div>
-                    ) : (
-                      <></>
-                    )
+                  <p className="leading-relaxed">{post.post_nature}</p>
+                  {post.post_nature === "À vendre" ? (
+                    <div className="flex">
+                      <span className="title-font font-medium text-2xl text-gray-900">
+                        {post.price}€
+                      </span>
+                    </div>
                   ) : (
-                    <></>
+                    ""
+                  )}
+                  <p className="mt-4 leading-relaxed">{post.description}</p>
+                </div>
+                <div className=" w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+                  <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
+                    Informations sur le vendeur
+                  </h1>
+                  {userConnected === null ? (
+                    <p className="leading-relaxed">
+                      Veuillez vous connectez pour accéder à ces informations
+                      (ou vous avez été banni)
+                    </p>
+                  ) : (
+                    <div>
+                      <p className="leading-relaxed">
+                        Nom : {user.first_name} {user.last_name}
+                      </p>
+                      <p className="leading-relaxed">Contact : {user.email}</p>
+                      <p className="leading-relaxed">
+                        Possibles lieux d'échange :{" "}
+                        {post && post.places ? post.places.toString() : ""}
+                      </p>
+                      <div className="mb-1">
+                        <ButtonMailTo mailto={user.email} title={post.title} />
+                      </div>
+                      <Map locations={locations} />
+                    </div>
                   )}
                 </div>
+                {userConnected || userConnected !== null ? (
+                  userConnected._id == post.seller_id ||
+                  userConnected.is_admin ? (
+                    <div className="flex-row flex">
+                      <button
+                        onClick={handleDelete}
+                        type="button"
+                        className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
+                      >
+                        <TrashIcon className="flex ml-3 w-6 text-red-500" />
+                        <span className="pl-2 mx-1">Supprimer</span>
+                      </button>
+                      <div>
+                        <PopUpButton post={post} className="flex ml-3 w-6 " />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={handleEnclose}
+                        className=" items-end px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
+                      >
+                        <LockClosedIcon className="ml-3 w-6 text-red-500" />
+                        Clôturer
+                      </button>
+                    </div>
+                  ) : (
+                    <></>
+                  )
+                ) : (
+                  <></>
+                )}
               </div>
             </div>
           </div>

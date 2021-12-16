@@ -1,5 +1,3 @@
-import { Fragment, useState, useEffect } from "react";
-
 import PostsListFull from "../../components/PostsList/PostsListFull";
 
 export const getServerSideProps = async () => {
