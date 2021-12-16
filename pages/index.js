@@ -38,7 +38,7 @@ export const getServerSideProps = async () => {
 
 export default function Home({ posts }) {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 md:py-6">
+    <div className="overflow-x-hidden flex flex-col items-center justify-center min-h-screen py-2 md:py-6">
       <Head>
         <title>vincimarket</title>
         <link rel="icon" href="/favicon.ico" />

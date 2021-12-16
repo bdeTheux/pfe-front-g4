@@ -31,10 +31,10 @@ const OnePendingPost = ({post, removePost}) => {
                     <div className="text-sm text-gray-900">{post.description} </div>
                 </td>
                 <td className="px-6 py-4">
-                    <div className="text-sm text-gray-900">
+                    <div className="text-sm md:w-60 w-36 text-gray-900">
                         <img
                             alt="Image du produit"
-                            className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
+                            className=" w-full object-cover object-center rounded border border-gray-200"
                             src={
                                 post && post.images && post.images.length > 0
                                     ? post.images[0]
