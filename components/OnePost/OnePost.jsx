@@ -24,7 +24,7 @@ const OnePost = ({ postId }) => {
   const [isFav, setIsFav] = useState(false);
   const [show, setShow] = useState(false);
   const [locations, setLocations] = useState([]);
-  const [userConnected, setUserConnected] = useState([]);
+  const [userConnected, setUserConnected] = useState(null);
   const [token, setToken] = useState("non");
 
   useEffect(() => {
@@ -86,7 +86,7 @@ const OnePost = ({ postId }) => {
               return temp;
             })
             .then((temp) => {
-              if (!temp || temp.length === 0 || temp === undefined) {
+              if (!temp || temp.length === 0 ) {
                 setIsFav(false);
               } else {
                 console.log("ici", currentUser);
@@ -196,9 +196,7 @@ const OnePost = ({ postId }) => {
                     </div>
                   )}
                 </div>
-                {userConnected || userConnected !== null ? (
-                  userConnected._id == post.seller_id ||
-                  userConnected.is_admin ? (
+                {(userConnected && (userConnected._id === post.seller_id || userConnected.is_admin))? (
                     <div className="flex-row flex">
                       <button
                         onClick={handleDelete}
@@ -220,9 +218,6 @@ const OnePost = ({ postId }) => {
                         Clôturer
                       </button>
                     </div>
-                  ) : (
-                    <></>
-                  )
                 ) : (
                   <></>
                 )}
