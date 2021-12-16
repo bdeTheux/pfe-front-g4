@@ -41,7 +41,6 @@ const Swipe = () => {
         },
       });
       const data = await res.json();
-      console.log(data);
       if (res.status !== 401) {
       } else {
         alert("Favoris échoué");
@@ -64,7 +63,6 @@ const Swipe = () => {
         return res.json();
       })
       .then((temp) => {
-        console.log(temp);
         setPosts(temp);
       });
   }, []);

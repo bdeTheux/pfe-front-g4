@@ -16,7 +16,7 @@ const Carousel = ({ images }) => {
                 id="first"
                 defaultChecked
               />
-              <div className="w-80 md:w-96 bg-white aspect-w-16  aspect-h-9  rounded-lg shadow-lg transition-all duration-300 opacity-0 peer-checked:opacity-100 peer-checked:z-10 z-0">
+              <div className="w-80 mb-4 md:w-96 bg-white aspect-w-16  aspect-h-9  rounded-lg shadow-lg transition-all duration-300 opacity-0 peer-checked:opacity-100 peer-checked:z-10 z-0">
                 <img
                   src={images[0]}
                   alt="Image du produit"
@@ -29,7 +29,7 @@ const Carousel = ({ images }) => {
                     htmlFor={
                       imagesSlice.length <= 0 ? "first" : imagesSlice.length - 1
                     }
-                    className="inline-block self-center text-green-600 cursor-pointer -translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
+                    className="inline-block self-center text-yellow-600 cursor-pointer -translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +46,7 @@ const Carousel = ({ images }) => {
                   </label>
                   <label
                     htmlFor={imagesSlice.length <= 0 ? "first" : 0}
-                    className="inline-block self-center text-green-600 cursor-pointer translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
+                    className="inline-block self-center text-yellow-600 cursor-pointer translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +72,7 @@ const Carousel = ({ images }) => {
                   name="carousel"
                   id={index}
                 />
-                <div className="w-80 md:w-96 bg-white  aspect-w-16 aspect-h-9  rounded-lg shadow-lg transition-all duration-300 opacity-0 peer-checked:opacity-100 peer-checked:z-10 z-0">
+                <div className="w-80 mb-4 md:w-96 bg-white  aspect-w-16 aspect-h-9  rounded-lg shadow-lg transition-all duration-300 opacity-0 peer-checked:opacity-100 peer-checked:z-10 z-0">
                   <img
                     alt="Image du produit"
                     className=" w-full md:object-scale-down object-contain object-center rounded border border-gray-200"
@@ -82,7 +82,7 @@ const Carousel = ({ images }) => {
                   <div className=" w-full flex justify-between z-20">
                     <label
                       htmlFor={index == 0 ? "first" : index - 1}
-                      className="inline-block self-center text-green-600 cursor-pointer -translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
+                      className="inline-block self-center text-yellow-600 cursor-pointer -translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +101,7 @@ const Carousel = ({ images }) => {
                       htmlFor={
                         index == imagesSlice.length - 1 ? "first" : index + 1
                       }
-                      className="inline-block self-center text-green-600 cursor-pointer translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
+                      className="inline-block self-center text-yellow-600 cursor-pointer translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -127,6 +127,3 @@ const Carousel = ({ images }) => {
   );
 };
 export default Carousel;
-
-/**       <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
- */

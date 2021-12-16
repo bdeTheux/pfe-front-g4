@@ -90,7 +90,7 @@ const PopUpUpdatePost = ({ token, post, setShow }) => {
     <div
       ref={modalRef}
       onClick={closeModal}
-      className="fixed z-10 inset-0 overflow-y-auto"
+      className="fixed z-20 inset-0 overflow-y-auto"
       aria-labelledby="modal-title"
       role="dialog"
       aria-modal="true"

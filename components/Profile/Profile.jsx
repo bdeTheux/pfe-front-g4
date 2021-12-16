@@ -5,13 +5,11 @@ import { LogoutIcon } from "@heroicons/react/outline";
 import Button from "../Button/Button";
 import { useRouter } from "next/router";
 import { AppContext } from "../../context/context";
-import {useContext} from "react";
-
+import { useContext } from "react";
 const logout = (router) => {
   localStorage.setItem("token", "");
   router.push("/");
   router.reload();
-
 };
 
 const userTest = {
@@ -25,7 +23,7 @@ const Profile = ({ user }) => {
   const { checkIfUserIsBan } = useContext(AppContext);
   const router = useRouter();
 
-  checkIfUserIsBan()
+  checkIfUserIsBan();
   return (
     <Tab.Panel className="bg-white rounded-xl p-2 focus:outline-none ring-1 ring-offset-1 ring-offset-indigo-400 ring-white ring-opacity-60">
       <div className="absolute z-30 p-2 rounded-md md:right-36 lg:right-96">

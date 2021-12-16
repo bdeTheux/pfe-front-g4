@@ -24,7 +24,7 @@ const OnePost = ({ postId }) => {
   const [isFav, setIsFav] = useState(false);
   const [show, setShow] = useState(false);
   const [locations, setLocations] = useState([]);
-  const [userConnected, setUserConnected] = useState([]);
+  const [userConnected, setUserConnected] = useState(null);
   const [token, setToken] = useState("non");
 
   useEffect(() => {
@@ -86,10 +86,9 @@ const OnePost = ({ postId }) => {
               return temp;
             })
             .then((temp) => {
-              if (!temp || temp.length === 0 || temp === undefined) {
+              if (!temp || temp.length === 0) {
                 setIsFav(false);
               } else {
-                console.log("ici", currentUser);
                 if (currentUser.favorites.includes(postId)) {
                   setIsFav(true);
                 }
@@ -134,30 +133,16 @@ const OnePost = ({ postId }) => {
         <section className="text-gray-700 body-font overflow-hidden bg-white">
           <div className="container px-5 py-24 mx-auto">
             <div className="lg:w-4/5 mx-auto flex flex-col  ">
-              <div className="flex flex-col lg:w-1/2 h-auto mt-6">
-                <div className="flex w-80 h-1/6"></div>
-                <Carousel images={post && post.images ? post.images : []} />
-                {post && post.video ? (
-                  <video
-                    controls
-                    className="flex lg:w-1/2 w-80 pt-60 object-cover object-center rounded border border-gray-200"
-                  >
-                    <source src={post.video}></source>
-                  </video>
-                ) : (
-                  <></>
-                )}
-              </div>
-              <div className="divide-y divide-green-500">
+              <div className="divide-y divide-yellow-600">
                 <div className="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                   <h2 className="text-sm title-font text-gray-500 tracking-widest">
                     {post.category_id}
                   </h2>
-                  <div className="grid grid-cols-4">
-                    <h1 className="flex text-gray-900 text-3xl title-font font-medium mb-1 col-span-3">
+                  <div className="flex">
+                    <h1 className="flex text-gray-900 text-3xl title-font font-medium mb-1 ">
                       {post.title}
                     </h1>
-                    <div className="col-span-1">
+                    <div className="">
                       {token !== "non" ? (
                         <FavouriteButton
                           post={post}
@@ -190,8 +175,7 @@ const OnePost = ({ postId }) => {
                   </h1>
                   {userConnected === null ? (
                     <p className="leading-relaxed">
-                      Veuillez vous connectez pour accéder à ces informations
-                      (ou vous avez été banni)
+                      Veuillez vous connecter pour accéder à ces informations.
                     </p>
                   ) : (
                     <div>
@@ -210,33 +194,54 @@ const OnePost = ({ postId }) => {
                     </div>
                   )}
                 </div>
-                {userConnected || userConnected !== null ? (
-                  userConnected._id == post.seller_id ||
-                  userConnected.is_admin ? (
-                    <div className="flex-row flex">
-                      <button
-                        onClick={handleDelete}
-                        type="button"
-                        className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
-                      >
-                        <TrashIcon className="flex ml-3 w-6 text-red-500" />
-                        <span className="pl-2 mx-1">Supprimer</span>
-                      </button>
-                      <div>
-                        <PopUpButton post={post} className="flex ml-3 w-6 " />
-                      </div>
-                      <button
-                        type="button"
-                        onClick={handleEnclose}
-                        className=" items-end px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
-                      >
-                        <LockClosedIcon className="ml-3 w-6 text-red-500" />
-                        Clôturer
-                      </button>
+                {userConnected &&
+                (userConnected._id === post.seller_id ||
+                  userConnected.is_admin) ? (
+                  <div className="flex-row flex">
+                    <button
+                      onClick={handleDelete}
+                      type="button"
+                      className="flex-initial items-center px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
+                    >
+                      <TrashIcon className="flex ml-3 w-6 text-red-500" />
+                      <span className="pl-2 mx-1">Supprimer</span>
+                    </button>
+                    <div>
+                      <PopUpButton post={post} className="flex ml-3 w-6 " />
                     </div>
-                  ) : (
-                    <></>
-                  )
+                    <button
+                      type="button"
+                      onClick={handleEnclose}
+                      className=" items-end px-4 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
+                    >
+                      <LockClosedIcon className="ml-3 w-6 text-red-500" />
+                      Clôturer
+                    </button>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
+              <div className="flex flex-col lg:w-1/2 h-auto mt-6">
+                <div className="flex w-80 h-1/6"></div>
+                <Carousel
+                  images={
+                    post && post.images
+                      ? post.images.length == 0
+                        ? ["/images/bidon.jpg"]
+                        : post.images
+                      : []
+                  }
+                />
+                {post && post.video ? (
+                  <div className="flex w-screen pt-60">
+                    <video
+                      controls
+                      className="flex lg:w-1/2 w-80 object-cover object-center rounded border border-gray-200"
+                    >
+                      <source src={post.video}></source>
+                    </video>
+                  </div>
                 ) : (
                   <></>
                 )}

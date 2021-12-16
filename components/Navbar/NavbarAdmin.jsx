@@ -4,7 +4,6 @@ import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import { useState } from "react";
 
-
 import Link from "next/link";
 
 const NavbarAdmin = () => {
