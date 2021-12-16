@@ -1,5 +1,5 @@
 import { KeyIcon, MenuIcon, SearchIcon } from "@heroicons/react/outline";
-import { UserCircleIcon } from "@heroicons/react/solid";
+import { UserCircleIcon, HeartIcon } from "@heroicons/react/solid";
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import { useState } from "react";
